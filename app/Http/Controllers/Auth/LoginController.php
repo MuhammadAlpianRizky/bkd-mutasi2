@@ -3,58 +3,65 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use App\Models\User;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/home'; // Redirect to the home page after login
 
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
-    
 
+    /**
+     * Handle user login.
+     */
     public function login(Request $request)
     {
         $this->validate($request, [
             'nip' => 'required|string',
             'acc_on' => 'required|string',
         ]);
-        //  if($request->hasRole('admin')){
-        //     return redirect()->route('dashboard');
-        // }
-        // return redirect()->route('home');
-
-        // Cari user berdasarkan NIP
-        $user = User::where('nip', $request->nip)->first();
-
-        // Jika user ditemukan dan Hash cocok, lakukan login
-        if ($user && Hash::check($request->acc_on, $user->acc_on)) {
-            Auth::login($user);  // Login user secara manual
-            return redirect()->intended($this->redirectPath());  // Redirect ke halaman tujuan
-        }
-        // return back()->withErrors([
-        //     'nip' => 'The provided credentials do not match our records.',
-        // ]);
-       
-
-        // Jika login gagal, kembalikan dengan error
-    }
-
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        throw ValidationException::withMessages([
-            'nip' => [trans('auth.failed')],
-            'acc_on' => [trans('auth.failed')],
-        ]);
-    }
     
-}
+        $credentials = $request->only('nip', 'acc_on');
+    
+        $user = User::where('nip', $credentials['nip'])->first();
+    
+        if ($user) {
+            if (Hash::check($credentials['acc_on'], $user->acc_on)) {
+                if (!$user->is_approved) {
+                    return back()->withErrors([
+                        'nip' => 'Akun Belum Diaktifkan',
+                    ])->withInput($request->except('acc_on'));
+                }
+    
+                Auth::login($user);
+    
+                // Redirect based on user role
+                if ($user->hasRole('admin')) {
+                    return redirect()->route('dashboard');
+                } elseif ($user->hasRole('pegawai')) {
+                    return redirect()->route('home');
+                }
+            } else {
+                // Password is incorrect
+                return back()->withErrors([
+                    'acc_on' => 'Password Salah',
+                ])->withInput($request->except('acc_on'));
+            }
+        } else {
+            // Nip is incorrect or not registered
+            return back()->withErrors([
+                'nip' => 'NIP Salah/Belum Terdaftar',
+            ])->withInput($request->except('acc_on'));
+        }
+    }
+}    

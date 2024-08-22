@@ -25,7 +25,8 @@ protected $fillable = [
     'no_ktp',
     'no_karpeg',
     'email',
-    'acc_on',  // Updated field
+    'acc_on',  
+    'is_approved', // New attribute
 ];
 
 protected $hidden = [
@@ -37,6 +38,7 @@ protected function casts(): array
 {
     return [
         'email_verified_at' => 'datetime',
+        'is_approved' => 'boolean',
         'acc_on' => 'hashed',  // Updated field
     ];
 }

@@ -18,8 +18,19 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check() || !Auth::user()->hasRole($role)) {
-            return redirect('/'); // Redirect ke halaman lain jika tidak memiliki peran
+        // Pastikan pengguna terautentikasi
+        if (!Auth::check()) {
+            return redirect('/'); // Redirect jika tidak terautentikasi
+        }
+
+        // Periksa peran pengguna
+        if (!Auth::user()->hasRole($role)) {
+            return redirect('/'); // Redirect jika tidak memiliki peran yang sesuai
+        }
+
+        // Periksa apakah akun pengguna sudah disetujui
+        if (!Auth::user()->is_approved) {
+            return redirect('/')->with('error', 'Akun Anda belum disetujui.'); // Redirect dengan pesan jika belum disetujui
         }
 
         return $next($request);

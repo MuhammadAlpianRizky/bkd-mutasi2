@@ -11,23 +11,22 @@ class UserSedeer extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
         $admin = User::create([
             'nip' => '123',
             'nama_lengkap' => 'Admin',
-            'acc_on'=>bcrypt('123')
-
+            'acc_on' => bcrypt('123'),
+            'is_approved' => true, // Admin sudah disetujui
         ]);
         $admin->assignRole('admin');
 
         $pegawai = User::create([
             'nip' => '1234',
             'nama_lengkap' => 'Pegawai',
-            'acc_on'=>bcrypt('1234')
-
+            'acc_on' => bcrypt('1234'),
+            'is_approved' => false, // Pegawai belum disetujui
         ]);
         $pegawai->assignRole('pegawai');
     }
-    
 }
