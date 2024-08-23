@@ -14,18 +14,19 @@ class HomeController extends Controller
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function index()
-    {
-        if (Auth::user()->hasRole('admin')) {
-            // Kirim pesan selamat datang ke view dashboard
-            return view('home', ['welcomeMessage' => 'Selamat datang admin']);
-        } elseif (Auth::user()->hasRole('pegawai')) {
-            // Jika pengguna memiliki peran pegawai, redirect ke home2
-            return redirect()->route('home');
-        } else {
-            // Jika pengguna tidak memiliki peran yang sesuai
-            return abort(403); // Akses ditolak
-        }
+{
+    $user = Auth::user();
+    
+    if ($user->hasRole('admin')) {
+        return view('home', ['welcomeMessage' => 'Selamat datang admin']);
+    } elseif ($user->hasRole('pegawai')) {
+        return redirect()->route('home');
+    } else {
+        // Redirect ke halaman yang sesuai
+        return redirect('/');
     }
+}
+    
 
     /**
      * Menampilkan halaman home untuk pegawai.
@@ -61,5 +62,21 @@ class HomeController extends Controller
         $user->save();
 
         return redirect()->route('admin.users')->with('success', 'User has been approved.');
+    }
+
+    /**
+     * Menampilkan detail pengguna dengan foto.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function showUserDetail($id)
+    {
+        $user = User::findOrFail($id);
+        // Dekripsi path foto
+        $photoKtpPath = $user->photo_ktp ? decrypt($user->photo_ktp) : null;
+        $photoKarpegPath = $user->photo_karpeg ? decrypt($user->photo_karpeg) : null;
+
+        return view('admin.user_detail', compact('user', 'photoKtpPath', 'photoKarpegPath'));
     }
 }

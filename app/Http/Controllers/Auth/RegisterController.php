@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -31,27 +32,45 @@ class RegisterController extends Controller
             'no_ktp' => ['required', 'string', 'max:25', 'unique:users'],
             'no_karpeg' => ['required', 'string', 'max:25', 'unique:users'],
             'acc_on' => ['required', 'string', 'min:3', 'confirmed'],
-        ]);
+            'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'photo_karpeg' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+    ]);
     }
 
     protected function create(array $data)
     {
-        $user = User::create([
-            'nip' => $data['nip'],
-            'nama_lengkap' => $data['nama_lengkap'],
-            'alamat_tinggal' => $data['alamat_tinggal'],
-            'no_hp' => $data['no_hp'],
-            'email' => $data['email'],
-            'no_ktp' => $data['no_ktp'],
-            'no_karpeg' => $data['no_karpeg'],
-            'acc_on' => Hash::make($data['acc_on']),
-            'is_approved' => false, // Pengguna belum disetujui secara default
-        ]);
+        $photoKtpPath = null;
+        $photoKarpegPath = null;
 
-        $user->assignRole('pegawai');
+        if (request()->hasFile('photo_ktp')) {
+            $photoKtpPath = request()->file('photo_ktp')->store('public/photos');
+            $photoKtpPath = Crypt::encrypt($photoKtpPath);
+        }
+        
+        if (request()->hasFile('photo_karpeg')) {
+            $photoKarpegPath = request()->file('photo_karpeg')->store('public/photos');
+            $photoKarpegPath = Crypt::encrypt($photoKarpegPath);
+        }
+    
+    $user = User::create([
+        'nip' => $data['nip'],
+        'nama_lengkap' => $data['nama_lengkap'],
+        'alamat_tinggal' => $data['alamat_tinggal'],
+        'no_hp' => $data['no_hp'],
+        'email' => $data['email'],
+        'no_ktp' => $data['no_ktp'],
+        'no_karpeg' => $data['no_karpeg'],
+        'acc_on' => Hash::make($data['acc_on']),
+        'is_approved' => false,
+        'photo_ktp' => $photoKtpPath, // Simpan path foto KTP yang telah dienkripsi
+        'photo_karpeg' => $photoKarpegPath, // Simpan path foto Karpeg yang telah dienkripsi
+    ]);
 
-        return $user;
-    }
+    $user->assignRole('pegawai');
+
+    return $user;
+}
+
 
     /**
      * Override registered method to prevent auto login and redirect to home.

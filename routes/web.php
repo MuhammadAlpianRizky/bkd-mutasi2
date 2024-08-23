@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', function () {
@@ -22,6 +23,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('admin.users');
     Route::post('/admin/approve/{user}', [HomeController::class, 'approveUser'])
         ->name('admin.approve');
+        Route::get('/admin/user/{id}', [UserController::class, 'showUserDetail'])
+        ->name('admin.user.detail');
 });
 
 // Rute untuk pengguna dengan peran 'pegawai'

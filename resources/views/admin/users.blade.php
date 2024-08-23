@@ -16,7 +16,7 @@
                 <th>NIP</th>
                 <th>Nama Lengkap</th>
                 <th>Email</th>
-                <th>Action</th>
+                <th class="text-center">Action</th> <!-- Centered header -->
             </tr>
         </thead>
         <tbody>
@@ -25,8 +25,9 @@
                     <td>{{ $user->nip }}</td>
                     <td>{{ $user->nama_lengkap }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
-                        <form action="{{ route('admin.approve', $user) }}" method="POST">
+                    <td class="text-center"> <!-- Centered content -->
+                        <a href="{{ route('admin.user.detail', $user->id) }}" class="btn btn-secondary">Manage Users</a>
+                        <form action="{{ route('admin.approve', $user) }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-primary">Approve</button>
                         </form>
