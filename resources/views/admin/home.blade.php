@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-footer">
                         @if (Auth::user()->hasRole('admin'))
-                            <a href="{{ route('admin.users') }}" class="btn btn-primary">Manage Users</a>
+                            <a href="{{ route('cms.users') }}" class="btn btn-primary">Manage Users</a>
                         @endif
                         <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
                     </div>

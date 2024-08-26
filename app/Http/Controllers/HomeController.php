@@ -18,7 +18,7 @@ class HomeController extends Controller
     $user = Auth::user();
     
     if ($user->hasRole('admin')) {
-        return view('home', ['welcomeMessage' => 'Selamat datang admin']);
+        return view('admin.home', ['welcomeMessage' => 'Selamat datang admin']);
     } elseif ($user->hasRole('pegawai')) {
         return redirect()->route('home');
     } else {
@@ -36,7 +36,7 @@ class HomeController extends Controller
     public function index2()
     {
         // Kirim pesan selamat datang untuk pegawai ke view home2
-        return view('home2', ['welcomeMessage' => 'Selamat datang pegawai']);
+        return view('users.home2', ['welcomeMessage' => 'Selamat datang pegawai']);
     }
 
     /**
@@ -61,7 +61,7 @@ class HomeController extends Controller
         $user->is_approved = true;
         $user->save();
 
-        return redirect()->route('admin.users')->with('success', 'User has been approved.');
+        return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }
 
     /**
@@ -70,13 +70,13 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function showUserDetail($id)
-    {
-        $user = User::findOrFail($id);
-        // Dekripsi path foto
-        $photoKtpPath = $user->photo_ktp ? decrypt($user->photo_ktp) : null;
-        $photoKarpegPath = $user->photo_karpeg ? decrypt($user->photo_karpeg) : null;
+    // public function showUserDetail($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     // Dekripsi path foto
+    //     $photoKtpPath = $user->photo_ktp ? decrypt($user->photo_ktp) : null;
+    //     $photoKarpegPath = $user->photo_karpeg ? decrypt($user->photo_karpeg) : null;
 
-        return view('admin.user_detail', compact('user', 'photoKtpPath', 'photoKarpegPath'));
-    }
+    //     return view('admin.user_detail', compact('user', 'photoKtpPath', 'photoKarpegPath'));
+    // }
 }

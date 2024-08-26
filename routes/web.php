@@ -19,12 +19,12 @@ Auth::routes();
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])
         ->name('dashboard');
-    Route::get('/admin/users', [HomeController::class, 'showPendingUsers'])
-        ->name('admin.users');
-    Route::post('/admin/approve/{user}', [HomeController::class, 'approveUser'])
-        ->name('admin.approve');
-        Route::get('/admin/user/{id}', [UserController::class, 'showUserDetail'])
-        ->name('admin.user.detail');
+    Route::get('/cms/users', [HomeController::class, 'showPendingUsers'])
+        ->name('cms.users');
+    Route::post('/cms/approve/{user}', [HomeController::class, 'approveUser'])
+        ->name('cms.approve');
+        Route::get('/cms/user/{id}', [UserController::class, 'showUserDetail'])
+        ->name('cms.user.detail');
 });
 
 // Rute untuk pengguna dengan peran 'pegawai'
