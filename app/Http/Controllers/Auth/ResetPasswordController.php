@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class ResetPasswordController extends Controller
@@ -17,15 +18,15 @@ class ResetPasswordController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * Handle the reset password process.
+     * Tangani proses reset password.
      */
     public function reset(Request $request)
     {
         // Validasi input
-        $this->validate($request, [
+        $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
-            'acc_on' => 'required|min:8|confirmed', // Gunakan 'password' di form
+            'email' => 'required|email|exists:users,email',
+            'acc_on' => 'required|min:8|confirmed', // Gunakan 'acc_on' sebagai password baru
         ]);
 
         // Cari user berdasarkan email
@@ -33,41 +34,42 @@ class ResetPasswordController extends Controller
 
         // Jika user ditemukan
         if ($user) {
-            // Pastikan token valid untuk user ini
-            $response = $this->broker()->reset(
-                $this->credentials($request),
-                function ($user, $password) {
-                    $this->resetPassword($user, $password);
-                }
-            );
-
-            // Cek apakah reset password berhasil
-            return $response == Password::PASSWORD_RESET
-                        ? redirect($this->redirectPath())->with('status', __($response))
-                        : back()->withErrors(['email' => __($response)]);
-        } else {
-            // Jika user tidak ditemukan
-            throw ValidationException::withMessages([
-                'email' => 'Email tidak terdaftar.',
-            ]);
+    // Coba reset password menggunakan token
+    $response = $this->broker()->reset(
+        $this->credentials($request),
+        function ($user, $acc_on) {
+            $this->resetAccOn($user, $acc_on); // Panggil resetAccOn dengan password baru
         }
+    );
+
+    // Cek apakah reset password berhasil
+    return $response == Password::PASSWORD_RESET
+                ? redirect($this->redirectPath())->with('status', __($response))
+                : back()->withErrors(['email' => __($response)]);
+
+} else {
+    // Jika user tidak ditemukan
+    throw ValidationException::withMessages([
+        'email' => 'Email tidak terdaftar.',
+    ]);
+}
+
     }
 
     /**
-     * Update the given user's password.
+     * Update the given user's acc_on.
      */
-    protected function resetPassword(User $user, $password)
-{
-    // Simpan password baru di field 'acc_on'
-    $user->acc_on = bcrypt($password);
-    $user->save();
+    protected function resetAccOn($user, $acc_on)
+    {
+        //dd($user);
+        $user->acc_on = Hash::make($acc_on); // Update kolom acc_on
+        $user->save();
 
-    // Login otomatis setelah reset password
-    Auth::login($user);
-}
+        Auth::login($user);
+    }
 
     /**
-     * Show the password reset form.
+     * Tampilkan form reset password.
      */
     public function showResetForm(Request $request, $token = null)
     {
@@ -77,7 +79,7 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Get the password broker instance.
+     * Dapatkan instance password broker.
      */
     protected function broker()
     {
@@ -85,10 +87,15 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Get the credentials for the password reset.
+     * Dapatkan kredensial untuk reset password.
      */
     protected function credentials(Request $request)
-    {
-        return $request->only('email', 'acc_on', 'token');
-    }
+{
+    return [
+        'email' => $request->input('email'),
+        'token' => $request->input('token'),
+        'password' => $request->input('acc_on'),
+    ];
+}
+
 }

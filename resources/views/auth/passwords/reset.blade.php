@@ -12,6 +12,7 @@
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="hidden" name="email" value="{{ $email }}">
 
                         <!-- Field untuk password baru -->
                         <div class="row mb-3">
