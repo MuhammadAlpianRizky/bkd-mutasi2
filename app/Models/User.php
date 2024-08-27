@@ -29,6 +29,7 @@ protected $fillable = [
     'is_approved', // New attribute
     'photo_ktp', // Tambahkan field foto KTP
     'photo_karpeg', // Tambahkan field foto Karpeg
+    'status_verifikasi',
 ];
 
 protected $hidden = [
@@ -42,6 +43,7 @@ protected function casts(): array
         'email_verified_at' => 'datetime',
         'is_approved' => 'boolean',
         'acc_on' => 'hashed',  // Updated field
+        'status_verifikasi' => 'boolean',
     ];
 }
 

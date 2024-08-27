@@ -59,10 +59,39 @@ class HomeController extends Controller
     public function approveUser(User $user)
     {
         $user->is_approved = true;
+        $user->status_verifikasi=true;
         $user->save();
 
         return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }
+    public function showActiveUsers()
+{
+    $activeUsers = User::where('status_verifikasi', true)->get();
+    return view('admin.active_users', compact('activeUsers'));
+}
+
+public function showInactiveUsers()
+{
+    $inactiveUsers = User::where('status_verifikasi', false)->get();
+    return view('admin.inactive_users', compact('inactiveUsers'));
+}
+
+public function deactivateUser(User $user)
+{
+    $user->status_verifikasi = false;
+    $user->save();
+
+    return redirect()->route('cms.active.users')->with('success', 'User has been deactivated.');
+}
+
+public function activateUser(User $user)
+{
+    $user->status_verifikasi = true;
+    $user->save();
+
+    return redirect()->route('cms.inactive.users')->with('success', 'User has been activated.');
+}
+
 
     /**
      * Menampilkan detail pengguna dengan foto.

@@ -32,8 +32,8 @@ class RegisterController extends Controller
             'no_ktp' => ['required', 'string', 'max:25', 'regex:/^[0-9]+$/', 'unique:users'],
             'no_karpeg' => ['required', 'string', 'max:25', 'regex:/^[0-9]+$/', 'unique:users'],
             'acc_on' => ['required', 'string', 'min:3', 'confirmed'],
-            'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-            'photo_karpeg' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
+            'photo_karpeg' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
         ]);
     }
 

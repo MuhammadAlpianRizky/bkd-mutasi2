@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -99,8 +101,8 @@
                         <div class="row mb-3">
                             <label for="photo_ktp" class="col-md-4 col-form-label text-md-end">{{ __('Foto KTP') }}</label>
                             <div class="col-md-6">
-                                <input id="photo_ktp" type="file" class="form-control @error('photo_ktp') is-invalid @enderror" name="photo_ktp" accept="image/*" required>
-                                <small class="form-text text-muted">Unggah file gambar (jpg, png, jpeg) maksimal 2MB.</small>
+                                <input id="photo_ktp" type="file" class="form-control custom-file-input @error('photo_ktp') is-invalid @enderror" name="photo_ktp" accept="image/*" required>
+                                <small class="form-text text-danger">Unggah file gambar (jpg, png, jpeg) maksimal 500KB.</small>
                                 @error('photo_ktp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -108,12 +110,12 @@
                                 @enderror
                             </div>
                         </div>
-
+                        
                         <div class="row mb-3">
                             <label for="photo_karpeg" class="col-md-4 col-form-label text-md-end">{{ __('Foto Karpeg') }}</label>
                             <div class="col-md-6">
-                                <input id="photo_karpeg" type="file" class="form-control @error('photo_karpeg') is-invalid @enderror" name="photo_karpeg" accept="image/*" required>
-                                <small class="form-text text-muted">Unggah file gambar (jpg, png, jpeg) maksimal 2MB.</small>
+                                <input id="photo_karpeg" type="file" class="form-control custom-file-input @error('photo_karpeg') is-invalid @enderror" name="photo_karpeg" accept="image/*" required>
+                                <small class="form-text text-danger">Unggah file gambar (jpg, png, jpeg) maksimal 500KB</small>
                                 @error('photo_karpeg')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -121,6 +123,7 @@
                                 @enderror
                             </div>
                         </div>
+                        
 
                         <div class="row mb-3">
                             <label for="acc_on" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
@@ -154,4 +157,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection

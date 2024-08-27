@@ -18,6 +18,7 @@ class UserSedeer extends Seeder
             'nama_lengkap' => 'Admin',
             'acc_on' => bcrypt('123'),
             'is_approved' => true, // Admin sudah disetujui
+            'status_verifikasi'=>true,
         ]);
         $admin->assignRole('admin');
 

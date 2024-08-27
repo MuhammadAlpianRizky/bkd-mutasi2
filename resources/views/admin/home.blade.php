@@ -22,7 +22,9 @@
                     </div>
                     <div class="card-footer">
                         @if (Auth::user()->hasRole('admin'))
-                            <a href="{{ route('cms.users') }}" class="btn btn-primary">Manage Users</a>
+                            <a href="{{ route('cms.users') }}" class="btn btn-primary">Pending Users</a>
+                            <a href="{{ route('cms.active.users') }}" class="btn btn-success">Aktif Users</a>
+                            <a href="{{ route('cms.inactive.users') }}" class="btn btn-warning">Non Aktif Users</a>
                         @endif
                         <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
                     </div>

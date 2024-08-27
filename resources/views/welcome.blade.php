@@ -52,7 +52,7 @@
             </div> --}}
             <div class="welcome-header">
                 <h1>{{ session('message') }} {{ Auth::user()->name }}</h1>
-                <a href="{{ route('logout') }}" class="btn btn-custom btn-lg">Logout</a>
+                <a href="{{ route('logout') }}" class="btn btn-custom btn-lg">Dashboard</a>
             </div>
         @endguest
 

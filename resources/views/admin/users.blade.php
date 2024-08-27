@@ -26,7 +26,7 @@
                     <td>{{ $user->nama_lengkap }}</td>
                     <td>{{ $user->email }}</td>
                     <td class="text-center"> <!-- Centered content -->
-                        <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary">Manage Users</a>
+                        <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary">Detail</a>
                         <form action="{{ route('cms.approve', $user) }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-primary">Approve</button>

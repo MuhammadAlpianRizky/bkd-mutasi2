@@ -25,6 +25,7 @@ Schema::create('users', function (Blueprint $table) {
     $table->string('acc_on');  // Changed column name
     $table->string('photo_ktp')->nullable(); // Tambahkan kolom foto KTP
     $table->string('photo_karpeg')->nullable(); // Tambahkan kolom foto Karpeg
+    $table->boolean('status_verifikasi')->default(false);
     $table->rememberToken();
     $table->timestamps();
 });
