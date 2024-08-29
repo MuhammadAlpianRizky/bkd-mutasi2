@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('web');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 

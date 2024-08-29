@@ -54,13 +54,13 @@ class LoginController extends Controller
             } else {
                 // Password is incorrect
                 return back()->withErrors([
-                    'acc_on' => 'Password Salah',
+                    'acc_on' => 'Akun Tidak Sesuai',
                 ])->withInput($request->except('acc_on'));
             }
         } else {
             // Nip is incorrect or not registered
             return back()->withErrors([
-                'nip' => 'NIP Salah/Belum Terdaftar',
+                'nip' => 'NIP Belum Terdaftar',
             ])->withInput($request->except('acc_on'));
         }
     }

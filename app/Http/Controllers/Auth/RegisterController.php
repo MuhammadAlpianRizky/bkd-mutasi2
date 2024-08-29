@@ -43,46 +43,51 @@ class RegisterController extends Controller
         $photoKtpPath = null;
         $photoKarpegPath = null;
 
+        // Upload dan simpan path foto KTP jika ada
         if (request()->hasFile('photo_ktp')) {
             $photoKtpPath = request()->file('photo_ktp')->store('public/personal/ktp');
-            $photoKtpPath = Crypt::encrypt($photoKtpPath);
+            // Enkripsi path jika diperlukan
+            $photoKtpPath = Crypt::encryptString($photoKtpPath);
         }
-        
+
+        // Upload dan simpan path foto Karpeg jika ada
         if (request()->hasFile('photo_karpeg')) {
             $photoKarpegPath = request()->file('photo_karpeg')->store('public/personal/karpeg');
-            $photoKarpegPath = Crypt::encrypt($photoKarpegPath);
+            // Enkripsi path jika diperlukan
+            $photoKarpegPath = Crypt::encryptString($photoKarpegPath);
         }
-    
-    $user = User::create([
-        'nip' => $data['nip'],
-        'nama_lengkap' => $data['nama_lengkap'],
-        'alamat_tinggal' => $data['alamat_tinggal'],
-        'no_hp' => $data['no_hp'],
-        'email' => $email,
-        'no_ktp' => $data['no_ktp'],
-        'no_karpeg' => $data['no_karpeg'],
-        'acc_on' => Hash::make($data['acc_on']),
-        'is_approved' => false,
-        'photo_ktp' => $photoKtpPath, // Simpan path foto KTP yang telah dienkripsi
-        'photo_karpeg' => $photoKarpegPath, // Simpan path foto Karpeg yang telah dienkripsi
-    ]);
 
-    $user->assignRole('pegawai');
+        $user = User::create([
+            'nip' => $data['nip'],
+            'nama_lengkap' => $data['nama_lengkap'],
+            'alamat_tinggal' => $data['alamat_tinggal'],
+            'no_hp' => $data['no_hp'],
+            'email' => $email,
+            'no_ktp' => $data['no_ktp'],
+            'no_karpeg' => $data['no_karpeg'],
+            'acc_on' => Hash::make($data['acc_on']),
+            'is_approved' => false,
+            'photo_ktp' => $photoKtpPath, // Simpan path foto KTP yang telah dienkripsi
+            'photo_karpeg' => $photoKarpegPath, // Simpan path foto Karpeg yang telah dienkripsi
+        ]);
 
-    return $user;
-}
+        $user->assignRole('pegawai');
 
+        return $user;
+    }
 
     /**
-     * Override registered method to prevent auto login and redirect to home.
+     * Override registered method to prevent auto login and redirect to welcome page.
      */
     protected function registered(Request $request, $user)
-{
-    // Flash a message to inform the user
-    session()->flash('message', 'Akun anda belum diaktifkan,Silahkan Login Lagi saat sudah mendapatkan notifikasi dari WA');
+    {
+        // Simpan pesan dalam session flash
+        $request->session()->flash('alert', [
+            'type' => 'info', // Jenis alert, misalnya 'info', 'success', 'warning', 'danger'
+            'message' => 'Akun anda belum diaktifkan. Silahkan login lagi saat sudah mendapatkan notifikasi dari WA.',
+        ]);
 
-    // Redirect to the welcome page
-    return redirect('/');
-}
-
+        // Redirect ke halaman welcome
+        return redirect('/');
+    }
 }
