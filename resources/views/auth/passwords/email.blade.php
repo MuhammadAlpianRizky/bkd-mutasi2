@@ -17,13 +17,44 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
+                        <!-- Field untuk NIP -->
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="nip" class="col-md-4 col-form-label text-md-end">{{ __('NIP') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="nip" type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}" required autocomplete="nip" autofocus>
 
-                                @error('email')
+                                @error('nip')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Field untuk nomor KTP -->
+                        <div class="row mb-3">
+                            <label for="no_ktp" class="col-md-4 col-form-label text-md-end">{{ __('Nomor KTP') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="no_ktp" type="text" class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp" value="{{ old('no_ktp') }}" required autocomplete="no_ktp">
+
+                                @error('no_ktp')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Field untuk nomor karpeg -->
+                        <div class="row mb-3">
+                            <label for="no_karpeg" class="col-md-4 col-form-label text-md-end">{{ __('Nomor Karpeg') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="no_karpeg" type="text" class="form-control @error('no_karpeg') is-invalid @enderror" name="no_karpeg" value="{{ old('no_karpeg') }}" required autocomplete="no_karpeg">
+
+                                @error('no_karpeg')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
