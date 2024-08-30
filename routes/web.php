@@ -9,11 +9,10 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LandingPageController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
