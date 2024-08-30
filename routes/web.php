@@ -13,6 +13,7 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('web');
 
+Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
