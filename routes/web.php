@@ -7,10 +7,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LandingPageController;
 
 Route::get('/', function () {
     return view('welcome');
 })->middleware('web');
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
