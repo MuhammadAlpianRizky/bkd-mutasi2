@@ -46,9 +46,16 @@ class HomeController extends Controller
      */
     public function showPendingUsers()
     {
-        $pendingUsers = User::where('is_approved', false)->get();
+        // Define the number of users per page
+        $perPage = 10; // You can adjust this number as needed
+
+        // Fetch paginated pending users
+        $pendingUsers = User::where('is_approved', false)->paginate($perPage);
+
+        // Pass paginated data to the view
         return view('admin.users', compact('pendingUsers'));
     }
+
 
     /**
      * Menyetuju pengguna.
@@ -66,9 +73,13 @@ class HomeController extends Controller
     }
     public function showActiveUsers()
 {
-    $activeUsers = User::where('status_verifikasi', true)->get();
+    // Paginate results, with 10 users per page (adjust as needed)
+    $activeUsers = User::where('status_verifikasi', true)->paginate(2);
+
+    // Pass the paginated data to the view
     return view('admin.active_users', compact('activeUsers'));
 }
+
 
 public function showInactiveUsers()
 {

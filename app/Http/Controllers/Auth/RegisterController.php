@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -38,24 +37,37 @@ class RegisterController extends Controller
     }
 
     protected function create(array $data)
-    {
-        $email = strtolower($data['email']);
-        $photoKtpPath = null;
-        $photoKarpegPath = null;
+{
+    $email = strtolower($data['email']);
+    $photoKtpPath = null;
+    $photoKarpegPath = null;
 
-        // Upload dan simpan path foto KTP jika ada
-        if (request()->hasFile('photo_ktp')) {
-            $photoKtpPath = request()->file('photo_ktp')->store('public/personal/ktp');
-            // Enkripsi path jika diperlukan
-            $photoKtpPath = Crypt::encryptString($photoKtpPath);
-        }
+    // Upload and store KTP photo if present
+    if (request()->hasFile('photo_ktp')) {
+        $file = request()->file('photo_ktp');
+        $originalName = $file->getClientOriginalName();
+        
+        // Store the file with its original name in the specified directory
+        $storedPath = $file->storeAs('public/personal/ktp', $originalName);
+        
+        // Encrypt the stored path
+        $photoKtpPath = encrypt($storedPath);
+    }
 
-        // Upload dan simpan path foto Karpeg jika ada
-        if (request()->hasFile('photo_karpeg')) {
-            $photoKarpegPath = request()->file('photo_karpeg')->store('public/personal/karpeg');
-            // Enkripsi path jika diperlukan
-            $photoKarpegPath = Crypt::encryptString($photoKarpegPath);
-        }
+    // Upload and store Karpeg photo if present
+    if (request()->hasFile('photo_karpeg')) {
+        $file = request()->file('photo_karpeg');
+        $originalName = $file->getClientOriginalName();
+        
+        // Store the file with its original name in the specified directory
+        $storedPath = $file->storeAs('public/personal/karpeg', $originalName);
+        
+        // Encrypt the stored path
+        $photoKarpegPath = encrypt($storedPath);
+    }
+
+    // Store the data in the database, ensuring that encrypted paths are saved
+    // e.g., User::create([...]);
 
         $user = User::create([
             'nip' => $data['nip'],
