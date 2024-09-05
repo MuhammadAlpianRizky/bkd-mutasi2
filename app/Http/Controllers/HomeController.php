@@ -14,19 +14,18 @@ class HomeController extends Controller
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function index()
-{
-    $user = Auth::user();
-    
-    if ($user->hasRole('admin')) {
-        return view('admin.home', ['welcomeMessage' => 'Selamat datang admin']);
-    } elseif ($user->hasRole('pegawai')) {
-        return redirect()->route('home');
-    } else {
-        // Redirect ke halaman yang sesuai
-        return redirect('/');
+    {
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            return view('admin.home', ['welcomeMessage' => 'Selamat datang admin']);
+        } elseif ($user->hasRole('pegawai')) {
+            return redirect()->route('home');
+        } else {
+            // Redirect ke halaman yang sesuai
+            return redirect('/');
+        }
     }
-}
-    
 
     /**
      * Menampilkan halaman home untuk pegawai.
@@ -56,9 +55,8 @@ class HomeController extends Controller
         return view('admin.users', compact('pendingUsers'));
     }
 
-
     /**
-     * Menyetuju pengguna.
+     * Menyetujui pengguna.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
@@ -66,57 +64,68 @@ class HomeController extends Controller
     public function approveUser(User $user)
     {
         $user->is_approved = true;
-        $user->status_verifikasi=true;
+        $user->status_verifikasi = true;
         $user->save();
 
         return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }
-    public function showActiveUsers()
-{
-    // Paginate results, with 10 users per page (adjust as needed)
-    $activeUsers = User::where('status_verifikasi', true)->paginate(2);
-
-    // Pass the paginated data to the view
-    return view('admin.active_users', compact('activeUsers'));
-}
-
-
-public function showInactiveUsers()
-{
-    $inactiveUsers = User::where('status_verifikasi', false)->get();
-    return view('admin.inactive_users', compact('inactiveUsers'));
-}
-
-public function deactivateUser(User $user)
-{
-    $user->status_verifikasi = false;
-    $user->save();
-
-    return redirect()->route('cms.active.users')->with('success', 'User has been deactivated.');
-}
-
-public function activateUser(User $user)
-{
-    $user->status_verifikasi = true;
-    $user->save();
-
-    return redirect()->route('cms.inactive.users')->with('success', 'User has been activated.');
-}
-
 
     /**
-     * Menampilkan detail pengguna dengan foto.
+     * Menampilkan pengguna aktif.
      *
-     * @param  int  $id
      * @return \Illuminate\View\View
      */
-    // public function showUserDetail($id)
-    // {
-    //     $user = User::findOrFail($id);
-    //     // Dekripsi path foto
-    //     $photoKtpPath = $user->photo_ktp ? decrypt($user->photo_ktp) : null;
-    //     $photoKarpegPath = $user->photo_karpeg ? decrypt($user->photo_karpeg) : null;
+    public function showActiveUsers()
+    {
+        // Paginate results, excluding users with the 'admin' role
+        $activeUsers = User::where('status_verifikasi', true)
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'admin');
+            })
+            ->paginate(10);
+    
+        // Pass the paginated data to the view
+        return view('admin.active_users', compact('activeUsers'));
+    }
+    
+    public function showInactiveUsers()
+    {
+        // Paginate results, excluding users with the 'admin' role
+        $inactiveUsers = User::where('status_verifikasi', false)
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'admin');
+            })
+            ->paginate(10);
+    
+        return view('admin.inactive_users', compact('inactiveUsers'));
+    }
+    
 
-    //     return view('admin.user_detail', compact('user', 'photoKtpPath', 'photoKarpegPath'));
-    // }
+    /**
+     * Menonaktifkan pengguna.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deactivateUser(User $user)
+    {
+        $user->status_verifikasi = false;
+        $user->save();
+
+        return redirect()->route('cms.active.users')->with('success', 'User has been deactivated.');
+    }
+
+    /**
+     * Mengaktifkan pengguna.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function activateUser(User $user)
+    {
+        $user->status_verifikasi = true;
+        $user->save();
+
+        return redirect()->route('cms.inactive.users')->with('success', 'User has been activated.');
+    }
 }
