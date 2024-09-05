@@ -9,6 +9,8 @@
         <link rel="icon" type="image/x-icon" href="{{ 'landing-page/assets/favicon.ico'  }}" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('landing-page/css/styles.css') }}" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -36,23 +38,122 @@
                 <a class="btn btn-lg btn-light" href="#tutorial">Panduan Aplikasi</a>
             </div>
         </header>
-        <!-- About section-->
-        <section id="about">
-            <div class="container px-4">
-                <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2>Persyaratan Mutasi</h2>
-                        <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
-                        <ul>
-                            <li>Clickable nav links that smooth scroll to page sections</li>
-                            <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-                            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
-                            <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-                        </ul>
-                    </div>
-                </div>
+            {{-- Persayaratan Mutasi --}}
+    <section id="requirements" style="background-color: #f8f9fa; color: #000000; padding: 50px 0;">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-center mb-4" style="margin-top: 35px">Persyaratan Mutasi</h2>
+                <ul class="list-unstyled" style="line-height: 1.5; text-align: justify;">
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Analisis Jabatan dan Analisis Beban Kerja dari Bagian organisasi yang dilegalisir BKD/yang dikeluarkan SKPD disalin oleh BKD.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat permohonan yang bersangkutan diketahui pimpinan unit kerja SKPD Asal.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Batas usia paling tinggi 50 (lima puluh) tahun (Peraturan Wali Kota Banjarmasin Nomor 109 Tahun 2022).</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SK CPNS.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SK PNS.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SK Pangkat Terakhir.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SK Jabatan Struktural. </span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SK Jabatan Fungsional.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SK Berkala Terakhir.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir KARPEG.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir Ijazah Terakhir + Akta IV (Akta IV hanya guru).</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir SKP 2 Tahun Terakhir (legalisir semua halaman).</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Copy + legalisir Akta Nikah.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Daftar Riwayat Hidup sesuai Perka BKN No. 14 Tahun 2018 + foto KTP.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>SK/Surat Keterangan Bekerja Suami dari Instansi/Perusahaan (bagi PNS wanita yang mutasi karena mengikuti tugas suami).</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Persetujuan dari Suami / Isteri yang Sah.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan Sehat dari Dokter Pemerintah Kota Banjarmasin (Jasmani, Rohani dan NAPZA).</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan tidak pernah dijatuhi hukuman disiplin dan tidak dalam proses pidana dari instansi yang bersangkutan dari BKD.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan Tidak Sedang Tugas Belajar dan Ikatan Dinas dari BKD.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan Bebas Temuan yang diterbitkan Inspektorat tempat asal PNS.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan untuk Tidak Menuntut Jabatan di atas materai Rp 10.000.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan tidak mempunyai Hutang Piutang dengan pihak Bank dan SKPD.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Keterangan dari Penjabat yang berwenang yang menyatakan bahwa Permohonan Mutasi tidak sedang dalam proses Kenaikan Pangkat.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Pernyataan bersedia mengikuti Tes Mutasi Masuk.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Surat Pernyataan Bersedia Ditempatkan Dimana Saja di Lingkungan Pemerintah Kota Banjarmasin di atas materai Rp 10.000.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Melampirkan Daftar Gaji Terakhir.</span>
+                    </li>
+                </ul>
             </div>
-        </section>
+        </div>
+    </div>
+    </section>
         <!-- Panduan section-->
         <section class="bg-light" id="tutorial">
             <div class="container px-4">
@@ -98,7 +199,6 @@
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
-                
             </div>
             </div>
             </div>

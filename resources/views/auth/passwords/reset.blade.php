@@ -8,6 +8,17 @@
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
+                    <!-- Tampilkan error jika ada -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
@@ -19,7 +30,7 @@
                             <label for="acc_on" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="acc_on" type="password" class="form-control @error('acc_on') is-invalid @enderror" name="acc_on" required autocomplete="new-acc_on">
+                                <input id="acc_on" type="password" class="form-control @error('acc_on') is-invalid @enderror" name="acc_on" required autocomplete="new-password">
 
                                 @error('acc_on')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +45,7 @@
                             <label for="acc_on-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="acc_on-confirm" type="password" class="form-control @error('acc_on_confirmation') is-invalid @enderror" name="acc_on_confirmation" required autocomplete="new-acc_on">
+                                <input id="acc_on-confirm" type="password" class="form-control @error('acc_on_confirmation') is-invalid @enderror" name="acc_on_confirmation" required autocomplete="new-password">
                                 
                                 @error('acc_on_confirmation')
                                     <span class="invalid-feedback" role="alert">

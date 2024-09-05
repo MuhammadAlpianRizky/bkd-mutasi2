@@ -8,10 +8,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\MutasiController;
+use App\Http\Controllers\PegawaiController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// // Route::get('/', function () {
+// //     return view('welcome');
+// // })->middleware('web');
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
@@ -43,8 +45,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 // Rute untuk pengguna dengan peran 'pegawai'
-Route::middleware(['auth', 'role:pegawai'])->get('/home', [HomeController::class, 'index2'])
+Route::middleware(['auth', 'role:pegawai'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index2'])
     ->name('home');
+    Route::get('/mutasi', [MutasiController::class, 'index'])
+    ->name('mutasi');
+    Route::get('/mutasi/create', [MutasiController::class, 'create'])
+    ->name('mutasi.create');
+});
 
 // Rute logout
 Route::get('/logout', function () {

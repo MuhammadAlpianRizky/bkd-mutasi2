@@ -31,7 +31,7 @@
             background-color: #0056b3;
             color: white;
         }
-        .alert-info {
+        .alert {
             margin-top: 20px;
             border-radius: 5px;
         }
@@ -40,24 +40,34 @@
 <body>
     <div class="container">
         @guest
+        @if(session('alert'))
+                <div class="alert alert-{{ session('alert.type') }} alert-dismissible fade show" role="alert">
+                    {{ session('alert.message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="welcome-header">
                 <h1>Welcome to Our Application</h1>
                 <a href="{{ route('login') }}" class="btn btn-custom btn-lg">Login</a>
                 <a href="{{ route('register') }}" class="btn btn-custom btn-lg">Register</a>
             </div>
         @else
-        {{-- (session('message')) --}}
-            {{-- <div class="alert alert-info">
-                {{ session('message') }}
-            </div> --}}
+            @if(session('alert'))
+                <div class="alert alert-{{ session('alert.type') }} alert-dismissible fade show" role="alert">
+                    {{ session('alert.message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
             <div class="welcome-header">
-                <h1>{{ session('message') }} {{ Auth::user()->name }}</h1>
+                <h1>Welcome {{ Auth::user()->name }}</h1>
                 <a href="{{ route('logout') }}" class="btn btn-custom btn-lg">Dashboard</a>
             </div>
         @endguest
-
-        {{-- @if
-        @endif --}}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

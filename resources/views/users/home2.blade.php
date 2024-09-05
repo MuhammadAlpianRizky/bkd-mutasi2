@@ -22,7 +22,6 @@
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
-
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@ class HomeController extends Controller
     public function index2()
     {
         // Kirim pesan selamat datang untuk pegawai ke view home2
-        return view('users.home2', ['welcomeMessage' => 'Selamat datang pegawai']);
+        return view('users.beranda', ['welcomeMessage' => 'Selamat datang pegawai']);
     }
 
     /**
