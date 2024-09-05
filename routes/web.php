@@ -25,21 +25,19 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 
 // Rute untuk pengguna dengan peran 'admin'
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])
-        ->name('dashboard');
-    Route::get('/cms/users', [HomeController::class, 'showPendingUsers'])
-        ->name('cms.users');
-    Route::post('/cms/approve/{user}', [HomeController::class, 'approveUser'])
-        ->name('cms.approve');
-        Route::get('/cms/user/{id}', [UserController::class, 'showUserDetail'])
-        ->name('cms.user.detail');
-        Route::post('/cms/deactivate/{user}', [HomeController::class, 'deactivateUser'])->name('cms.deactivate');
-        Route::post('/cms/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
-        Route::get('/cms/users/activate', [HomeController::class, 'showActiveUsers'])
-        ->name('cms.active.users');
-        Route::get('/cms/users/inactivate', [HomeController::class, 'showInactiveUsers'])
-        ->name('cms.inactive.users');
+    Route::prefix('cms')->group(function () {
+        Route::get('/users', [HomeController::class, 'showPendingUsers'])->name('cms.users');
+        Route::get('/user/{id}', [UserController::class, 'showUserDetail'])->name('cms.user.detail');
+        Route::post('/approve/{user}', [HomeController::class, 'approveUser'])->name('cms.approve');
+        Route::post('/deactivate/{user}', [HomeController::class, 'deactivateUser'])->name('cms.deactivate');
+        Route::post('/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
+        Route::get('/users/activate', [HomeController::class, 'showActiveUsers'])->name('cms.active.users');
+        Route::get('/users/inactivate', [HomeController::class, 'showInactiveUsers'])->name('cms.inactive.users');
     });
+
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+});
+
 
 
 // Rute untuk pengguna dengan peran 'pegawai'

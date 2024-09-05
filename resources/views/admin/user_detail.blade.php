@@ -64,7 +64,7 @@
         </div>
         <div class="col-md-8">
             @if ($user->photo_ktp)
-                <img src="{{ Storage::url(decrypt($user->photo_ktp)) }}" alt="Foto KTP" class="img-thumbnail" style="max-width: 300px; max-height: 200px; width: auto; height: auto;">
+                <img src="{{ Storage::url(Crypt::decrypt($user->photo_ktp)) }}" alt="Foto KTP" class="img-thumbnail" style="max-width: 300px; max-height: 200px; width: auto; height: auto;">
             @else
                 <p>No photo available.</p>
             @endif
@@ -77,7 +77,7 @@
         </div>
         <div class="col-md-8">
             @if ($user->photo_karpeg)
-                <img src="{{ Storage::url(decrypt($user->photo_karpeg)) }}" alt="Foto Karpeg" class="img-thumbnail" style="max-width: 300px; max-height: 200px; width: auto; height: auto;">
+                <img src="{{ Storage::url(Crypt::decrypt($user->photo_karpeg)) }}" alt="Foto Karpeg" class="img-thumbnail" style="max-width: 300px; max-height: 200px; width: auto; height: auto;">
             @else
                 <p>No photo available.</p>
             @endif
