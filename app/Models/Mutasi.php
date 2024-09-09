@@ -34,4 +34,13 @@ class Mutasi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Method to validate the mutasi
+    public function validate()
+    {
+        $this->update([
+            'verified' => true,
+            'verified_at' => now(),
+        ]);
+    }
 }

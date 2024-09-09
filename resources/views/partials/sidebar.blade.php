@@ -34,6 +34,13 @@
                         <span class="hide-menu">Non-aktif User</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('mutasi.list') }}" aria-expanded="false">
+                        <i data-feather="list" class="feather-icon"></i>
+                        <span class="hide-menu">Daftar Mutasi</span>
+                    </a>
+                </li>
+                
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
                 <li class="sidebar-item">

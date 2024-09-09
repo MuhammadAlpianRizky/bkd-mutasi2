@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\FileController;
 
 // // Route::get('/', function () {
 // //     return view('welcome');
@@ -44,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
             Route::get('/users/activate', [HomeController::class, 'showActiveUsers'])->name('cms.active.users');
             Route::get('/users/inactivate', [HomeController::class, 'showInactiveUsers'])->name('cms.inactive.users');
+            Route::get('/mutasi/{id}/validate', [MutasiController::class, 'validateMutasi'])->name('mutasi.validate');
+            Route::post('/mutasi/{id}/validate', [MutasiController::class, 'updateValidation'])->name('mutasi.validate.update');
+            Route::get('/mutasi/list', [MutasiController::class, 'list'])->name('mutasi.list');
+            Route::get('mutasi/file/{filename}', [FileController::class, 'show'])->name('mutasi.file');
+
+
         });
 
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
