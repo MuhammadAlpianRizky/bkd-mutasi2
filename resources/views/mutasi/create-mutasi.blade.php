@@ -145,6 +145,7 @@
                                 <h4 class="mb-0">Form Pengajuan Mutasi - Upload Dokumen</h4>
                             </div>
                             <div class="card-body">
+                                {{-- Copy + legalisir SK CPNS --}}
                                 <div class="mb-4">
                                     <label for="sk_cpns" class="form-label">Copy + legalisir SK CPNS </label>
                                     <div class="input-group">
@@ -165,6 +166,7 @@
                                     @endif
                                 </div>
 
+                                {{-- Copy + legalisir SK PNS --}}
                                 <div class="mb-4">
                                     <label for="sk_pns" class="form-label">Copy + legalisir SK PNS</label>
                                     <div class="input-group">
@@ -181,6 +183,69 @@
                                     <div class="mt-2">
                                         <a id="view-sk_pns" href="#" target="_blank" class="btn btn-outline-info d-none">
                                             <i class="fas fa-eye"></i> Lihat File SK PNS
+                                        </a>
+                                    </div>
+                                </div>
+
+                                {{-- Copy + legalisir SK Pangkat Terakhir --}}
+                                <div class="mb-4">
+                                    <label for="sk_pangkat_terakhir" class="form-label">Copy + legalisir SK Pangkat Terakhir</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="sk_pangkat_terakhir" name="sk_pangkat_terakhir" accept=".pdf" onchange="showFileLink('sk_pangkat_terakhir', 'view-sk_pangkat_terakhir')">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                    </div>
+                                    @if ($errors->has('sk_pangkat_terakhir'))
+                                        <div class="text-danger">{{ $errors->first('sk_pangkat_terakhir') }}</div>
+                                    @endif
+                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
+
+                                    <div class="mt-2">
+                                        <a id="view-sk_pangkat_terakhir" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                            <i class="fas fa-eye"></i> Lihat File SK Pangkat Terakhir
+                                        </a>
+                                    </div>
+                                </div>
+
+                                {{-- Copy + legalisir SK Jabatan Struktural --}}
+                                <div class="mb-4">
+                                    <label for="sk_jabatan_struktural" class="form-label">Copy + legalisir SK Jabatan Struktural</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="sk_jabatan_struktural" name="sk_jabatan_struktural" accept=".pdf" onchange="showFileLink('sk_jabatan_struktural', 'view-sk_jabatan_struktural')">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                    </div>
+                                    @if ($errors->has('sk_jabatan_struktural'))
+                                        <div class="text-danger">{{ $errors->first('sk_jabatan_struktural') }}</div>
+                                    @endif
+                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
+
+                                    <div class="mt-2">
+                                        <a id="view-sk_jabatan_struktural" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                            <i class="fas fa-eye"></i> Lihat File SK Jabatan Struktural
+                                        </a>
+                                    </div>
+                                </div>
+
+                                {{-- Copy + legalisir SK Jabatan Fungsional --}}
+                                <div class="mb-4">
+                                    <label for="sk_jabatan_fungsional" class="form-label">Copy + legalisir SK Jabatan Fungsional</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="sk_jabatan_fungsional" name="sk_jabatan_fungsional" accept=".pdf" onchange="showFileLink('sk_jabatan_fungsional', 'view-sk_jabatan_fungsional')">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                    </div>
+                                    @if ($errors->has('sk_jabatan_fungsional'))
+                                        <div class="text-danger">{{ $errors->first('sk_jabatan_fungsional') }}</div>
+                                    @endif
+                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
+
+                                    <div class="mt-2">
+                                        <a id="view-sk_jabatan_fungsional" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                            <i class="fas fa-eye"></i> Lihat File SK Jabatan Fungsional
                                         </a>
                                     </div>
                                 </div>

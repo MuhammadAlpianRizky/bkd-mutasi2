@@ -32,7 +32,7 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 // Route for authenticated users - redirect based on role
 Route::middleware(['auth'])->group(function () {
     // Redirect based on user role
-    // 
+    //
 
     // Routes for users with 'admin' role
     Route::middleware(['role:admin'])->group(function () {
@@ -50,23 +50,24 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-// Rute untuk pengguna dengan peran 'pegawai'
-Route::middleware(['auth', 'role:pegawai'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index2'])
-    ->name('home');
-    Route::get('/mutasi', [MutasiController::class, 'index'])
-    ->name('mutasi');
-    Route::get('/mutasi/create', [MutasiController::class, 'create'])
-    ->name('mutasi.create');
-    Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
-    Route::get('mutasi/{id}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
-    Route::put('mutasi/{id}', [MutasiController::class, 'update'])->name('mutasi.update');
-});
+    // Rute untuk pengguna dengan peran 'pegawai'
+    Route::middleware(['auth', 'role:pegawai'])->group(function () {
+        Route::get('/home', [HomeController::class, 'index2'])
+        ->name('home');
+        Route::get('/mutasi', [MutasiController::class, 'index'])
+        ->name('mutasi');
+        Route::get('/mutasi/create', [MutasiController::class, 'create'])
+        ->name('mutasi.create');
+        Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
+        Route::get('mutasi/{id}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
+        Route::put('mutasi/{id}', [MutasiController::class, 'update'])->name('mutasi.update');
+    });
 
 
-// Rute logout
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-});
+    // Rute logout
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect('/');
+    });
+
 });
