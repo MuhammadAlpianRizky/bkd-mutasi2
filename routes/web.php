@@ -52,6 +52,9 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
     ->name('mutasi');
     Route::get('/mutasi/create', [MutasiController::class, 'create'])
     ->name('mutasi.create');
+    Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
+    Route::get('mutasi/{id}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
+    Route::put('mutasi/{id}', [MutasiController::class, 'update'])->name('mutasi.update');
 });
 
 // Rute logout
