@@ -25,7 +25,7 @@ protected $fillable = [
     'no_ktp',
     'no_karpeg',
     'email',
-    'acc_on',  
+    'acc_on',
     'is_approved', // New attribute
     'photo_ktp', // Tambahkan field foto KTP
     'photo_karpeg', // Tambahkan field foto Karpeg
@@ -45,6 +45,11 @@ protected function casts(): array
         'acc_on' => 'hashed',  // Updated field
         'status_verifikasi' => 'boolean',
     ];
+}
+
+public function mutasi()
+{
+    return $this->hasMany(Mutasi::class);
 }
 
 

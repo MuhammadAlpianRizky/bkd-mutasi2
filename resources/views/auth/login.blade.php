@@ -14,7 +14,7 @@
                 <h2 class="mt-3 text-center">Login</h2>
                 <p class="text-center">SIMUT BKD - Pemko Banjarmasin</p>
                 
-                <form class="mt-4" method="POST" action="{{ route('login') }}">
+                <form class="mt-4" method="POST" action="{{ route('login') }}"> <!-- Updated route -->
                     @csrf
                     <div class="row">
                         <div class="col-lg-12">
@@ -57,4 +57,25 @@
         </div>
     </div>
 </div>
+
+<!-- SweetAlert Integration -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Gagal',
+            html: `
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `,
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif
+
 @endsection

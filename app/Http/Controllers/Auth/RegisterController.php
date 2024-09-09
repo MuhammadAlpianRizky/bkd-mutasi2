@@ -7,17 +7,33 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    protected $redirectTo = '/'; // Redirect ke halaman yang sesuai setelah registrasi
-
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        // Set a flash message indicating the account needs activation
+        $request->session()->flash('alert', [
+            'type' => 'info',
+            'message' => 'Akun anda belum diaktifkan. Silahkan login lagi saat sudah mendapatkan notifikasi dari WA.',
+        ]);
+
+        // Redirect to the welcome page
+        return redirect('/');
     }
 
     protected function validator(array $data)
@@ -37,37 +53,24 @@ class RegisterController extends Controller
     }
 
     protected function create(array $data)
-{
-    $email = strtolower($data['email']);
-    $photoKtpPath = null;
-    $photoKarpegPath = null;
+    {
+        $email = strtolower($data['email']);
+        $photoKtpPath = null;
+        $photoKarpegPath = null;
 
-    // Upload and store KTP photo if present
-    if (request()->hasFile('photo_ktp')) {
-        $file = request()->file('photo_ktp');
-        $originalName = $file->getClientOriginalName();
-        
-        // Store the file with its original name in the specified directory
-        $storedPath = $file->storeAs('public/personal/ktp', $originalName);
-        
-        // Encrypt the stored path
-        $photoKtpPath = encrypt($storedPath);
-    }
+        if (request()->hasFile('photo_ktp')) {
+            $file = request()->file('photo_ktp');
+            $originalName = $file->getClientOriginalName();
+            $storedPath = $file->storeAs('public/personal/ktp', $originalName);
+            $photoKtpPath = encrypt($storedPath);
+        }
 
-    // Upload and store Karpeg photo if present
-    if (request()->hasFile('photo_karpeg')) {
-        $file = request()->file('photo_karpeg');
-        $originalName = $file->getClientOriginalName();
-        
-        // Store the file with its original name in the specified directory
-        $storedPath = $file->storeAs('public/personal/karpeg', $originalName);
-        
-        // Encrypt the stored path
-        $photoKarpegPath = encrypt($storedPath);
-    }
-
-    // Store the data in the database, ensuring that encrypted paths are saved
-    // e.g., User::create([...]);
+        if (request()->hasFile('photo_karpeg')) {
+            $file = request()->file('photo_karpeg');
+            $originalName = $file->getClientOriginalName();
+            $storedPath = $file->storeAs('public/personal/karpeg', $originalName);
+            $photoKarpegPath = encrypt($storedPath);
+        }
 
         $user = User::create([
             'nip' => $data['nip'],
@@ -79,27 +82,12 @@ class RegisterController extends Controller
             'no_karpeg' => $data['no_karpeg'],
             'acc_on' => Hash::make($data['acc_on']),
             'is_approved' => false,
-            'photo_ktp' => $photoKtpPath, // Simpan path foto KTP yang telah dienkripsi
-            'photo_karpeg' => $photoKarpegPath, // Simpan path foto Karpeg yang telah dienkripsi
+            'photo_ktp' => $photoKtpPath,
+            'photo_karpeg' => $photoKarpegPath,
         ]);
 
         $user->assignRole('pegawai');
 
         return $user;
-    }
-
-    /**
-     * Override registered method to prevent auto login and redirect to welcome page.
-     */
-    protected function registered(Request $request, $user)
-    {
-        // Simpan pesan dalam session flash
-        $request->session()->flash('alert', [
-            'type' => 'info', // Jenis alert, misalnya 'info', 'success', 'warning', 'danger'
-            'message' => 'Akun anda belum diaktifkan. Silahkan login lagi saat sudah mendapatkan notifikasi dari WA.',
-        ]);
-
-        // Redirect ke halaman welcome
-        return redirect('/');
     }
 }

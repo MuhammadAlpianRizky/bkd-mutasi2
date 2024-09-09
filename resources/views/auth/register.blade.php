@@ -20,7 +20,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="nip">NIP</label>
-                                <input class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" type="text" value="{{ old('nip') }}" required autocomplete="nip" autofocus placeholder="Masukkan NIP hanya angka">
+                                <input class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" type="number" value="{{ old('nip') }}" required autocomplete="nip" autofocus placeholder="Masukkan NIP hanya angka">
                                 @error('nip')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -50,7 +50,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="no_hp">Nomor HP/WA</label>
-                                <input class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" type="text" value="{{ old('no_hp') }}" required autocomplete="no_hp" placeholder="Masukkan nomor HP hanya angka">
+                                <input class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" type="number" value="{{ old('no_hp') }}" required autocomplete="no_hp" placeholder="Masukkan nomor HP hanya angka">
                                 @error('no_hp')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -70,7 +70,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="no_ktp">Nomor KTP</label>
-                                <input class="form-control @error('no_ktp') is-invalid @enderror" id="no_ktp" name="no_ktp" type="text" value="{{ old('no_ktp') }}" required autocomplete="no_ktp" placeholder="Masukkan nomor KTP hanya angka">
+                                <input class="form-control @error('no_ktp') is-invalid @enderror" id="no_ktp" name="no_ktp" type="number" value="{{ old('no_ktp') }}" required autocomplete="no_ktp" placeholder="Masukkan nomor KTP hanya angka">
                                 @error('no_ktp')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -80,7 +80,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="no_karpeg">Nomor Karpeg</label>
-                                <input class="form-control @error('no_karpeg') is-invalid @enderror" id="no_karpeg" name="no_karpeg" type="text" value="{{ old('no_karpeg') }}" required autocomplete="no_karpeg" placeholder="Masukkan nomor Karpeg hanya angka">
+                                <input class="form-control @error('no_karpeg') is-invalid @enderror" id="no_karpeg" name="no_karpeg" type="number" value="{{ old('no_karpeg') }}" required autocomplete="no_karpeg" placeholder="Masukkan nomor Karpeg hanya angka">
                                 @error('no_karpeg')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
