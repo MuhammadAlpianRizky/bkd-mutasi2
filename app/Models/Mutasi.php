@@ -24,6 +24,7 @@ class Mutasi extends Model
         'sk_cpns',
         'sk_pns',
         'verified',
+        'is_final',
     ];
 
     public function user()

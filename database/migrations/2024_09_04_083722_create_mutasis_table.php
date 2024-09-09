@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('mutasi', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('no_registrasi')->nullable()->unique();
             $table->string('nama')->nullable();
             $table->string('nip')->nullable();

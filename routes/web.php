@@ -49,12 +49,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     });
 
-    // Routes for users with 'pegawai' role
-    Route::middleware(['role:pegawai'])->group(function () {
-        Route::get('/home', [HomeController::class, 'index2'])->name('home');
-        Route::get('/mutasi', [MutasiController::class, 'index'])->name('mutasi');
-        Route::get('/mutasi/create', [MutasiController::class, 'create'])->name('mutasi.create');
-    });
+
+// Rute untuk pengguna dengan peran 'pegawai'
+Route::middleware(['auth', 'role:pegawai'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index2'])
+    ->name('home');
+    Route::get('/mutasi', [MutasiController::class, 'index'])
+    ->name('mutasi');
+    Route::get('/mutasi/create', [MutasiController::class, 'create'])
+    ->name('mutasi.create');
+    Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
+    Route::get('mutasi/{id}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
+    Route::put('mutasi/{id}', [MutasiController::class, 'update'])->name('mutasi.update');
 });
 
 
@@ -62,4 +68,5 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
+});
 });
