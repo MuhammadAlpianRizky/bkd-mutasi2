@@ -26,7 +26,7 @@ class UserSedeer extends Seeder
             'nip' => '1234',
             'nama_lengkap' => 'Pegawai',
             'acc_on' => bcrypt('1234'),
-            'is_approved' => false, // Pegawai belum disetujui
+            'is_approved' => true, // Pegawai belum disetujui
         ]);
         $pegawai->assignRole('pegawai');
     }

@@ -23,6 +23,9 @@ class Mutasi extends Model
         'no_hp',
         'sk_cpns',
         'sk_pns',
+        'sk_pangkat_terakhir',
+        'sk_jabatan_struktural',
+        'sk_jabatan_fungsional',
         'verified',
         'is_final',
     ];
