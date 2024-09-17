@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Mutasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -16,16 +17,29 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+    
         if ($user->hasRole('admin')) {
-            return view('admin.home', ['welcomeMessage' => 'Selamat datang admin']);
+            // Fetch user and mutasi data
+            $pendingUsersCount = User::where('is_approved', false)->count();
+            $activeUsersCount = Mutasi::where('verified', true)->count();
+            $inactiveUsersCount = Mutasi::where('verified', false)->count();
+            $mutasiCount = Mutasi::count();
+    
+            // Return the data to the view
+            return view('admin.home', [
+                'welcomeMessage' => 'Selamat datang admin',
+                'pendingUsersCount' => $pendingUsersCount,
+                'activeUsersCount' => $activeUsersCount,
+                'inactiveUsersCount' => $inactiveUsersCount,
+                'mutasiCount' => $mutasiCount,
+            ]);
         } elseif ($user->hasRole('pegawai')) {
             return redirect()->route('home');
         } else {
-            // Redirect ke halaman yang sesuai
             return redirect('/');
         }
     }
+    
 
     /**
      * Menampilkan halaman home untuk pegawai.

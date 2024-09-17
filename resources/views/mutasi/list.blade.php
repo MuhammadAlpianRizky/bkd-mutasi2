@@ -41,28 +41,47 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <!-- Search Form -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <form method="GET" action="{{ route('mutasi.list') }}" class="d-flex">
+                                <input type="text" name="search" class="form-control me-2" placeholder="Pencarian" value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-light">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            
+                        </div>
+                        <!-- End Search Form -->
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered no-wrap">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
+                                        <th>No Registrasi</th>
                                         <th>Nama</th>
                                         <th>NIP</th>
-                                        <th>Unit Kerja</th>
-                                        <th>Instansi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($mutasis as $mutasi)
+                                    @foreach ($mutasis as $index => $mutasi)
                                         <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $mutasi->no_registrasi }}</td>
                                             <td>{{ $mutasi->nama }}</td>
                                             <td>{{ $mutasi->nip }}</td>
-                                            <td>{{ $mutasi->unit_kerja }}</td>
-                                            <td>{{ $mutasi->instansi }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary">Validasi</a>
-                                                    <!-- Optionally, you can add more actions here -->
+                                                    @if ($mutasi->is_final === 1 && !$mutasi->verified)
+                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary me-2">Validasi</a>
+                                                    @endif
+                                                    @if ($mutasi->verified)
+                                                        <form action="{{ route('mutasi.cancel', $mutasi->id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">Cancel</button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

@@ -27,6 +27,7 @@ class Mutasi extends Model
         'sk_jabatan_struktural',
         'sk_jabatan_fungsional',
         'verified',
+        'cancellation_reason',
         'is_final',
     ];
 
@@ -42,5 +43,10 @@ class Mutasi extends Model
             'verified' => true,
             'verified_at' => now(),
         ]);
+    }
+     // Define the relationship with Validasi
+    public function validasi()
+    {
+        return $this->hasOne(Validasi::class);
     }
 }

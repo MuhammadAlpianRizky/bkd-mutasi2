@@ -6,9 +6,6 @@
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
 <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
@@ -28,95 +25,100 @@
             </div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
+
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h2>Detail Mutasi</h2>
-                        <p><strong>Nama:</strong> {{ $mutasi->nama }}</p>
-                        <p><strong>NIP:</strong> {{ $mutasi->nip }}</p>
-                        <p><strong>Unit Kerja:</strong> {{ $mutasi->unit_kerja }}</p>
-                        <p><strong>Instansi:</strong> {{ $mutasi->instansi }}</p>
-                        <p><strong>Files:</strong></p>
-                        @foreach(['sk_cpns', 'sk_pns', 'sk_pangkat_terakhir', 'sk_jabatan_struktural', 'sk_jabatan_fungsional'] as $fileField)
-                            @if($mutasi->$fileField)
-                                <p><a href="{{ route('file.show', ['id' => $mutasi->id, 'fileField' => $fileField]) }}" data-toggle="modal" data-target="#fileModal" class="file-link">{{ ucfirst(str_replace('_', ' ', $fileField)) }}</a></p>
-                            @endif
-                        @endforeach
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nama:</strong> {{ $mutasi->nama }}</p>
+                                <p><strong>NIP:</strong> {{ $mutasi->nip }}</p>
+                                <p><strong>Unit Kerja:</strong> {{ $mutasi->unit_kerja }}</p>
+                                <p><strong>Instansi:</strong> {{ $mutasi->instansi }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Files:</strong></p>
+                                <form id="validationForm" action="{{ route('mutasi.validate.update', $mutasi->id) }}" method="POST">
+                                    <input type="hidden" name="action" value="validate">
+                                    @csrf
+                                    @foreach(['sk_cpns', 'sk_pns', 'sk_pangkat_terakhir', 'sk_jabatan_struktural', 'sk_jabatan_fungsional'] as $fileField)
+                                        @if($mutasi->$fileField)
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="{{ $fileField }}_check" name="{{ $fileField }}_check" value="true">
+                                                <label class="form-check-label" for="{{ $fileField }}_check">
+                                                    {{ ucfirst(str_replace('_', ' ', $fileField)) }}: 
+                                                    <a href="{{ Storage::url($mutasi->$fileField) }}" target="_blank">
+                                                        View {{ ucfirst(str_replace('_', ' ', $fileField)) }}
+                                                    </a>
+                                                </label>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer">
-                        <form action="{{ route('mutasi.validate.update', $mutasi->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" name="action" value="validate" class="btn btn-primary">Validasi</button>
-                            <a href="{{ route('mutasi.list') }}" class="btn btn-secondary">Kembali</a>
-                        </form>
+                        <button type="button" id="validateBtn" class="btn btn-primary">Validasi</button>
+                        <button type="button" data-toggle="modal" data-target="#cancelModal" class="btn btn-danger">Batal</button>
+                        <a href="{{ route('mutasi.list') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page Content -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
 </div>
-<!-- ============================================================== -->
-<!-- End Page wrapper  -->
-<!-- ============================================================== -->
 
-<!-- Modal -->
-<div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
+<!-- Cancel Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="fileModalLabel">File Preview</h5>
+                <h5 class="modal-title" id="cancelModalLabel">Batal Validasi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <iframe id="filePreview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+            <form action="{{ route('mutasi.cancel', $mutasi->id) }}" method="POST">
+                @csrf
+                <input type="hidden" name="_method" value="PATCH">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cancellation_reason">Alasan Pembatalan</label>
+                        <textarea id="cancellation_reason" name="cancellation_reason" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-danger">Batal Validasi</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-@endsection
+<!-- Include SweetAlert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@section('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const fileLinks = document.querySelectorAll('.file-link');
-    
-    fileLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const fileUrl = this.getAttribute('href');
-            const fileName = this.textContent;
-            
-            // Update modal content
-            document.getElementById('fileModalLabel').textContent = `Preview of ${fileName}`;
-            document.getElementById('filePreview').src = fileUrl;
-            
-            // Show the modal
-            $('#fileModal').modal('show');
-        });
+document.getElementById('validateBtn').addEventListener('click', function() {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Pastikan Anda telah memeriksa semua file.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Validasi!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('validationForm').submit();  // Submit the form
+        }
     });
 });
 </script>
+
 @endsection

@@ -295,33 +295,6 @@ class MutasiController extends Controller
 
     return redirect()->route('mutasi')->with('status', 'Mutasi berhasil diperbarui.');
 }
-public function validateMutasi($id)
-{
-    $mutasi = Mutasi::findOrFail($id);
-
-    return view('mutasi.validate', compact('mutasi'));
-}
-
-// Handle validation action
-public function updateValidation(Request $request, $id)
-{
-    $mutasi = Mutasi::findOrFail($id);
-
-    if ($request->input('action') === 'validate') {
-        $mutasi->validate();
-        return redirect()->route('cms.users')->with('status', 'Mutasi berhasil divalidasi.');
-    }
-
-    return redirect()->route('cms.users')->with('error', 'Terjadi kesalahan dalam proses validasi.');
-
-}
-public function list()
-{
-    $mutasis = Mutasi::paginate(10); // Mengambil mutasi dengan pagination
-
-    return view('mutasi.list', compact('mutasis'));
-}
-
 
 }
 
