@@ -2,13 +2,14 @@
     <div class="container my-5">
         <h2 class="mb-4">Riwayat Mutasi</h2>
 
-        <?php if(session('status')): ?>
-            <div class="alert alert-info alert-dismissible fade show mb-4" role="status">
-                <?php echo e(session('status')); ?>
+        <?php if(session('success')): ?>
+            <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+                <?php echo e(session('success')); ?>
 
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
+
         <!-- Alert jika ada pesan error -->
         <?php if(session('error')): ?>
             <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">

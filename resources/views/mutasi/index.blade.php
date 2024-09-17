@@ -4,12 +4,13 @@
     <div class="container my-5">
         <h2 class="mb-4">Riwayat Mutasi</h2>
 
-        @if(session('status'))
-            <div class="alert alert-info alert-dismissible fade show mb-4" role="status">
-                {{ session('status') }}
+        @if(session('success'))
+            <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+                {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
         <!-- Alert jika ada pesan error -->
         @if(session('error'))
             <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">

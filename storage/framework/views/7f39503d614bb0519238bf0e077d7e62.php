@@ -204,227 +204,60 @@ unset($__errorArgs, $__bag); ?>
                                 <h4 class="mb-0">Pengajuan Mutasi - Upload Dokumen</h4>
                             </div>
                             <div class="card-body">
-                                
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <label for="sk_cpns" class="form-label fw-bold">Copy + Legalisir SK CPNS</label>
-                                    <?php if($mutasi->sk_cpns): ?>
-                                        <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                            <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($mutasi->sk_cpns)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                            <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('sk_cpns')">Ubah File</button>
-                                        </div>
-                                        <div id="fileInputContainer-sk_cpns" style="display: none;">
-                                            <div class="input-group">
-                                                <input type="file" class="form-control" id="sk_cpns" name="sk_cpns" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_cpns" onchange="showFileLink('sk_cpns', 'view-sk_cpns')">
-                                                <span class="input-group-append">
-                                                    <a id="view-sk_cpns" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                <?php $__currentLoopData = $persyaratans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $persyaratan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label for="<?php echo e($persyaratan->id); ?>" class="form-label fw-bold"><?php echo e($persyaratan->nama_persyaratan); ?></label>
+
+                                            <?php
+                                                // Ambil path file dari tabel upload_persyaratan
+                                                $uploadPersyaratan = $mutasi->uploads->where('persyaratan_id', $persyaratan->id)->first();
+                                                $filePath = $uploadPersyaratan ? $uploadPersyaratan->file_path : null;
+                                            ?>
+
+                                            <?php if($filePath): ?>
+                                                <!-- Jika file sudah di-upload -->
+                                                <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                                                    <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($filePath)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
+                                                    <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('<?php echo e($persyaratan->id); ?>')">Ubah File</button>
+                                                </div>
+
+                                                <!-- Kontainer input file untuk ubah file, tersembunyi secara default -->
+                                                <div id="fileInputContainer-<?php echo e($persyaratan->id); ?>" style="display: none;">
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" id="<?php echo e($persyaratan->id); ?>" name="persyaratan[<?php echo e($persyaratan->id); ?>]" accept=".<?php echo e($persyaratan->jenis_file); ?>"
+                                                            aria-describedby="upload-help-<?php echo e($persyaratan->id); ?>" onchange="showFileLink('<?php echo e($persyaratan->id); ?>', 'view-<?php echo e($persyaratan->id); ?>')">
+                                                        <span class="input-group-append">
+                                                            <a id="view-<?php echo e($persyaratan->id); ?>" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <small id="upload-help-<?php echo e($persyaratan->id); ?>" class="form-text text-danger">Format <?php echo e(strtoupper($persyaratan->jenis_file)); ?>, ukuran maksimal <?php echo e($persyaratan->ukuran); ?>KB</small>
+                                                </div>
+                                            <?php else: ?>
+                                                <!-- Jika file belum di-upload -->
+                                                <div class="input-group mb-3">
+                                                    <input type="file" class="form-control" id="<?php echo e($persyaratan->id); ?>" name="persyaratan[<?php echo e($persyaratan->id); ?>]" accept=".<?php echo e($persyaratan->jenis_file); ?>"
+                                                        aria-describedby="upload-help-<?php echo e($persyaratan->id); ?>" onchange="showFileLink('<?php echo e($persyaratan->id); ?>', 'view-<?php echo e($persyaratan->id); ?>')">
+                                                    <a id="view-<?php echo e($persyaratan->id); ?>" href="#" target="_blank" class="btn btn-outline-info d-none"
+                                                    style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                </span>
-                                            </div>
-                                            <small id="upload-help-sk_cpns" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
+                                                </div>
+                                                <small id="upload-help-<?php echo e($persyaratan->id); ?>" class="form-text text-danger">Format <?php echo e(strtoupper($persyaratan->jenis_file)); ?>, ukuran maksimal <?php echo e($persyaratan->ukuran); ?>KB</small>
+                                            <?php endif; ?>
+
+                                            <!-- Pesan error validasi -->
+                                            <?php if($errors->has("persyaratan.{$persyaratan->id}")): ?>
+                                                <div class="text-danger mt-2">
+                                                    <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first("persyaratan.{$persyaratan->id}")); ?>
+
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php else: ?>
-                                        <div class="input-group mb-3">
-                                            <input type="file" class="form-control" id="sk_cpns" name="sk_cpns" accept=".pdf"
-                                                aria-describedby="upload-help-sk_cpns" onchange="showFileLink('sk_cpns', 'view-sk_cpns')">
-                                            <a id="view-sk_cpns" href="#" target="_blank" class="btn btn-outline-info d-none"
-                                            style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </div>
-                                        <small id="upload-help-sk_cpns" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                    <?php endif; ?>
-                                    <?php if($errors->has('sk_cpns')): ?>
-                                        <div class="text-danger mt-2">
-                                            <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first('sk_cpns')); ?>
-
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
-
-                                
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <label for="sk_pns" class="form-label fw-bold">Copy + Legalisir SK PNS</label>
-                                        <?php if($mutasi->sk_pns): ?>
-                                            <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($mutasi->sk_pns)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                                <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('sk_pns')">Ubah File</button>
-                                            </div>
-                                            <div id="fileInputContainer-sk_pns" style="display: none;">
-                                                <input type="file" class="form-control" id="sk_pns" name="sk_pns" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_pns" onchange="showFileLink('sk_pns', 'view-sk_pns')">
-                                                <small id="upload-help-sk_pns" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                            </div>
-                                        <?php else: ?>
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="sk_pns" name="sk_pns" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_pns" onchange="showFileLink('sk_pns', 'view-sk_pns')">
-                                                <a id="view-sk_pns" href="<?php echo e($mutasi->sk_pns ? Storage::url($mutasi->sk_pns) : '#'); ?>"
-                                                target="_blank"
-                                                class="btn btn-outline-info <?php echo e($mutasi->sk_pns ? '' : 'd-none'); ?>"
-                                                style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </div>
-                                            <small id="upload-help-sk_pns" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                        <?php endif; ?>
-                                        <?php if($errors->has('sk_pns')): ?>
-                                            <div class="text-danger mt-2">
-                                                <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first('sk_pns')); ?>
-
-                                            </div>
-                                        <?php endif; ?>
                                     </div>
-                                </div>
-
-                                
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <label for="sk_pangkat_terakhir" class="form-label fw-bold">Copy + Legalisir SK Pangkat Terakhir</label>
-                                        <?php if($mutasi->sk_pangkat_terakhir): ?>
-                                            <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($mutasi->sk_pangkat_terakhir)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                                <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('sk_pangkat_terakhir')">Ubah File</button>
-                                            </div>
-                                            <div id="fileInputContainer-sk_pangkat_terakhir" style="display: none;">
-                                                <input type="file" class="form-control" id="sk_pangkat_terakhir" name="sk_pangkat_terakhir" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_pangkat_terakhir" onchange="showFileLink('sk_pangkat_terakhir', 'view-sk_pangkat_terakhir')">
-                                                <small id="upload-help-sk_pangkat_terakhir" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                            </div>
-                                        <?php else: ?>
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="sk_pangkat_terakhir" name="sk_pangkat_terakhir" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_pangkat_terakhir" onchange="showFileLink('sk_pangkat_terakhir', 'view-sk_pangkat_terakhir')">
-                                                <a id="view-sk_pangkat_terakhir" href="<?php echo e($mutasi->sk_pangkat_terakhir ? Storage::url($mutasi->sk_pangkat_terakhir) : '#'); ?>"
-                                                target="_blank"
-                                                class="btn btn-outline-info <?php echo e($mutasi->sk_pangkat_terakhir ? '' : 'd-none'); ?>"
-                                                style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </div>
-                                            <small id="upload-help-sk_pangkat_terakhir" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                        <?php endif; ?>
-                                        <?php if($errors->has('sk_pangkat_terakhir')): ?>
-                                            <div class="text-danger mt-2">
-                                                <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first('sk_pangkat_terakhir')); ?>
-
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-
-                                
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <label for="sk_jabatan_struktural" class="form-label fw-bold">Copy + Legalisir SK Jabatan Struktural</label>
-                                        <?php if($mutasi->sk_jabatan_struktural): ?>
-                                            <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($mutasi->sk_jabatan_struktural)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                                <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('sk_jabatan_struktural')">Ubah File</button>
-                                            </div>
-                                            <div id="fileInputContainer-sk_jabatan_struktural" style="display: none;">
-                                                <input type="file" class="form-control" id="sk_jabatan_struktural" name="sk_jabatan_struktural" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_jabatan_struktural" onchange="showFileLink('sk_jabatan_struktural', 'view-sk_jabatan_struktural')">
-                                                <small id="upload-help-sk_jabatan_struktural" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                            </div>
-                                        <?php else: ?>
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="sk_jabatan_struktural" name="sk_jabatan_struktural" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_jabatan_struktural" onchange="showFileLink('sk_jabatan_struktural', 'view-sk_jabatan_struktural')">
-                                                <a id="view-sk_jabatan_struktural" href="<?php echo e($mutasi->sk_jabatan_struktural ? Storage::url($mutasi->sk_jabatan_struktural) : '#'); ?>"
-                                                target="_blank"
-                                                class="btn btn-outline-info <?php echo e($mutasi->sk_jabatan_struktural ? '' : 'd-none'); ?>"
-                                                style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </div>
-                                            <small id="upload-help-sk_jabatan_struktural" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                        <?php endif; ?>
-                                        <?php if($errors->has('sk_jabatan_struktural')): ?>
-                                            <div class="text-danger mt-2">
-                                                <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first('sk_jabatan_struktural')); ?>
-
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-
-                                
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <label for="sk_jabatan_fungsional" class="form-label fw-bold">Copy + Legalisir SK Jabatan Fungsional</label>
-                                        <?php if($mutasi->sk_jabatan_fungsional): ?>
-                                            <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($mutasi->sk_jabatan_fungsional)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                                <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('sk_jabatan_fungsional')">Ubah File</button>
-                                            </div>
-                                            <div id="fileInputContainer-sk_jabatan_fungsional" style="display: none;">
-                                                <input type="file" class="form-control" id="sk_jabatan_fungsional" name="sk_jabatan_fungsional" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_jabatan_fungsional" onchange="showFileLink('sk_jabatan_fungsional', 'view-sk_jabatan_fungsional')">
-                                                <small id="upload-help-sk_jabatan_fungsional" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                            </div>
-                                        <?php else: ?>
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="sk_jabatan_fungsional" name="sk_jabatan_fungsional" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_jabatan_fungsional" onchange="showFileLink('sk_jabatan_fungsional', 'view-sk_jabatan_fungsional')">
-                                                <a id="view-sk_jabatan_fungsional" href="<?php echo e($mutasi->sk_jabatan_fungsional ? Storage::url($mutasi->sk_jabatan_fungsional) : '#'); ?>"
-                                                target="_blank"
-                                                class="btn btn-outline-info <?php echo e($mutasi->sk_jabatan_fungsional ? '' : 'd-none'); ?>"
-                                                style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </div>
-                                            <small id="upload-help-sk_jabatan_fungsional" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                        <?php endif; ?>
-                                        <?php if($errors->has('sk_jabatan_fungsional')): ?>
-                                            <div class="text-danger mt-2">
-                                                <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first('sk_jabatan_fungsional')); ?>
-
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-
-                                
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <label for="sk_berkala_terakhir" class="form-label fw-bold">Copy + Legalisir SK Berkala Terakhir</label>
-                                        <?php if($mutasi->sk_berkala_terakhir): ?>
-                                            <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($mutasi->sk_berkala_terakhir)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                                <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('sk_berkala_terakhir')">Ubah File</button>
-                                            </div>
-                                            <div id="fileInputContainer-sk_berkala_terakhir" style="display: none;">
-                                                <input type="file" class="form-control" id="sk_berkala_terakhir" name="sk_berkala_terakhir" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_berkala_terakhir" onchange="showFileLink('sk_berkala_terakhir', 'view-sk_berkala_terakhir')">
-                                                <small id="upload-help-sk_berkala_terakhir" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                            </div>
-                                        <?php else: ?>
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="sk_berkala_terakhir" name="sk_berkala_terakhir" accept=".pdf"
-                                                    aria-describedby="upload-help-sk_berkala_terakhir" onchange="showFileLink('sk_berkala_terakhir', 'view-sk_berkala_terakhir')">
-                                                <a id="view-sk_berkala_terakhir" href="<?php echo e($mutasi->sk_berkala_terakhir ? Storage::url($mutasi->sk_berkala_terakhir) : '#'); ?>"
-                                                target="_blank"
-                                                class="btn btn-outline-info <?php echo e($mutasi->sk_berkala_terakhir ? '' : 'd-none'); ?>"
-                                                style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </div>
-                                            <small id="upload-help-sk_berkala_terakhir" class="form-text text-danger">Format PDF, ukuran maksimal 500KB</small>
-                                        <?php endif; ?>
-                                        <?php if($errors->has('sk_berkala_terakhir')): ?>
-                                            <div class="text-danger mt-2">
-                                                <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first('sk_berkala_terakhir')); ?>
-
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 <!-- Navigasi Step -->
                                 <div class="d-grid gap-2">

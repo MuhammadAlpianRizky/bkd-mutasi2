@@ -205,61 +205,59 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="card-body">
                                 <?php $__currentLoopData = $persyaratans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $persyaratan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="row mb-4">
-        <div class="col-12">
-            <label for="<?php echo e($persyaratan->id); ?>" class="form-label fw-bold"><?php echo e($persyaratan->nama_persyaratan); ?></label>
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label for="<?php echo e($persyaratan->id); ?>" class="form-label fw-bold"><?php echo e($persyaratan->nama_persyaratan); ?></label>
 
-            <?php
-                // Ambil path file dari tabel upload_persyaratan
-                $uploadPersyaratan = $mutasi->uploads->where('persyaratan_id', $persyaratan->id)->first();
-                $filePath = $uploadPersyaratan ? $uploadPersyaratan->file_path : null;
-            ?>
+                                            <?php
+                                                // Ambil path file dari tabel upload_persyaratan
+                                                $uploadPersyaratan = $mutasi->uploads->where('persyaratan_id', $persyaratan->id)->first();
+                                                $filePath = $uploadPersyaratan ? $uploadPersyaratan->file_path : null;
+                                            ?>
 
-            <?php if($filePath): ?>
-                <!-- Jika file sudah di-upload -->
-                <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                    <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($filePath)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                    <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('<?php echo e($persyaratan->id); ?>')">Ubah File</button>
-                </div>
+                                            <?php if($filePath): ?>
+                                                <!-- Jika file sudah di-upload -->
+                                                <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                                                    <span>File sudah di-upload. Anda dapat <a href="<?php echo e(Storage::url($filePath)); ?>" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
+                                                    <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('<?php echo e($persyaratan->id); ?>')">Ubah File</button>
+                                                </div>
 
-                <!-- Kontainer input file untuk ubah file, tersembunyi secara default -->
-                <div id="fileInputContainer-<?php echo e($persyaratan->id); ?>" style="display: none;">
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="<?php echo e($persyaratan->id); ?>" name="persyaratan[<?php echo e($persyaratan->id); ?>]" accept=".<?php echo e($persyaratan->jenis_file); ?>"
-                            aria-describedby="upload-help-<?php echo e($persyaratan->id); ?>" onchange="showFileLink('<?php echo e($persyaratan->id); ?>', 'view-<?php echo e($persyaratan->id); ?>')">
-                        <span class="input-group-append">
-                            <a id="view-<?php echo e($persyaratan->id); ?>" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </span>
-                    </div>
-                    <small id="upload-help-<?php echo e($persyaratan->id); ?>" class="form-text text-danger">Format <?php echo e(strtoupper($persyaratan->jenis_file)); ?>, ukuran maksimal <?php echo e($persyaratan->ukuran); ?>KB</small>
-                </div>
-            <?php else: ?>
-                <!-- Jika file belum di-upload -->
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="<?php echo e($persyaratan->id); ?>" name="persyaratan[<?php echo e($persyaratan->id); ?>]" accept=".<?php echo e($persyaratan->jenis_file); ?>"
-                        aria-describedby="upload-help-<?php echo e($persyaratan->id); ?>" onchange="showFileLink('<?php echo e($persyaratan->id); ?>', 'view-<?php echo e($persyaratan->id); ?>')">
-                    <a id="view-<?php echo e($persyaratan->id); ?>" href="#" target="_blank" class="btn btn-outline-info d-none"
-                    style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                </div>
-                <small id="upload-help-<?php echo e($persyaratan->id); ?>" class="form-text text-danger">Format <?php echo e(strtoupper($persyaratan->jenis_file)); ?>, ukuran maksimal <?php echo e($persyaratan->ukuran); ?>KB</small>
-            <?php endif; ?>
+                                                <!-- Kontainer input file untuk ubah file, tersembunyi secara default -->
+                                                <div id="fileInputContainer-<?php echo e($persyaratan->id); ?>" style="display: none;">
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" id="<?php echo e($persyaratan->id); ?>" name="persyaratan[<?php echo e($persyaratan->id); ?>]" accept=".<?php echo e($persyaratan->jenis_file); ?>"
+                                                            aria-describedby="upload-help-<?php echo e($persyaratan->id); ?>" onchange="showFileLink('<?php echo e($persyaratan->id); ?>', 'view-<?php echo e($persyaratan->id); ?>')">
+                                                        <span class="input-group-append">
+                                                            <a id="view-<?php echo e($persyaratan->id); ?>" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <small id="upload-help-<?php echo e($persyaratan->id); ?>" class="form-text text-danger">Format <?php echo e(strtoupper($persyaratan->jenis_file)); ?>, ukuran maksimal <?php echo e($persyaratan->ukuran); ?>KB</small>
+                                                </div>
+                                            <?php else: ?>
+                                                <!-- Jika file belum di-upload -->
+                                                <div class="input-group mb-3">
+                                                    <input type="file" class="form-control" id="<?php echo e($persyaratan->id); ?>" name="persyaratan[<?php echo e($persyaratan->id); ?>]" accept=".<?php echo e($persyaratan->jenis_file); ?>"
+                                                        aria-describedby="upload-help-<?php echo e($persyaratan->id); ?>" onchange="showFileLink('<?php echo e($persyaratan->id); ?>', 'view-<?php echo e($persyaratan->id); ?>')">
+                                                    <a id="view-<?php echo e($persyaratan->id); ?>" href="#" target="_blank" class="btn btn-outline-info d-none"
+                                                    style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <small id="upload-help-<?php echo e($persyaratan->id); ?>" class="form-text text-danger">Format <?php echo e(strtoupper($persyaratan->jenis_file)); ?>, ukuran maksimal <?php echo e($persyaratan->ukuran); ?>KB</small>
+                                            <?php endif; ?>
 
-            <!-- Pesan error validasi -->
-            <?php if($errors->has("persyaratan.{$persyaratan->id}")): ?>
-                <div class="text-danger mt-2">
-                    <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first("persyaratan.{$persyaratan->id}")); ?>
+                                            <!-- Pesan error validasi -->
+                                            <?php if($errors->has("persyaratan.{$persyaratan->id}")): ?>
+                                                <div class="text-danger mt-2">
+                                                    <i class="fas fa-exclamation-triangle"></i> <?php echo e($errors->first("persyaratan.{$persyaratan->id}")); ?>
 
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 <!-- Navigasi Step -->
                                 <div class="d-grid gap-2">
