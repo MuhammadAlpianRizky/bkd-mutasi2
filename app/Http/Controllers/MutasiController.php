@@ -126,7 +126,7 @@ class MutasiController extends Controller
         if ($request->action == 'finish') {
             return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah berhasil dikirim.');
         } else {
-            return redirect()->route('mutasi.create')->with('success', 'Data telah disimpan, lanjutkan untuk mengunggah dokumen.');
+            return redirect()->route('mutasi')->with('success', 'Data telah disimpan, lanjutkan untuk mengunggah dokumen.');
         }
     }
 
@@ -158,7 +158,7 @@ class MutasiController extends Controller
         return $datePrefix . $numberSuffix;
     }
 
-    public function edit($id)
+     public function edit($id)
     {
         $mutasi = Mutasi::findOrFail($id);
 
@@ -180,20 +180,23 @@ class MutasiController extends Controller
 
         // Validasi data diri
         $validated = $request->validate([
-            'nama' => 'required|string',
+            'nama' => 'required|string|max:255',
             'nip' => 'required|numeric',
-            'pgol' => 'nullable|string',
-            'jabatan' => 'nullable|string',
-            'unit_kerja' => 'nullable|string',
-            'instansi' => 'nullable|string',
-            'no_hp' => 'required|numeric',
+            'pgol' => 'nullable|string|max:50',
+            'jabatan' => 'nullable|string|max:100',
+            'unit_kerja' => 'nullable|string|max:100',
+            'instansi' => 'nullable|string|max:100',
+            'no_hp' => 'required|numeric|digits_between:10,15',
+            'action' => 'required|in:finish,save', // Validasi tindakan
         ], [
-            // Pesan error kustom untuk data diri
             'nama.required' => 'Nama lengkap wajib diisi.',
             'nip.required' => 'NIP wajib diisi.',
             'nip.numeric' => 'NIP harus berupa angka.',
             'no_hp.required' => 'Nomor HP harus diisi.',
             'no_hp.numeric' => 'Nomor HP harus berupa angka.',
+            'no_hp.digits_between' => 'Nomor HP harus terdiri dari 10 sampai 15 digit.',
+            'action.required' => 'Tindakan harus dipilih.',
+            'action.in' => 'Tindakan yang dipilih tidak valid.',
         ]);
 
         // Temukan mutasi berdasarkan ID
@@ -202,6 +205,31 @@ class MutasiController extends Controller
         // Periksa apakah mutasi sudah dikunci
         if ($mutasi->is_final) {
             return redirect()->route('mutasi')->with('error', 'Mutasi ini sudah dikunci dan tidak dapat diedit.');
+        }
+
+        // Validasi file unggahan secara dinamis
+        $persyaratanList = Persyaratan::all();
+        $fileRules = [];
+        $customMessages = [];
+
+        foreach ($persyaratanList as $persyaratan) {
+            $fieldName = "persyaratan.{$persyaratan->id}";
+
+            // Tambahkan aturan validasi untuk setiap file berdasarkan persyaratan
+            $fileRules[$fieldName] = [
+                "file",
+                "mimes:{$persyaratan->jenis_file}",
+                "max:{$persyaratan->ukuran}",
+            ];
+
+            // Pesan error kustom
+            $customMessages["{$fieldName}.mimes"] = "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.";
+            $customMessages["{$fieldName}.max"] = "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.";
+        }
+
+        // Validasi file unggahan
+        if ($request->has('persyaratan')) {
+            $request->validate($fileRules, $customMessages);
         }
 
         // Perbarui data mutasi
