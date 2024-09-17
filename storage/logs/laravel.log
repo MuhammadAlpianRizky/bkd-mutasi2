@@ -2443,6 +2443,7 @@ Did you mean one of these?
 #11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
 #12 {main}
 "} 
+<<<<<<< HEAD
 [2024-09-17 04:00:36] local.ERROR: Method App\Http\Controllers\MutasiController::update does not exist. {"userId":2,"exception":"[object] (BadMethodCallException(code: 0): Method App\\Http\\Controllers\\MutasiController::update does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php:68)
 [stacktrace]
 #0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): Illuminate\\Routing\\Controller->__call()
@@ -2936,4 +2937,57 @@ Did you mean one of these?
 #10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
 #11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
 #12 {main}
+=======
+[2024-09-17 00:24:58] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:25:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:26:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:27:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:28:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:29:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:30:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:31:20] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:32:00] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:32:00] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:32:10] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:32:10] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-17 00:33:09] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\app\\Models\\Mutasi.php:29)
+[stacktrace]
+#0 {main}
+>>>>>>> 2a31a2b0c506adf781f4f656634a2d5119d93940
 "} 

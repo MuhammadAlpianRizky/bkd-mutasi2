@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\PersyaratanController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 // // Route::get('/', function () {
 // //     return view('welcome');
@@ -44,6 +46,16 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
             Route::get('/users/activate', [HomeController::class, 'showActiveUsers'])->name('cms.active.users');
             Route::get('/users/inactivate', [HomeController::class, 'showInactiveUsers'])->name('cms.inactive.users');
+            Route::get('/mutasi/{id}/validate', [FileController::class, 'validate'])->name('mutasi.validate');
+            Route::post('/mutasi/{id}/validate', [FileController::class, 'updateValidation'])->name('mutasi.validate.update');
+            Route::get('/mutasi/list', [FileController::class, 'list'])->name('mutasi.list');
+            // Route untuk membatalkan validasi
+            Route::patch('/mutasi/{id}/cancel', [FileController::class, 'cancel'])->name('mutasi.cancel');
+            Route::get('/files/{id}/{filename}', [FileController::class, 'show'])->name('file.show');
+            Route::resource('persyaratan', PersyaratanController::class);
+
+            
+
         });
 
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');

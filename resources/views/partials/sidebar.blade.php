@@ -15,68 +15,50 @@
                     </a>
                 </li>
                 <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+                
+                <li class="nav-small-cap"><span class="hide-menu">User</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.users') }}" aria-expanded="false">
-                        <i data-feather="home" class="feather-icon"></i>
+                        <i data-feather="user-plus" class="feather-icon"></i>
                         <span class="hide-menu">Pending User</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.active.users') }}" aria-expanded="false">
-                        <i data-feather="home" class="feather-icon"></i>
+                        <i data-feather="user-check" class="feather-icon"></i>
                         <span class="hide-menu">Aktif User</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.inactive.users') }}" aria-expanded="false">
-                        <i data-feather="home" class="feather-icon"></i>
+                        <i data-feather="user-x" class="feather-icon"></i>
                         <span class="hide-menu">Non-aktif User</span>
                     </a>
                 </li>
-                <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
+                
+                <li class="nav-small-cap"><span class="hide-menu">Dokumen</span></li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="{{ route('mutasi.list') }}" aria-expanded="false">
+                        <i data-feather="list" class="feather-icon"></i>
+                        <span class="hide-menu">Daftar Mutasi</span>
+                    </a>
+                </li>
+
+                <li class="nav-small-cap"><span class="hide-menu">Persyaratan</span></li>
+                <!-- Persyaratan CRUD Links -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('persyaratan.index') }}" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>
-                        <span class="hide-menu">Forms</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level base-level-line">
-                        <li class="sidebar-item">
-                            <a href="form-inputs.html" class="sidebar-link">
-                                <span class="hide-menu">Form Inputs</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="form-input-grid.html" class="sidebar-link">
-                                <span class="hide-menu">Form Grids</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="form-checkbox-radio.html" class="sidebar-link">
-                                <span class="hide-menu">Checkboxes & Radios</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                
-                <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Authentication</span></li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="authentication-login1.html" aria-expanded="false">
-                        <i data-feather="lock" class="feather-icon"></i>
-                        <span class="hide-menu">Login</span>
+                        <span class="hide-menu">Daftar Persyaratan</span>
                     </a>
                 </li>
-                
-                <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="authentication-login1.html" aria-expanded="false">
-                        <i data-feather="log-out" class="feather-icon"></i>
-                        <span class="hide-menu">Logout</span>
+                {{-- <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('persyaratan.create') }}" aria-expanded="false">
+                        <i data-feather="file-plus" class="feather-icon"></i>
+                        <span class="hide-menu">Tambah Persyaratan</span>
                     </a>
-                </li>
+                </li> --}}
+                <!-- Add more links if needed -->
                 
             </ul>
         </nav>

@@ -41,7 +41,6 @@
                                 <th>Aksi</th>
                                 <th>Keterangan</th>
                             </tr>
-                            </tr>
                         </thead>
                         <tbody>
                             @foreach($mutasi as $index => $item)
@@ -72,8 +71,8 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('mutasi.edit', $item->id) }}"
-                                           class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm">
-                                           <i class="fas fa-pencil-alt"></i> Edit
+                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm">
+                                        <i class="fas fa-pencil-alt"></i> Edit
                                         </a>
                                     </td>
                                     <td>{{ $item->keterangan }}</td>
