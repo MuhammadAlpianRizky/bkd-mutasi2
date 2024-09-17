@@ -9,6 +9,7 @@ use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
@@ -51,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
             // Route untuk membatalkan validasi
             Route::patch('/mutasi/{id}/cancel', [FileController::class, 'cancel'])->name('mutasi.cancel');
             Route::get('/files/{id}/{filename}', [FileController::class, 'show'])->name('file.show');
+            Route::resource('persyaratan', PersyaratanController::class);
+
             
 
         });

@@ -98,17 +98,17 @@ class FileController extends Controller
             'cancellation_reason' => null,
         ]);
 
-        // Update or create a validasi record
-        Validasi::updateOrCreate(
-            ['mutasi_id' => $id],
-            [
-                'sk_cpns_verified' => $request->has('sk_cpns_check'),
-                'sk_pns_verified' => $request->has('sk_pns_check'),
-                'sk_pangkat_terakhir_verified' => $request->has('sk_pangkat_terakhir_check'),
-                'sk_jabatan_struktural_verified' => $request->has('sk_jabatan_struktural_check'),
-                'sk_jabatan_fungsional_verified' => $request->has('sk_jabatan_fungsional_check'),
-            ]
-        );
+        // // Update or create a validasi record
+        // Validasi::updateOrCreate(
+        //     ['mutasi_id' => $id],
+        //     [
+        //         'sk_cpns_verified' => $request->has('sk_cpns_check'),
+        //         'sk_pns_verified' => $request->has('sk_pns_check'),
+        //         'sk_pangkat_terakhir_verified' => $request->has('sk_pangkat_terakhir_check'),
+        //         'sk_jabatan_struktural_verified' => $request->has('sk_jabatan_struktural_check'),
+        //         'sk_jabatan_fungsional_verified' => $request->has('sk_jabatan_fungsional_check'),
+        //     ]
+        // );
 
         return redirect()->route('mutasi.list')->with('status', 'Mutasi berhasil divalidasi.');
     }
