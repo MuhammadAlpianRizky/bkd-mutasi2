@@ -36,4 +36,11 @@ class Mutasi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function uploads()
+    {
+        return $this->hasMany(UploadPersyaratan::class);
+    }
+
+
 }

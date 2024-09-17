@@ -17,40 +17,44 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 // User.php Model Update
-protected $fillable = [
-    'nip',
-    'nama_lengkap',
-    'alamat_tinggal',
-    'no_hp',
-    'no_ktp',
-    'no_karpeg',
-    'email',
-    'acc_on',
-    'is_approved', // New attribute
-    'photo_ktp', // Tambahkan field foto KTP
-    'photo_karpeg', // Tambahkan field foto Karpeg
-    'status_verifikasi',
-];
-
-protected $hidden = [
-    'acc_on',  // Updated field
-    'remember_token',
-];
-
-protected function casts(): array
-{
-    return [
-        'email_verified_at' => 'datetime',
-        'is_approved' => 'boolean',
-        'acc_on' => 'hashed',  // Updated field
-        'status_verifikasi' => 'boolean',
+    protected $fillable = [
+        'nip',
+        'nama_lengkap',
+        'alamat_tinggal',
+        'no_hp',
+        'no_ktp',
+        'no_karpeg',
+        'email',
+        'acc_on',
+        'is_approved',
+        'photo_ktp',
+        'photo_karpeg',
+        'status_verifikasi',
     ];
-}
 
-public function mutasi()
-{
-    return $this->hasMany(Mutasi::class);
-}
+    protected $hidden = [
+        'acc_on',  // Updated field
+        'remember_token',
+    ];
 
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'is_approved' => 'boolean',
+            'acc_on' => 'hashed',  // Updated field
+            'status_verifikasi' => 'boolean',
+        ];
+    }
+
+    public function mutasi()
+    {
+        return $this->hasMany(Mutasi::class);
+    }
+
+    public function uploads()
+    {
+        return $this->hasMany(UploadPersyaratan::class);
+    }
 
 }
