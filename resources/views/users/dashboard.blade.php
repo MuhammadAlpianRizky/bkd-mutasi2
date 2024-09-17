@@ -12,25 +12,7 @@
 <body>
 
     {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
-            <div class="container px-4">
-                <a class="navbar-brand" href="#page-top">
-                    <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
-                    <span style="font-size: 16px;">BKD DIKLAT BANJARMASIN</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}" style="font-size: 16px;">Beranda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('mutasi') }}" style="font-size: 16px;">Mutasi</a></li>
-                        {{-- <li class="nav-item"><a class="nav-link" href="#" style="font-size: 16px;"><i class="fas fa-user"></i> Profil</a></li> --}}
-                        <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}" style="font-size: 16px;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-    </nav>
+    @include('users.navbar')
 
     <!-- Main Content -->
     <main class="content" style="margin-top: 0px;">
@@ -38,14 +20,12 @@
     </main>
 
     <!-- Footer-->
-    <footer style="padding: 20px;" class="py-4 bg-dark">
-        <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; BKD DIKLAT BANJARMASIN 2024</p></div>
-    </footer>
-
+    @if (!isset($noFooter)) <!-- Cek jika variabel $noFooter tidak di-set -->
+        @include('users.footer') <!-- Include footer jika $noFooter tidak ada -->
+    @endif
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

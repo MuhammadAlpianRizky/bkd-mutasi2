@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mutasi;
+use App\Models\Persyaratan;
 use Illuminate\Http\Request;
+use App\Models\UploadPersyaratan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+
 class MutasiController extends Controller
 {
     public function index()
@@ -31,115 +35,96 @@ class MutasiController extends Controller
         // Simpan ID mutasi ke session
         $request->session()->put('mutasi_id', null);
 
-        return view('mutasi.create-mutasi', compact('user'));
+        // Ambil data persyaratan untuk membuat form upload dinamis
+        $persyaratans = Persyaratan::all();
+
+        return view('mutasi.create-mutasi', compact('user', 'persyaratans'));
     }
 
-    public function store (Request $request)
-    {
-        // Validasi data dengan pesan error kustom
-        $validated = $request->validate([
-            'nama' => 'required|string',
-            'nip' => 'required|numeric',
-            'pgol' => 'nullable|string',
-            'jabatan' => 'nullable|string',
-            'unit_kerja' => 'nullable|string',
-            'instansi' => 'nullable|string',
-            'no_hp' => 'numeric',
-            'sk_cpns' => 'nullable|file|mimes:pdf|max:500',
-            'sk_pns' => 'nullable|file|mimes:pdf|max:500',
-            'sk_pangkat_terakhir' => 'nullable|file|mimes:pdf|max:500',
-            'sk_jabatan_struktural' => 'nullable|file|mimes:pdf|max:500',
-            'sk_jabatan_fungsional' => 'nullable|file|mimes:pdf|max:500',
-        ], [
-            // Pesan error kustom dalam bahasa Indonesia
-            'nama.required' => 'Nama lengkap wajib diisi.',
-            'nip.required' => 'NIP wajib diisi.',
-            'nip.numeric' => 'NIP harus berupa angka.',
-            'no_hp.numeric' => 'Nomor HP harus berupa angka.',
-            'sk_cpns.mimes' => 'SK CPNS harus berupa file PDF.',
-            'sk_cpns.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-            'sk_pns.mimes' => 'SK PNS harus berupa file PDF.',
-            'sk_pns.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-            'sk_pangkat_terakhir.mimes' => 'SK CPNS harus berupa file PDF.',
-            'sk_pangkat_terakhir.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-            'sk_jabatan_struktural.mimes' => 'SK CPNS harus berupa file PDF.',
-            'sk_jabatan_struktural.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-            'sk_jabatan_fungsional.mimes' => 'SK CPNS harus berupa file PDF.',
-            'sk_jabatan_fungsional.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-        ]);
+    public function store(Request $request)
+{
+    $user = auth()->user();
 
-        // Ambil ID mutasi dari session
-        $mutasiId = session('mutasi_id');
-        $mutasi = Mutasi::find($mutasiId);
+    // Validasi data diri dan file persyaratan
+    $validated = $request->validate([
+        'nama' => 'required|string',
+        'nip' => 'required|numeric',
+        'pgol' => 'nullable|string',
+        'jabatan' => 'nullable|string',
+        'unit_kerja' => 'nullable|string',
+        'instansi' => 'nullable|string',
+        'no_hp' => 'required|numeric',
+        'persyaratan.*' => 'nullable|file|mimes:pdf|max:500', // Validasi untuk file persyaratan
+    ], [
+        // Pesan error kustom
+        'nama.required' => 'Nama lengkap wajib diisi.',
+        'nip.required' => 'NIP wajib diisi.',
+        'nip.numeric' => 'NIP harus berupa angka.',
+        'no_hp.required' => 'Nomor HP harus diisi.',
+        'no_hp.numeric' => 'Nomor HP harus berupa angka.',
+        'persyaratan.*.file' => 'File yang diunggah harus berupa file yang valid.',
+        'persyaratan.*.mimes' => 'File yang diunggah harus berupa PDF.',
+        'persyaratan.*.max' => 'Ukuran file tidak boleh lebih dari 500 KB.',
+    ]);
 
-        if (!$mutasi) {
-            // Generate nomor registrasi jika mutasi tidak ditemukan
-            $registrationNumber = $this->generateRegistrationNumber();
+    // Proses penyimpanan data mutasi ke database
+    $mutasi = Mutasi::create([
+        'user_id' => $user->id,
+        'nama' => $request->nama,
+        'nip' => $request->nip,
+        'pgol' => $request->pgol,
+        'jabatan' => $request->jabatan,
+        'unit_kerja' => $request->unit_kerja,
+        'instansi' => $request->instansi,
+        'no_hp' => $request->no_hp,
+        'is_final' => $request->action == 'finish' ? 1 : 0,
+        'verified' => 0,
+    ]);
 
-            // Buat mutasi baru
-            $mutasi = Mutasi::create([
-                'no_registrasi' => $registrationNumber,
-                'user_id' => auth()->id(),
-                'nama' => $request->nama,
-                'nip' => $request->nip,
-                'pgol' => $request->pgol,
-                'jabatan' => $request->jabatan,
-                'unit_kerja' => $request->unit_kerja,
-                'instansi' => $request->instansi,
-                'no_hp' => $request->no_hp,
-            ]);
+    // Simpan nomor registrasi menggunakan fungsi generateRegistrationNumber
+    if ($mutasi->no_registrasi == null) {
+        $mutasi->no_registrasi = $this->generateRegistrationNumber(); // Panggil fungsi generateRegistrationNumber
+        $mutasi->save();
+    }
 
-            // Simpan ID mutasi ke session
-            $request->session()->put('mutasi_id', $mutasi->id);
-        } else {
-            // Update mutasi yang sudah ada
-            $mutasi->update($validated);
-        }
+    // Simpan ID mutasi ke session
+    $request->session()->put('mutasi_id', $mutasi->id);
 
-        // Proses upload file
-        if ($request->hasFile('sk_cpns')) {
-            $file = $request->file('sk_cpns');
-            $filePath = $file->store('uploads/sk_cpns', 'public');
-            $mutasi->update(['sk_cpns' => $filePath]);
-        }
+    // Proses unggahan file persyaratan
+    if ($request->has('persyaratan')) {
+        foreach ($request->persyaratan as $persyaratan_id => $file) {
+            if ($file) {
+                // Simpan file ke direktori
+                $filePath = $file->store('uploads/mutasi', 'public');
 
-        if ($request->hasFile('sk_pns')) {
-            $file = $request->file('sk_pns');
-            $filePath = $file->store('uploads/sk_pns', 'public');
-            $mutasi->update(['sk_pns' => $filePath]);
-        }
-
-        if ($request->hasFile('sk_pangkat_terakhir')) {
-            $file = $request->file('sk_pangkat_terakhir');
-            $filePath = $file->store('uploads/sk_pangkat_terakhir', 'public');
-            $mutasi->update(['sk_pangkat_terakhir' => $filePath]);
-        }
-
-        if ($request->hasFile('sk_jabatan_struktural')) {
-            $file = $request->file('sk_jabatan_struktural');
-            $filePath = $file->store('uploads/sk_jabatan_struktural', 'public');
-            $mutasi->update(['sk_jabatan_struktural' => $filePath]);
-        }
-
-        if ($request->hasFile('sk_jabatan_fungsional')) {
-            $file = $request->file('sk_jabatan_fungsional');
-            $filePath = $file->store('uploads/sk_jabatan_fungsional', 'public');
-            $mutasi->update(['sk_jabatan_fungsional' => $filePath]);
-        }
-
-        if ($request->input('action') === 'save') {
-            return redirect()->route('mutasi')->with('status', 'Data disimpan. Anda dapat melanjutkan pengisian.');
-        } elseif ($request->input('action') === 'finish') {
-            // Update is_final menjadi 1
-            $mutasi->update(['is_final' => 1]);
-            return redirect()->route('mutasi');
+                // Simpan informasi upload ke tabel upload persyaratan
+                UploadPersyaratan::create([
+                    'mutasi_id' => $mutasi->id,
+                    'user_id' => $user->id,
+                    'persyaratan_id' => $persyaratan_id,
+                    'file_path' => $filePath,
+                ]);
+            }
         }
     }
+
+    // Tentukan langkah berikutnya berdasarkan tindakan
+    if ($request->action == 'finish') {
+        return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah berhasil dikirim.');
+    } else {
+        return redirect()->route('mutasi.create')->with('success', 'Data telah disimpan, lanjutkan untuk mengunggah dokumen.');
+    }
+}
+
 
     private function generateRegistrationNumber()
     {
+        // Set timezone ke WITA (Waktu Indonesia Tengah)
+        $timezone = 'Asia/Makassar';
+        $date = now()->setTimezone($timezone);
+
         // Ambil tanggal saat ini dalam format YYYYMMDD
-        $datePrefix = now()->format('Ymd');
+        $datePrefix = $date->format('Ymd');
 
         // Ambil nomor registrasi terbaru untuk menentukan nomor berikutnya
         $latestMutasi = Mutasi::whereDate('created_at', now()->toDateString())
@@ -172,130 +157,4 @@ class MutasiController extends Controller
         return view('mutasi.edit-mutasi', compact('mutasi'));
     }
 
-
-
-    public function update(Request $request, $id)
-{
-    // Validasi data dengan pesan error kustom
-    $validated = $request->validate([
-        'nama' => 'required|string',
-        'nip' => 'required|numeric',
-        'pgol' => 'nullable|string',
-        'jabatan' => 'nullable|string',
-        'unit_kerja' => 'nullable|string',
-        'instansi' => 'nullable|string',
-        'no_hp' => 'numeric',
-        'sk_cpns' => 'nullable|file|mimes:pdf|max:500',
-        'sk_pns' => 'nullable|file|mimes:pdf|max:500',
-        'sk_pangkat_terakhir' => 'nullable|file|mimes:pdf|max:500',
-        'sk_jabatan_struktural' => 'nullable|file|mimes:pdf|max:500',
-        'sk_jabatan_fungsional' => 'nullable|file|mimes:pdf|max:500',
-    ], [
-        // Pesan error kustom dalam bahasa Indonesia
-        'nama.required' => 'Nama lengkap wajib diisi.',
-        'nip.required' => 'NIP wajib diisi.',
-        'nip.numeric' => 'NIP harus berupa angka.',
-        'no_hp.numeric' => 'Nomor HP harus berupa angka.',
-        'sk_cpns.mimes' => 'SK CPNS harus berupa file PDF.',
-        'sk_cpns.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-        'sk_pns.mimes' => 'SK PNS harus berupa file PDF.',
-        'sk_pns.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-        'sk_pangkat_terakhir.mimes' => 'SK CPNS harus berupa file PDF.',
-        'sk_pangkat_terakhir.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-        'sk_jabatan_struktural.mimes' => 'SK CPNS harus berupa file PDF.',
-        'sk_jabatan_struktural.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-        'sk_jabatan_fungsional.mimes' => 'SK CPNS harus berupa file PDF.',
-        'sk_jabatan_fungsional.max' => 'File tidak boleh lebih dari 500 kilobyte.',
-    ]);
-
-    // Temukan mutasi berdasarkan ID
-    $mutasi = Mutasi::findOrFail($id);
-
-    // Periksa apakah mutasi sudah dikunci
-    if ($mutasi->is_final) {
-        return redirect()->route('mutasi')->with('error', 'Mutasi ini sudah dikunci dan tidak dapat diedit.');
-    }
-
-    // Update data mutasi tanpa file
-    $mutasi->update([
-        'nama' => $request->nama,
-        'nip' => $request->nip,
-        'pgol' => $request->pgol,
-        'jabatan' => $request->jabatan,
-        'unit_kerja' => $request->unit_kerja,
-        'instansi' => $request->instansi,
-        'no_hp' => $request->no_hp,
-    ]);
-
-    // Proses upload file sk_cpns jika ada
-    if ($request->hasFile('sk_cpns')) {
-        // Hapus file lama jika ada
-        if ($mutasi->sk_cpns) {
-            Storage::disk('public')->delete($mutasi->sk_cpns);
-        }
-        // Simpan file baru
-        $file = $request->file('sk_cpns');
-        $filePath = $file->store('uploads/sk_cpns', 'public');
-        $mutasi->update(['sk_cpns' => $filePath]);
-    }
-
-    // Proses upload file sk_pns jika ada
-    if ($request->hasFile('sk_pns')) {
-        // Hapus file lama jika ada
-        if ($mutasi->sk_pns) {
-            Storage::disk('public')->delete($mutasi->sk_pns);
-        }
-        // Simpan file baru
-        $file = $request->file('sk_pns');
-        $filePath = $file->store('uploads/sk_pns', 'public');
-        $mutasi->update(['sk_pns' => $filePath]);
-    }
-
-    // Proses upload file sk_pangkat_terakhir jika ada
-    if ($request->hasFile('sk_pangkat_terakhir')) {
-        // Hapus file lama jika ada
-        if ($mutasi->sk_pangkat_terakhir) {
-            Storage::disk('public')->delete($mutasi->sk_pangkat_terakhir);
-        }
-        // Simpan file baru
-        $file = $request->file('sk_pangkat_terakhir');
-        $filePath = $file->store('uploads/sk_pangkat_terakhir', 'public');
-        $mutasi->update(['sk_pangkat_terakhir' => $filePath]);
-    }
-
-    // Proses upload file sk_jabatan_struktural jika ada
-    if ($request->hasFile('sk_jabatan_struktural')) {
-        // Hapus file lama jika ada
-        if ($mutasi->sk_jabatan_struktural) {
-            Storage::disk('public')->delete($mutasi->sk_jabatan_struktural);
-        }
-        // Simpan file baru
-        $file = $request->file('sk_jabatan_struktural');
-        $filePath = $file->store('uploads/sk_jabatan_struktural', 'public');
-        $mutasi->update(['sk_jabatan_struktural' => $filePath]);
-    }
-
-    // Proses upload file sk_jabatan_fungsional jika ada
-    if ($request->hasFile('sk_jabatan_fungsional')) {
-        // Hapus file lama jika ada
-        if ($mutasi->sk_jabatan_fungsional) {
-            Storage::disk('public')->delete($mutasi->sk_jabatan_fungsional);
-        }
-        // Simpan file baru
-        $file = $request->file('sk_jabatan_fungsional');
-        $filePath = $file->store('uploads/sk_jabatan_fungsional', 'public');
-        $mutasi->update(['sk_jabatan_fungsional' => $filePath]);
-    }
-
-    // Periksa apakah tombol 'Finish' diklik
-    if ($request->input('action') === 'finish') {
-        $mutasi->update(['status' => 'completed', 'is_final' => 1]);
-        return redirect()->route('mutasi')->with('status', 'Mutasi diperbarui dan dikunci.');
-    }
-
-    return redirect()->route('mutasi')->with('status', 'Mutasi berhasil diperbarui.');
 }
-
-}
-
-

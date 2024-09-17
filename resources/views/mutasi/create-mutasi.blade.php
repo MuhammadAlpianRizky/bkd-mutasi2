@@ -12,9 +12,20 @@
                         <!-- Card untuk Data Pribadi (Step 1) -->
                         <div id="step-1" class="card shadow-lg">
                             <div class="card-header bg-dark text-white text-center">
-                                <h4 class="mb-0">Form Pengajuan Mutasi - Data Diri</h4>
+                                <h4 class="mb-0">Pengajuan Mutasi - Data Diri</h4>
                             </div>
                             <div class="card-body">
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                                 <!-- Nama -->
                                 <div class="mb-4 row">
                                     <label for="nama" class="col-sm-4 col-form-label">Nama</label>
@@ -142,124 +153,39 @@
                         <!-- Card untuk Upload File (Step 2) -->
                         <div id="step-2" class="card d-none shadow-lg">
                             <div class="card-header bg-dark text-white text-center">
-                                <h4 class="mb-0">Form Pengajuan Mutasi - Upload Dokumen</h4>
+                                <h4 class="mb-0">Pengajuan Mutasi - Upload Dokumen </h4>
                             </div>
                             <div class="card-body">
-                                {{-- Copy + legalisir SK CPNS --}}
-                                <div class="mb-4">
-                                    <label for="sk_cpns" class="form-label">Copy + legalisir SK CPNS </label>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="sk_cpns" name="sk_cpns" accept=".pdf" onchange="showFileLink('sk_cpns', 'view-sk_cpns')">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                    </div>
-                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
+                                @foreach ($persyaratans as $persyaratan)
+                                    <div class="mb-4">
+                                        <label for="{{ $persyaratan->id }}" class="form-label">{{ $persyaratan->nama_persyaratan }}</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
+                                                onchange="showFileLink('{{ $persyaratan->id }}', 'view-{{ $persyaratan->id }}')">
+                                            <span class="input-group-append">
+                                                <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <small class="text-danger">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
 
-                                    <div class="mt-2">
-                                        <a id="view-sk_cpns" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i> Lihat File SK CPNS
-                                        </a>
+                                        @error("persyaratan[{$persyaratan->id}]")
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @if ($errors->has('sk_cpns'))
-                                        <div class="text-danger">{{ $errors->first('sk_cpns') }}</div>
-                                    @endif
-                                </div>
-
-                                {{-- Copy + legalisir SK PNS --}}
-                                <div class="mb-4">
-                                    <label for="sk_pns" class="form-label">Copy + legalisir SK PNS</label>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="sk_pns" name="sk_pns" accept=".pdf" onchange="showFileLink('sk_pns', 'view-sk_pns')">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('sk_pns'))
-                                        <div class="text-danger">{{ $errors->first('sk_pns') }}</div>
-                                    @endif
-                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
-
-                                    <div class="mt-2">
-                                        <a id="view-sk_pns" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i> Lihat File SK PNS
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {{-- Copy + legalisir SK Pangkat Terakhir --}}
-                                <div class="mb-4">
-                                    <label for="sk_pangkat_terakhir" class="form-label">Copy + legalisir SK Pangkat Terakhir</label>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="sk_pangkat_terakhir" name="sk_pangkat_terakhir" accept=".pdf" onchange="showFileLink('sk_pangkat_terakhir', 'view-sk_pangkat_terakhir')">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('sk_pangkat_terakhir'))
-                                        <div class="text-danger">{{ $errors->first('sk_pangkat_terakhir') }}</div>
-                                    @endif
-                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
-
-                                    <div class="mt-2">
-                                        <a id="view-sk_pangkat_terakhir" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i> Lihat File SK Pangkat Terakhir
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {{-- Copy + legalisir SK Jabatan Struktural --}}
-                                <div class="mb-4">
-                                    <label for="sk_jabatan_struktural" class="form-label">Copy + legalisir SK Jabatan Struktural</label>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="sk_jabatan_struktural" name="sk_jabatan_struktural" accept=".pdf" onchange="showFileLink('sk_jabatan_struktural', 'view-sk_jabatan_struktural')">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('sk_jabatan_struktural'))
-                                        <div class="text-danger">{{ $errors->first('sk_jabatan_struktural') }}</div>
-                                    @endif
-                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
-
-                                    <div class="mt-2">
-                                        <a id="view-sk_jabatan_struktural" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i> Lihat File SK Jabatan Struktural
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {{-- Copy + legalisir SK Jabatan Fungsional --}}
-                                <div class="mb-4">
-                                    <label for="sk_jabatan_fungsional" class="form-label">Copy + legalisir SK Jabatan Fungsional</label>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="sk_jabatan_fungsional" name="sk_jabatan_fungsional" accept=".pdf" onchange="showFileLink('sk_jabatan_fungsional', 'view-sk_jabatan_fungsional')">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('sk_jabatan_fungsional'))
-                                        <div class="text-danger">{{ $errors->first('sk_jabatan_fungsional') }}</div>
-                                    @endif
-                                    <small class="text-danger">Format PDF, ukuran maksimal 500KB</small>
-
-                                    <div class="mt-2">
-                                        <a id="view-sk_jabatan_fungsional" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i> Lihat File SK Jabatan Fungsional
-                                        </a>
-                                    </div>
-                                </div>
+                                @endforeach
 
                                 <!-- Navigasi Step -->
                                 <div class="d-grid gap-2">
                                     <button type="submit" name="action" value="save" class="btn btn-dark">
                                         <i class="fas fa-save"></i> Simpan
                                     </button>
-                                    <button type="button" class="btn btn-secondary" onclick="previousStep()">
+                                    <button type="button" class="btn btn-secondary" onclick="previousStep()" id="prev-btn">
                                         <i class="fas fa-arrow-left"></i> Sebelumnya
                                     </button>
-                                    <button type="submit" name="action" value="finish" class="btn btn-warning">
-                                        <i class="fas fa-save"></i> Finish
+                                    <button type="submit" name="action" value="finish" class="btn btn-warning" id="finish-btn">
+                                        <i class="fas fa-save"></i> Kirim
                                     </button>
                                 </div>
                             </div>
@@ -270,35 +196,5 @@
         </div>
     </main>
 
-    <script>
-        function showFileLink(inputId, linkId) {
-            var input = document.getElementById(inputId);
-            var link = document.getElementById(linkId);
-
-            if (link.href) {
-                URL.revokeObjectURL(link.href);
-            }
-
-            if (input.files && input.files[0]) {
-                var file = input.files[0];
-                if (file.type === 'application/pdf') {
-                    var objectURL = URL.createObjectURL(file);
-                    link.href = objectURL;
-                    link.classList.remove('d-none');
-                } else {
-                    link.classList.add('d-none');
-                }
-            }
-        }
-
-        function nextStep() {
-            document.getElementById('step-1').classList.add('d-none');
-            document.getElementById('step-2').classList.remove('d-none');
-        }
-
-        function previousStep() {
-            document.getElementById('step-1').classList.remove('d-none');
-            document.getElementById('step-2').classList.add('d-none');
-        }
-    </script>
+    <script src="{{ asset('js-mutasi/mutasi.js') }}"></script>
 @endsection

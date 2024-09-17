@@ -26,9 +26,10 @@ class Mutasi extends Model
         'sk_pangkat_terakhir',
         'sk_jabatan_struktural',
         'sk_jabatan_fungsional',
+        'sk_berkala_terakhir',
         'verified',
-        'cancellation_reason',
         'is_final',
+        'status',
     ];
 
     public function user()
@@ -36,17 +37,10 @@ class Mutasi extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Method to validate the mutasi
-    public function validate()
+    public function uploads()
     {
-        $this->update([
-            'verified' => true,
-            'verified_at' => now(),
-        ]);
+        return $this->hasMany(UploadPersyaratan::class);
     }
-     // Define the relationship with Validasi
-    public function validasi()
-    {
-        return $this->hasOne(Validasi::class);
-    }
+
+
 }

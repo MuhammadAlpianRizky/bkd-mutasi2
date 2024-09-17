@@ -21,14 +21,10 @@ return new class extends Migration
             $table->string('unit_kerja')->nullable();
             $table->string('instansi')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('sk_cpns')->nullable();
-            $table->string('sk_pns')->nullable();
-            $table->string('sk_pangkat_terakhir')->nullable();
-            $table->string('sk_jabatan_struktural')->nullable();
-            $table->string('sk_jabatan_fungsional')->nullable();
             $table->boolean('is_final')->default(false);
             $table->boolean('verified')->default(false);
-            $table->timestamp('verified_at')->nullable();
+            $table->enum('status',['draft', 'proses', 'diterima', 'ditolak', 'dibatalkan'])->default('draft');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

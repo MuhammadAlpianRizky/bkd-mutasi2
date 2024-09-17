@@ -2,15 +2,15 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\PegawaiController;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 // // Route::get('/', function () {
 // //     return view('welcome');
@@ -67,9 +67,12 @@ Route::middleware(['auth'])->group(function () {
         ->name('mutasi');
         Route::get('/mutasi/create', [MutasiController::class, 'create'])
         ->name('mutasi.create');
-        Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
-        Route::get('mutasi/{id}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
-        Route::put('mutasi/{id}', [MutasiController::class, 'update'])->name('mutasi.update');
+        Route::post('/mutasi/store', [MutasiController::class, 'store'])
+        ->name('mutasi.store');
+        Route::get('/mutasi/{id}/edit', [MutasiController::class, 'edit'])
+        ->name('mutasi.edit');
+        Route::put('/mutasi/{id}', [MutasiController::class, 'update'])
+        ->name('mutasi.update');
     });
 
 

@@ -25,6 +25,7 @@ class UserSedeer extends Seeder
         $pegawai = User::create([
             'nip' => '1234',
             'nama_lengkap' => 'Pegawai',
+            'no_hp' => '0812345678',
             'acc_on' => bcrypt('1234'),
             'is_approved' => true, // Pegawai belum disetujui
         ]);

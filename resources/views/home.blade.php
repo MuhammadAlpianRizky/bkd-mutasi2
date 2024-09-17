@@ -42,9 +42,9 @@
     </header>
 
     <!-- Alert Partial -->
-    <div class="container mt-4">
+    {{-- <div class="container mt-4">
         @include('partials.alert')
-    </div>
+    </div> --}}
 
     <!-- Persyaratan Mutasi -->
     <section id="requirements" style="background-color: #f8f9fa; color: #000000; padding: 50px 0;">
@@ -57,6 +57,7 @@
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Analisis Jabatan dan Analisis Beban Kerja dari Bagian organisasi yang dilegalisir BKD/yang dikeluarkan SKPD disalin oleh BKD.</span></li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Surat permohonan yang bersangkutan diketahui pimpinan unit kerja SKPD Asal.</span></li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Batas usia paling tinggi 50 (lima puluh) tahun (Peraturan Wali Kota Banjarmasin Nomor 109 Tahun 2022).</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>pangkat Gol. Ruang Penjabat Struktural dan Penjabat Fungsional Umum Paling Tinggi Penata Tingkat I (III/d) dan Penjabat Fungsional Tertentu Paling Tinggi Pembina (IV. a) (Peraturan Wali Kota Banjarmasin Nomor 109 Tahun 2022) .</span></li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Copy + legalisir SK CPNS.</span></li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Copy + legalisir SK PNS.</span></li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Copy + legalisir SK Pangkat Terakhir.</span></li>
