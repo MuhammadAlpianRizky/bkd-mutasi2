@@ -30,6 +30,7 @@ class Mutasi extends Model
         'verified',
         'is_final',
         'status',
+        'keterangan',
     ];
 
     public function user()
