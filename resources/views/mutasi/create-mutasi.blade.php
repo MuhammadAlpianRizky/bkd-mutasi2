@@ -3,14 +3,14 @@
 @section('content')
     <main class="content" style="margin-top: 50px; margin-bottom: 50px;">
         <div class="container mt-5">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center px-5">
                 <div class="col-md-8 col-lg-7">
                     <!-- Form untuk semua langkah -->
                     <form id="mutasiForm" action="{{ route('mutasi.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Card untuk Data Pribadi (Step 1) -->
-                        <div id="step-1" class="card shadow-lg">
+                        <div id="step-1" class="card shadow">
                             <div class="card-header bg-dark text-white text-center">
                                 <h4 class="mb-0">Pengajuan Mutasi - Data Diri</h4>
                             </div>

@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-5 align-self-center text-right">
-                <a href="{{ route('persyaratan.create') }}" class="btn btn-primary">Tambah Persyaratan</a>
+                <a href="{{ route('persyaratan.create') }}" class="btn mx-2" style="background-color: #83B4FF; color: white"><i class="bi bi-plus-circle px-1"></i>Tambah Persyaratan</a>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
                                         <th>Kode Persyaratan</th>
                                         <th>Jenis File</th>
                                         <th>Ukuran (KB)</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,13 +61,14 @@
                                             <td>{{ $item->kode_persyaratan }}</td>
                                             <td>{{ $item->jenis_file }}</td>
                                             <td>{{ $item->ukuran }}</td>
-                                            <td>
-                                                <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                                            <td class="text-center">
+                                                <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #507687; color: white">
+                                                <i class="bi bi-pencil-square px-1"></i>Edit</a>
 
                                                 <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger delete-btn" data-id="{{ $item->id }}">Hapus</button>
+                                                    <button type="button" class="btn btn-danger mx-2" data-id="{{ $item->id }}"><i class="bi bi-trash3 px-1"></i>Hapus</button>
                                                 </form>
                                             </td>
                                         </tr>
