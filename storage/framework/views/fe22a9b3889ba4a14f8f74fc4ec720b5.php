@@ -1,27 +1,27 @@
-@extends('users.dashboard')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container my-5">
         <h2 class="mb-4">Riwayat Mutasi</h2>
 
-        @if(session('success'))
+        <?php if(session('success')): ?>
             <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
-                {{ session('success') }}
+                <?php echo e(session('success')); ?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+        <?php endif; ?>
 
         <!-- Alert jika ada pesan error -->
-        @if(session('error'))
+        <?php if(session('error')): ?>
             <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-                {{ session('error') }}
+                <?php echo e(session('error')); ?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+        <?php endif; ?>
 
         <!-- Tombol Tambah Mutasi -->
         <div class="mb-4">
-            <a href="{{ route('mutasi.create') }}" class="btn btn-primary">
+            <a href="<?php echo e(route('mutasi.create')); ?>" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Tambah Mutasi
             </a>
         </div>
@@ -43,49 +43,51 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($mutasi as $index => $item)
+                            <?php $__currentLoopData = $mutasi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item->no_registrasi }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+                                    <td><?php echo e($index + 1); ?></td>
+                                    <td><?php echo e($item->no_registrasi); ?></td>
+                                    <td><?php echo e(\Carbon\Carbon::parse($item->created_at)->format('d-m-Y')); ?></td>
                                     <td>
-                                        @switch($item->status)
-                                            @case('draft')
+                                        <?php switch($item->status):
+                                            case ('draft'): ?>
                                                 <span class="badge bg-secondary">Draft</span>
-                                                @break
-                                            @case('proses')
+                                                <?php break; ?>
+                                            <?php case ('proses'): ?>
                                                 <span class="badge bg-info">Proses</span>
-                                                @break
-                                            @case('diterima')
+                                                <?php break; ?>
+                                            <?php case ('diterima'): ?>
                                                 <span class="badge bg-success">Diterima</span>
-                                                @break
-                                            @case('ditolak')
+                                                <?php break; ?>
+                                            <?php case ('ditolak'): ?>
                                                 <span class="badge bg-danger">Ditolak</span>
-                                                @break
-                                            @case('dibatalkan')
+                                                <?php break; ?>
+                                            <?php case ('dibatalkan'): ?>
                                                 <span class="badge bg-dark">Dibatalkan</span>
-                                                @break
-                                            @default
+                                                <?php break; ?>
+                                            <?php default: ?>
                                                 <span class="badge bg-light text-dark">Unknown</span>
-                                        @endswitch
+                                        <?php endswitch; ?>
                                     </td>
                                     <td>
-                                        <a href="{{ route('mutasi.edit', $item->id) }}"
-                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm">
+                                        <a href="<?php echo e(route('mutasi.edit', $item->id)); ?>"
+                                        class="btn <?php echo e($item->is_final ? 'btn-secondary' : 'btn-warning'); ?> btn-sm">
                                         <i class="fas fa-pencil-alt"></i> Edit
                                         </a>
                                     </td>
-                                    <td>{{ $item->keterangan }}</td>
+                                    <td><?php echo e($item->keterangan); ?></td>
                                 </tr>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@php
+<?php
     $noFooter = true;
-@endphp
+?>
+
+<?php echo $__env->make('users.dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Kuliah\Semester 5\Magang\bkd-mutasi\resources\views/mutasi/index.blade.php ENDPATH**/ ?>

@@ -24,6 +24,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="kode_persyaratan">Kode Persyaratan</label>
+                                <input type="text" name="kode_persyaratan" class="form-control" id="kode_persyaratan" value="{{ $persyaratan->kode_persyaratan }}" required>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="jenis_file">Jenis File</label>
                                 <div>
                                     <div class="form-check">

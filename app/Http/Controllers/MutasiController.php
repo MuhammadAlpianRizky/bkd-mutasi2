@@ -42,93 +42,101 @@ class MutasiController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-        // Validasi data diri
-        $validated = $request->validate([
-            'nama' => 'required|string',
-            'nip' => 'required|numeric',
-            'pgol' => 'nullable|string',
-            'jabatan' => 'nullable|string',
-            'unit_kerja' => 'nullable|string',
-            'instansi' => 'nullable|string',
-            'no_hp' => 'required|numeric',
-        ], [
-            // Pesan error kustom untuk data diri
-            'nama.required' => 'Nama lengkap wajib diisi.',
-            'nip.required' => 'NIP wajib diisi.',
-            'nip.numeric' => 'NIP harus berupa angka.',
-            'no_hp.required' => 'Nomor HP harus diisi.',
-            'no_hp.numeric' => 'Nomor HP harus berupa angka.',
-        ]);
+    // Validasi data diri
+    $validated = $request->validate([
+        'nama' => 'required|string',
+        'nip' => 'required|numeric',
+        'pgol' => 'nullable|string',
+        'jabatan' => 'nullable|string',
+        'unit_kerja' => 'nullable|string',
+        'instansi' => 'nullable|string',
+        'no_hp' => 'required|numeric',
+    ], [
+        // Pesan error kustom untuk data diri
+        'nama.required' => 'Nama lengkap wajib diisi.',
+        'nip.required' => 'NIP wajib diisi.',
+        'nip.numeric' => 'NIP harus berupa angka.',
+        'no_hp.required' => 'Nomor HP harus diisi.',
+        'no_hp.numeric' => 'Nomor HP harus berupa angka.',
+    ]);
 
-        // Proses validasi file persyaratan sebelum menyimpan data mutasi
-        if ($request->has('persyaratan')) {
-            foreach ($request->persyaratan as $persyaratan_id => $file) {
-                $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
+    // Proses validasi file persyaratan sebelum menyimpan data mutasi
+    if ($request->has('persyaratan')) {
+        foreach ($request->persyaratan as $persyaratan_id => $file) {
+            $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
 
-                // Validasi file berdasarkan jenis_file dan ukuran yang ditentukan
-                $fieldName = "persyaratan.{$persyaratan_id}";
+            // Validasi file berdasarkan jenis_file dan ukuran yang ditentukan
+            $fieldName = "persyaratan.{$persyaratan_id}";
 
-                // Lakukan validasi file untuk setiap persyaratan
-                $request->validate([
-                    $fieldName => "file|mimes:{$persyaratan->jenis_file}|max:{$persyaratan->ukuran}",
-                ], [
-                    "{$fieldName}.mimes" => "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.",
-                    "{$fieldName}.max" => "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.",
-                ]);
-            }
-        }
-
-        // Setelah semua validasi berhasil, simpan data mutasi ke database
-        $mutasi = Mutasi::create([
-            'user_id' => $user->id,
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-            'pgol' => $request->pgol,
-            'jabatan' => $request->jabatan,
-            'unit_kerja' => $request->unit_kerja,
-            'instansi' => $request->instansi,
-            'no_hp' => $request->no_hp,
-            'is_final' => $request->action == 'finish' ? 1 : 0,
-            'verified' => 0,
-        ]);
-
-        // Simpan nomor registrasi menggunakan fungsi generateRegistrationNumber
-        if ($mutasi->no_registrasi == null) {
-            $mutasi->no_registrasi = $this->generateRegistrationNumber();
-            $mutasi->save();
-        }
-
-        // Simpan ID mutasi ke session
-        $request->session()->put('mutasi_id', $mutasi->id);
-
-        // Proses unggahan file persyaratan
-        if ($request->has('persyaratan')) {
-            foreach ($request->persyaratan as $persyaratan_id => $file) {
-                if ($file) {
-                    // Simpan file ke direktori berdasarkan id_persyaratan
-                    $filePath = $file->store("uploads/mutasi/{$persyaratan_id}", 'public');
-
-                    // Simpan informasi upload ke tabel upload persyaratan
-                    UploadPersyaratan::create([
-                        'mutasi_id' => $mutasi->id,
-                        'user_id' => $user->id,
-                        'persyaratan_id' => $persyaratan_id,
-                        'file_path' => $filePath,
-                    ]);
-                }
-            }
-        }
-
-        // Tentukan langkah berikutnya berdasarkan tindakan
-        if ($request->action == 'finish') {
-            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah berhasil dikirim.');
-        } else {
-            return redirect()->route('mutasi')->with('success', 'Data telah disimpan, lanjutkan untuk mengunggah dokumen.');
+            // Lakukan validasi file untuk setiap persyaratan
+            $request->validate([
+                $fieldName => "file|mimes:{$persyaratan->jenis_file}|max:{$persyaratan->ukuran}",
+            ], [
+                "{$fieldName}.mimes" => "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.",
+                "{$fieldName}.max" => "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.",
+            ]);
         }
     }
+
+    // Setelah semua validasi berhasil, simpan data mutasi ke database
+    $mutasi = Mutasi::create([
+        'user_id' => $user->id,
+        'nama' => $request->nama,
+        'nip' => $request->nip,
+        'pgol' => $request->pgol,
+        'jabatan' => $request->jabatan,
+        'unit_kerja' => $request->unit_kerja,
+        'instansi' => $request->instansi,
+        'no_hp' => $request->no_hp,
+        'is_final' => $request->action == 'finish' ? 1 : 0,
+        'verified' => 0,
+        'status' => $request->action == 'finish' ? 'proses' : 'draft', // Ubah status menjadi 'proses' jika dikirim
+    ]);
+
+    // Simpan nomor registrasi menggunakan fungsi generateRegistrationNumber
+    if ($mutasi->no_registrasi == null) {
+        $mutasi->no_registrasi = $this->generateRegistrationNumber();
+        $mutasi->save();
+    }
+
+    // Simpan ID mutasi ke session
+    $request->session()->put('mutasi_id', $mutasi->id);
+
+    // Proses unggahan file persyaratan
+    if ($request->has('persyaratan')) {
+    foreach ($request->persyaratan as $persyaratan_id => $file) {
+        if ($file) {
+            // Ambil kode_persyaratan dari tabel persyaratan
+            $persyaratan = Persyaratan::find($persyaratan_id); // Ini juga ambil kode_persyaratan
+            $kodePersyaratan = $persyaratan->kode_persyaratan; // Pastikan kolom kode_persyaratan ada
+
+            // Simpan file ke direktori berdasarkan kode_persyaratan
+            $filePath = $file->store("uploads/{$kodePersyaratan}", 'public');
+
+            // Simpan informasi upload ke tabel upload_persyaratan termasuk kode_persyaratan
+            UploadPersyaratan::create([
+                'mutasi_id' => $mutasi->id,
+                'user_id' => $user->id,
+                'persyaratan_id' => $persyaratan_id,
+                'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan di tabel upload_persyaratan
+                'file_path' => $filePath,
+            ]);
+        }
+    }
+}
+
+
+    // Tentukan langkah berikutnya berdasarkan tindakan
+    if ($request->action == 'finish') {
+        return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah berhasil dikirim.');
+    } else {
+        return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
+    }
+}
+
 
     private function generateRegistrationNumber()
     {
@@ -242,12 +250,15 @@ class MutasiController extends Controller
             'instansi' => $request->instansi,
             'no_hp' => $request->no_hp,
             'is_final' => $request->action == 'finish' ? 1 : 0,
+            'verified' => 0,
+            'status' => $request->action == 'finish' ? 'proses' : 'draft', // Ubah status menjadi 'proses' jika dikirim
         ]);
 
         // Proses unggahan file persyaratan
         if ($request->has('persyaratan')) {
             foreach ($request->persyaratan as $persyaratan_id => $file) {
                 $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
+                $kodePersyaratan = $persyaratan->kode_persyaratan; // Ambil kode_persyaratan
 
                 if ($file) {
                     // Cek apakah sudah ada file sebelumnya
@@ -258,8 +269,10 @@ class MutasiController extends Controller
                     if ($existingUpload) {
                         // Hapus file lama jika ada
                         Storage::disk('public')->delete($existingUpload->file_path);
+
                         // Perbarui informasi file di database
-                        $existingUpload->file_path = $file->store("uploads/mutasi/{$persyaratan_id}", 'public');
+                        $existingUpload->file_path = $file->store("uploads/{$kodePersyaratan}", 'public');
+                        $existingUpload->kode_persyaratan = $kodePersyaratan; // Update kode_persyaratan juga
                         $existingUpload->save();
                     } else {
                         // Simpan file baru
@@ -267,7 +280,8 @@ class MutasiController extends Controller
                             'mutasi_id' => $mutasi->id,
                             'user_id' => $user->id,
                             'persyaratan_id' => $persyaratan_id,
-                            'file_path' => $file->store("uploads/mutasi/{$persyaratan_id}", 'public'),
+                            'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan
+                            'file_path' => $file->store("uploads/{$kodePersyaratan}", 'public'),
                         ]);
                     }
                 }
@@ -278,8 +292,9 @@ class MutasiController extends Controller
         if ($request->action == 'finish') {
             return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah diperbarui dan dikunci.');
         } else {
-            return redirect()->route('mutasi', $mutasi->id)->with('success', 'Data mutasi telah diperbarui.');
+            return redirect()->route('mutasi', $mutasi->id)->with('success', 'Data berhasil diperbarui.');
         }
     }
+
 
 }

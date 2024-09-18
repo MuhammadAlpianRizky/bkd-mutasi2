@@ -17,6 +17,7 @@ class UploadPersyaratan extends Model
         'user_id',
         'file_path',
         'status_verifikasi',
+        'kode_persyaratan',
     ];
 
     public function mutasi()
@@ -29,8 +30,8 @@ class UploadPersyaratan extends Model
         return $this->belongsTo(Persyaratan::class);
     }
 
-    public function user()
-{
-    return $this->belongsTo(User::class);
-}
+        public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

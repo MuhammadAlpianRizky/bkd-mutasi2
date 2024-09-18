@@ -13,6 +13,7 @@ class Persyaratan extends Model
 
     protected $fillable = [
         'nama_persyaratan',
+        'kode_persyaratan',
         'jenis_file',
         'ukuran',
     ];

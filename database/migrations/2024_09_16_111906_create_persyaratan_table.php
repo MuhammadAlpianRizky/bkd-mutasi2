@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('persyaratan', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_persyaratan')->unique();
             $table->string('nama_persyaratan');
             $table->string('jenis_file'); // jenis file yang diizinkan, contoh: "pdf", "jpeg"
             $table->integer('ukuran'); // Ukuran maksimum file dalam KB

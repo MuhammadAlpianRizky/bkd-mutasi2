@@ -25,6 +25,15 @@
                                 @enderror
                             </div>
 
+                            <!-- Kode Persyaratan -->
+                            <div class="form-group">
+                                <label for="kode_persyaratan">Kode Persyaratan</label>
+                                <input type="text" name="kode_persyaratan" class="form-control @error('kode_persyaratan') is-invalid @enderror" id="kode_persyaratan" value="{{ old('kode_persyaratan') }}" required>
+                                @error('kode_persyaratan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <!-- Jenis File -->
                             <div class="form-group">
                                 <label for="jenis_file">Jenis File</label>
