@@ -49,7 +49,6 @@
                                     <i class="fas fa-search"></i>
                                 </button>
                             </form>
-                            
                         </div>
                         <!-- End Search Form -->
 
@@ -76,11 +75,8 @@
                                                     @if ($mutasi->is_final === 1 && !$mutasi->verified)
                                                         <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary me-2">Validasi</a>
                                                     @endif
-                                                    @if ($mutasi->verified)
-                                                        <form action="{{ route('mutasi.cancel', $mutasi->id) }}" method="POST" style="display:inline;">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger">Cancel</button>
-                                                        </form>
+                                                    @if ($mutasi->is_final === 1 && $mutasi->verified)
+                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-secondary me-2">Edit</a>
                                                     @endif
                                                 </div>
                                             </td>
