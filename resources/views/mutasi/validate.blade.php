@@ -41,61 +41,44 @@
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Files:</strong></p>
+                                @foreach($persyaratan as $persyaratan)
+                                    @php
+                                        $upload = $uploads->firstWhere('persyaratan_id', $persyaratan->id);
+                                    @endphp
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            {{ $persyaratan->nama_persyaratan }}:
+                                            @if ($upload)
+                                                <a href="{{ route('file.show', ['id' => $mutasi->id, 'filename' => basename($upload->file_path), 'action' => 'view']) }}" target="_blank">
+                                                    Lihat
+                                                </a>
+                                            @else
+                                                <span>Data Belum Ada</span>
+                                            @endif
+                                        </label>
+                                    </div>
+                                @endforeach
                                 <form id="validationForm" action="{{ route('mutasi.validate.update', $mutasi->id) }}" method="POST">
-                                    <input type="hidden" name="action" value="validate">
                                     @csrf
-                                    @foreach(['sk_cpns', 'sk_pns', 'sk_pangkat_terakhir', 'sk_jabatan_struktural', 'sk_jabatan_fungsional'] as $fileField)
-                                        @if($mutasi->$fileField)
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="{{ $fileField }}_check" name="{{ $fileField }}_check" value="true">
-                                                <label class="form-check-label" for="{{ $fileField }}_check">
-                                                    {{ ucfirst(str_replace('_', ' ', $fileField)) }}: 
-                                                    <a href="{{ Storage::url($mutasi->$fileField) }}" target="_blank">
-                                                        View {{ ucfirst(str_replace('_', ' ', $fileField)) }}
-                                                    </a>
-                                                </label>
-                                            </div>
-                                        @endif
-                                    @endforeach
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select id="status" name="status" class="form-control">
+                                            <option value="diterima" {{ old('status', $mutasi->status) === 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                            <option value="ditolak" {{ old('status', $mutasi->status) === 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                            <option value="dibatalkan" {{ old('status', $mutasi->status) === 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" name="action" value="validate">
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="button" id="validateBtn" class="btn btn-primary">Validasi</button>
-                        <button type="button" data-toggle="modal" data-target="#cancelModal" class="btn btn-danger">Batal</button>
+                        <button type="button" id="validateBtn" class="btn btn-primary">Simpan</button>
                         <a href="{{ route('mutasi.list') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Cancel Modal -->
-<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cancelModalLabel">Batal Validasi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('mutasi.cancel', $mutasi->id) }}" method="POST">
-                @csrf
-                <input type="hidden" name="_method" value="PATCH">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="cancellation_reason">Alasan Pembatalan</label>
-                        <textarea id="cancellation_reason" name="cancellation_reason" class="form-control" rows="4" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-danger">Batal Validasi</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -112,7 +95,7 @@ document.getElementById('validateBtn').addEventListener('click', function() {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, Validasi!'
+        confirmButtonText: 'Ya, Simpan!'
     }).then((result) => {
         if (result.isConfirmed) {
             document.getElementById('validationForm').submit();  // Submit the form

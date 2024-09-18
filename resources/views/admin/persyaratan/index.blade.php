@@ -12,18 +12,18 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Daftar Mutasi</h4>
+                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Daftar Persyaratan</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a></li>
-                            <li class="breadcrumb-item text-muted active" aria-current="page">Daftar Mutasi</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-muted">Dashboard</a></li>
+                            <li class="breadcrumb-item text-muted active" aria-current="page">Persyaratan</li>
                         </ol>
                     </nav>
                 </div>
             </div>
-            <div class="col-5 align-self-center">
-                <!-- Optionally, add a filter or search here if needed -->
+            <div class="col-5 align-self-center text-right">
+                <a href="{{ route('persyaratan.create') }}" class="btn btn-primary">Tambah Persyaratan</a>
             </div>
         </div>
     </div>
@@ -41,44 +41,34 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Search Form -->
-                        <div class="d-flex justify-content-end mb-3">
-                            <form method="GET" action="{{ route('mutasi.list') }}" class="d-flex">
-                                <input type="text" name="search" class="form-control me-2" placeholder="Pencarian" value="{{ request('search') }}">
-                                <button type="submit" class="btn btn-light">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </form>
-                        </div>
-                        <!-- End Search Form -->
-
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered no-wrap">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>No Registrasi</th>
-                                        <th>Nama</th>
-                                        <th>NIP</th>
+                                        <th>No.</th>
+                                        <th class="table-nowrap">Nama Persyaratan</th>
+                                        <th>Kode Persyaratan</th>
+                                        <th>Jenis File</th>
+                                        <th>Ukuran (KB)</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($mutasis as $index => $mutasi)
+                                    @foreach ($persyaratan as $index => $item)
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $mutasi->no_registrasi }}</td>
-                                            <td>{{ $mutasi->nama }}</td>
-                                            <td>{{ $mutasi->nip }}</td>
+                                            <td>{{ $index + 1 + ($persyaratan->currentPage() - 1) * $persyaratan->perPage() }}</td>
+                                            <td style="max-width: 100px; word-wrap: break-word;">{{ $item->nama_persyaratan }}</td>
+                                            <td>{{ $item->kode_persyaratan }}</td>
+                                            <td>{{ $item->jenis_file }}</td>
+                                            <td>{{ $item->ukuran }}</td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    @if ($mutasi->is_final === 1 && !$mutasi->verified)
-                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary me-2">Validasi</a>
-                                                    @endif
-                                                    @if ($mutasi->is_final === 1 && $mutasi->verified)
-                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-secondary me-2">Edit</a>
-                                                    @endif
-                                                </div>
+                                                <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+
+                                                <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger delete-btn" data-id="{{ $item->id }}">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -86,7 +76,7 @@
                             </table>
                             <!-- Pagination Links -->
                             <div class="pagination float-end">
-                                {!! $mutasis->links() !!}
+                                {!! $persyaratan->links() !!}
                             </div>
                         </div>
                     </div>
@@ -104,4 +94,7 @@
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->
+
+<script src="{{ asset('js-mutasi/admin.js') }}"></script>
 @endsection
+
