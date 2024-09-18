@@ -26,12 +26,14 @@ public function index()
     {
         $request->validate([
             'nama_persyaratan' => 'required|string|max:255',
+            'kode_persyaratan'=> 'required',
             'jenis_file' => 'required|string|max:255',
             'ukuran' => 'required|integer|min:0',
         ], [
             'nama_persyaratan.required' => 'Nama Persyaratan harus diisi.',
             'nama_persyaratan.string' => 'Nama Persyaratan harus berupa teks.',
             'nama_persyaratan.max' => 'Nama Persyaratan tidak boleh lebih dari 255 karakter.',
+            'kode_persyaratan.required' => 'Kode Persyaratan harus diisi.',
             'jenis_file.required' => 'Jenis File harus diisi.',
             'jenis_file.string' => 'Jenis File harus berupa teks.',
             'jenis_file.max' => 'Jenis File tidak boleh lebih dari 255 karakter.',
@@ -57,6 +59,7 @@ public function index()
     {
         $request->validate([
             'nama_persyaratan' => 'required|string|max:255',
+            'kode_persyaratan'=> 'required',
             'jenis_file' => 'required|string|max:255',
             'ukuran' => 'required|integer|min:0',
         ]);

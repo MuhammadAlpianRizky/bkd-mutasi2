@@ -16,31 +16,31 @@ class PersyaratanSeeder extends Seeder
          DB::table('persyaratan')->insert([
             [
                 'nama_persyaratan' => 'Copy + legalisir SK CPNS',
+                'kode_persyaratan'=> 'SKCPNS',
                 'jenis_file' => 'pdf',
                 'ukuran' => 1024, // Maksimal 1 MB
             ],
             [
-                'nama_persyaratan' => 'Copy + legalisir SK CPNS',
+                'nama_persyaratan' => 'Copy + legalisir SK PNS',
+                'kode_persyaratan' => 'SKPNS',
                 'jenis_file' => 'pdf',
                 'ukuran' => 1024, // Maksimal 1 MB
             ],
             [
                 'nama_persyaratan' => 'Copy + legalisir Pangkat Terakhir',
+                'kode_persyaratan' => 'PANGKAT',
                 'jenis_file' => 'pdf',
                 'ukuran' => 1024, // Maksimal 1 MB
             ],
             [
                 'nama_persyaratan' => 'Copy + legalisir SK Jabatan Struktural',
+                'kode_persyaratan'=> 'STURUKTURAL',
                 'jenis_file' => 'pdf',
                 'ukuran' => 1024, // Maksimal 1 MB
             ],
             [
                 'nama_persyaratan' => 'Copy + legalisir SK Jabatan Fungsional',
-                'jenis_file' => 'pdf',
-                'ukuran' => 1024, // Maksimal 1 MB
-            ],
-            [
-                'nama_persyaratan' => 'Copy + legalisir SK Jabatan Fungsional',
+                'kode_persyaratan'=> 'fungsional',
                 'jenis_file' => 'pdf',
                 'ukuran' => 1024, // Maksimal 1 MB
             ],

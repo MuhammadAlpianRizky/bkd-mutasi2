@@ -47,6 +47,7 @@
                                     <tr>
                                         <th>No.</th>
                                         <th class="table-nowrap">Nama Persyaratan</th>
+                                        <th>Kode Persyaratan</th>
                                         <th>Jenis File</th>
                                         <th>Ukuran (KB)</th>
                                         <th>Action</th>
@@ -57,6 +58,7 @@
                                         <tr>
                                             <td>{{ $index + 1 + ($persyaratan->currentPage() - 1) * $persyaratan->perPage() }}</td>
                                             <td style="max-width: 100px; word-wrap: break-word;">{{ $item->nama_persyaratan }}</td>
+                                            <td>{{ $item->kode_persyaratan }}</td>
                                             <td>{{ $item->jenis_file }}</td>
                                             <td>{{ $item->ukuran }}</td>
                                             <td>

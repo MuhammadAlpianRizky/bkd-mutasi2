@@ -41,7 +41,6 @@
                                 <th>Aksi</th>
                                 <th>Keterangan</th>
                             </tr>
-                            </tr>
                         </thead>
                         <tbody>
                             <?php $__currentLoopData = $mutasi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -72,8 +71,8 @@
                                     </td>
                                     <td>
                                         <a href="<?php echo e(route('mutasi.edit', $item->id)); ?>"
-                                           class="btn <?php echo e($item->is_final ? 'btn-secondary' : 'btn-warning'); ?> btn-sm">
-                                           <i class="fas fa-pencil-alt"></i> Edit
+                                        class="btn <?php echo e($item->is_final ? 'btn-secondary' : 'btn-warning'); ?> btn-sm">
+                                        <i class="fas fa-pencil-alt"></i> Edit
                                         </a>
                                     </td>
                                     <td><?php echo e($item->keterangan); ?></td>
