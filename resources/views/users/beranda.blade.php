@@ -2,23 +2,21 @@
 
 @section('content')
     {{-- Button Ajukan --}}
-        <section id="apply" style="background-color: #f2ff00; color: #000000; padding: 60px 0; margin-top: 0px">
-            <div class="container px-4 text-center">
-                <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2 class="text-center mb-4">Ajukan Mutasi</h2>
-                        <p class="mb-4">Jika Anda memenuhi semua persyaratan, Anda dapat melanjutkan untuk mengajukan permohonan mutasi dengan mengklik tombol di bawah ini.</p>
-                        <a href="{{ route('mutasi.create') }}" class="btn btn-primary btn-lg" style="background-color: #0dcb0d; border-color: #2fff00;">Ajukan Mutasi</a>
-                    </div>
-                </div>
+        <header class="text-white" id="apply" style="position: relative; background-image: url('{{ asset('wallps/menarapandang.jpg') }}'); background-size: cover; background-position: center; padding: 100px 30px;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+
+            <div class="container px-4 text-center" style="position: relative; z-index: 2;  padding: 2rem;">
+                <h1 class="fw-bolder my-4">Ajukan Mutasi</h1>
+                <p class="lead" style="font-weight: 500;">Jika Anda memenuhi semua persyaratan, Anda dapat melanjutkan <br> untuk mengajukan permohonan mutasi dengan mengklik tombol di bawah ini.</p>
+                <a class="btn btn-lg btn-light my-3" href="{{ route('mutasi.create') }}">Ajukan Mutasi</a>
             </div>
-        </section>
+        </header>
     {{-- Persayaratan Mutasi --}}
-        <section id="requirements" style="background-color: #f8f9fa; color: #000000; padding: 50px 0;">
+        <section id="requirements" style="background-image: linear-gradient(#e8e9dc, white); color: #222222; padding: 50px 0;">
             <div class="container px-4">
                 <div class="row gx-4 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-center mb-4" style="margin-top: 35px">Persyaratan Mutasi</h2>
+                        <h2 class="text-center mb-4 fw-bold" style="margin-top: 35px">Persyaratan Mutasi</h2>
                         <ul class="list-unstyled" style="line-height: 1.5; text-align: justify;">
                             <li class="mb-3 d-flex align-items-center">
                                 <i class="fas fa-check-circle text-success me-2"></i>

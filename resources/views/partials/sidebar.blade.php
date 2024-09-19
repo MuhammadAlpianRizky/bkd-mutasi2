@@ -20,19 +20,19 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.users') }}" aria-expanded="false">
                         <i data-feather="user-plus" class="feather-icon"></i>
-                        <span class="hide-menu">Pending User</span>
+                        <span class="hide-menu">User Pending</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.active.users') }}" aria-expanded="false">
                         <i data-feather="user-check" class="feather-icon"></i>
-                        <span class="hide-menu">Aktif User</span>
+                        <span class="hide-menu">User Aktif</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.inactive.users') }}" aria-expanded="false">
                         <i data-feather="user-x" class="feather-icon"></i>
-                        <span class="hide-menu">Non-aktif User</span>
+                        <span class="hide-menu">User Non-Aktif</span>
                     </a>
                 </li>
                 

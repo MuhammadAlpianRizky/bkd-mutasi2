@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-5 align-self-center text-right">
-                <a href="{{ route('persyaratan.create') }}" class="btn mx-2" style="background-color: #83B4FF; color: white"><i class="bi bi-plus-circle px-1"></i>Tambah Persyaratan</a>
+                <a href="{{ route('persyaratan.create') }}" class="btn btn-primary mx-2"><i class="bi bi-plus-circle px-1"></i>Tambah Persyaratan</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No.</th>
                                         <th class="table-nowrap">Nama Persyaratan</th>
                                         <th>Kode Persyaratan</th>
@@ -56,19 +56,19 @@
                                 <tbody>
                                     @foreach ($persyaratan as $index => $item)
                                         <tr>
-                                            <td>{{ $index + 1 + ($persyaratan->currentPage() - 1) * $persyaratan->perPage() }}</td>
+                                            <td class="text-center">{{ $index + 1 + ($persyaratan->currentPage() - 1) * $persyaratan->perPage() }}</td>
                                             <td style="max-width: 100px; word-wrap: break-word;">{{ $item->nama_persyaratan }}</td>
                                             <td>{{ $item->kode_persyaratan }}</td>
-                                            <td>{{ $item->jenis_file }}</td>
-                                            <td>{{ $item->ukuran }}</td>
+                                            <td class="text-center">{{ $item->jenis_file }}</td>
+                                            <td class="text-center">{{ $item->ukuran }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #507687; color: white">
+                                                <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #777777; color: white">
                                                 <i class="bi bi-pencil-square px-1"></i>Edit</a>
                                                 
                                                 <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger mx-2 delete-btn" data-id="{{ $item->id }}">
+                                                    <button type="button" class="btn btn-danger me-2 delete-btn" data-id="{{ $item->id }}">
                                                         <i class="bi bi-trash3 px-1"></i>Hapus
                                                     </button>
                                                 </form>                                                

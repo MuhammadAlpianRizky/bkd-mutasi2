@@ -1,9 +1,9 @@
 @extends('users.dashboard')
 
 @section('content')
-    <main class="content" style="margin-top: 50px; margin-bottom: 50px;">
+    <main class="content" style="margin-top: 100px; margin-bottom: 70px;">
         <div class="container mt-5">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center px-5">
                 <div class="col-md-8 col-lg-7">
                     <!-- Form untuk semua langkah -->
                     <form id="mutasiForm" action="{{ route('mutasi.update', $mutasi->id) }}" method="POST" enctype="multipart/form-data">
@@ -11,9 +11,9 @@
                         @method('PUT')
 
                         <!-- Card untuk Data Pribadi (Step 1) -->
-                        <div id="step-1" class="card shadow-lg">
+                        <div id="step-1" class="card shadow">
                             <div class="card-header bg-dark text-white text-center">
-                                <h4 class="mb-0">Pengajuan Mutasi - Data Diri</h4>
+                                <h4 class="my-2">Pengajuan Mutasi - Data Diri</h4>
                             </div>
                             <div class="card-body">
 
@@ -152,9 +152,9 @@
                             </div>
                         </div>
                         <!-- Card untuk Upload File (Step 2) -->
-                        <div id="step-2" class="card d-none shadow-lg">
+                        <div id="step-2" class="card d-none shadow">
                             <div class="card-header bg-dark text-white text-center">
-                                <h4 class="mb-0">Pengajuan Mutasi - Upload Dokumen</h4>
+                                <h4 class="my-2">Pengajuan Mutasi - Upload Dokumen</h4>
                             </div>
                             <div class="card-body">
                                 @foreach ($persyaratans as $persyaratan)

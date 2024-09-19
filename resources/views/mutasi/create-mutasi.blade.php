@@ -1,7 +1,7 @@
 @extends('users.dashboard')
 
 @section('content')
-    <main class="content" style="margin-top: 50px; margin-bottom: 50px;">
+    <main class="content" style="margin-top: 100px; margin-bottom: 70px;">
         <div class="container mt-5">
             <div class="row justify-content-center px-5">
                 <div class="col-md-8 col-lg-7">
@@ -12,9 +12,9 @@
                         <!-- Card untuk Data Pribadi (Step 1) -->
                         <div id="step-1" class="card shadow">
                             <div class="card-header bg-dark text-white text-center">
-                                <h4 class="mb-0">Pengajuan Mutasi - Data Diri</h4>
+                                <h4 class="my-2">Pengajuan Mutasi - Data Diri</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body m-3">
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -32,9 +32,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $user->nama_lengkap) }}" required>
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('nama')
                                             <div class="text-danger">{{ $message }}</div>
@@ -48,9 +45,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="number" class="form-control" id="nip" name="nip" value="{{ old('nip', $user->nip) }}" required>
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('nip')
                                             <div class="text-danger">{{ $message }}</div>
@@ -64,9 +58,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="pgol" name="pgol">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('pgol')
                                             <div class="text-danger">{{ $message }}</div>
@@ -80,9 +71,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="jabatan" name="jabatan">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('jabatan')
                                             <div class="text-danger">{{ $message }}</div>
@@ -96,9 +84,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="unit_kerja" name="unit_kerja">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('unit_kerja')
                                             <div class="text-danger">{{ $message }}</div>
@@ -112,9 +97,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="instansi" name="instansi" value="{{ old('instansi') }}">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('instansi')
                                             <div class="text-danger">{{ $message }}</div>
@@ -128,9 +110,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="number" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" required>
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('no_hp')
                                             <div class="text-danger">{{ $message }}</div>

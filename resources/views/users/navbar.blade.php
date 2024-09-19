@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
-        <div class="container px-4">
-            <a class="navbar-brand" href="#page-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style ="background: rgba(0, 0, 0, 0.5); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#page-top">
                 <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
-                <span style="font-size: 16px;">BKD DIKLAT BANJARMASIN</span>
+                BKD DIKLAT KOTA BANJARMASIN
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
