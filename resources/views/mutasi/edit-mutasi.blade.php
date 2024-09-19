@@ -220,7 +220,7 @@
                                         <i class="fas fa-save"></i> Simpan
                                     </button>
                                     <button type="submit" name="action" value="finish" class="btn btn-warning" id="finish-btn">
-                                        <i class="fas fa-save"></i> Kirim
+                                        <i class="fas fa-save"></i> Selesai
                                     </button>
                                 </div>
                             </div>

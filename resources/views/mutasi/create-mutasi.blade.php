@@ -178,14 +178,14 @@
 
                                 <!-- Navigasi Step -->
                                 <div class="d-grid gap-2">
-                                    <button type="submit" name="action" value="save" class="btn btn-dark">
-                                        <i class="fas fa-save"></i> Simpan
-                                    </button>
                                     <button type="button" class="btn btn-secondary" onclick="previousStep()" id="prev-btn">
                                         <i class="fas fa-arrow-left"></i> Sebelumnya
                                     </button>
+                                    <button type="submit" name="action" value="save" class="btn btn-dark">
+                                        <i class="fas fa-save"></i> Simpan
+                                    </button>
                                     <button type="submit" name="action" value="finish" class="btn btn-warning" id="finish-btn">
-                                        <i class="fas fa-save"></i> Kirim
+                                        <i class="fas fa-save"></i> Selesai
                                     </button>
                                 </div>
                             </div>
