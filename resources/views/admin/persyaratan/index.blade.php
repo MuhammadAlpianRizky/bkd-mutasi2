@@ -64,12 +64,14 @@
                                             <td class="text-center">
                                                 <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #507687; color: white">
                                                 <i class="bi bi-pencil-square px-1"></i>Edit</a>
-
+                                                
                                                 <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger mx-2" data-id="{{ $item->id }}"><i class="bi bi-trash3 px-1"></i>Hapus</button>
-                                                </form>
+                                                    <button type="button" class="btn btn-danger mx-2 delete-btn" data-id="{{ $item->id }}">
+                                                        <i class="bi bi-trash3 px-1"></i>Hapus
+                                                    </button>
+                                                </form>                                                
                                             </td>
                                         </tr>
                                     @endforeach

@@ -147,10 +147,10 @@ class MutasiController extends Controller
         // Ambil tanggal saat ini dalam format YYYYMMDD
         $datePrefix = $date->format('Ymd');
 
-        // Ambil nomor registrasi terbaru untuk menentukan nomor berikutnya
-        $latestMutasi = Mutasi::whereDate('created_at', now()->toDateString())
-            ->orderBy('created_at', 'desc')
-            ->first();
+        // Ambil nomor registrasi terbaru pada hari ini
+        $latestMutasi = Mutasi::where('no_registrasi', 'LIKE', $datePrefix . '%')
+        ->orderBy('no_registrasi', 'desc')
+        ->first();
 
         // Tentukan nomor berikutnya
         $nextNumber = 1;
