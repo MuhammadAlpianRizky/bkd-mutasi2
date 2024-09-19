@@ -80,26 +80,28 @@ class FileController extends Controller
 
     // Handle validation action with file validation
     public function updateValidation(Request $request, $id)
-    {
-        $request->validate([
-            'status' => 'required|string|in:diterima,ditolak,dibatalkan',
-        ]);
-    
-        $mutasi = Mutasi::findOrFail($id);
+{
+    $request->validate([
+        'status' => 'required|string|in:diterima,ditolak,dibatalkan',
+        'keterangan' => 'nullable|string',  // Validation for the 'keterangan' field
+    ]);
 
-        $status = $request->input('status');
+    $mutasi = Mutasi::findOrFail($id);
 
-        $isFinal = $status === 'diterima' || $status === 'ditolak';
-        $verified = $status !== 'dibatalkan';
+    $status = $request->input('status');
+    $isFinal = $status === 'diterima' || $status === 'ditolak';
+    $verified = $status !== 'dibatalkan';
 
-        $mutasi->update([
-            'status' => $status,
-            'verified' => $verified,
-            'is_final' => $isFinal,
-        ]);
+    $mutasi->update([
+        'status' => $status,
+        'verified' => $verified,
+        'is_final' => $isFinal,
+        'keterangan' => $request->input('keterangan'),  // Save the 'keterangan' value
+    ]);
 
-        return redirect()->route('mutasi.list')->with('status', 'Mutasi berhasil diperbarui.');
-    }
+    return redirect()->route('mutasi.list')->with('status', 'Mutasi berhasil diperbarui.');
+}
+
 
     public function list(Request $request)
     {

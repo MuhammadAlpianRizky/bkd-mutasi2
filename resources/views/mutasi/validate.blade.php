@@ -44,12 +44,24 @@
                                     <td>{{ $mutasi->nip }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Pangkat/Gol.Ruang</th>
+                                    <td>{{ $mutasi->pgol }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Jabatan</th>
+                                    <td>{{ $mutasi->jabatan }}</td>
+                                </tr>
+                                <tr>
                                     <th>Unit Kerja</th>
                                     <td>{{ $mutasi->unit_kerja }}</td>
                                 </tr>
                                 <tr>
                                     <th>Instansi</th>
                                     <td>{{ $mutasi->instansi }}</td>
+                                </tr>
+                                <tr>
+                                    <th>No HP</th>
+                                    <td>{{ $mutasi->no_hp }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -108,9 +120,20 @@
                                     <option value="dibatalkan" {{ old('status', $mutasi->status) === 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                                 </select>
                             </div>
-                            <input type="hidden" name="action" value="validate">
-                        </form>
+
+                                    <!-- Keterangan Text Area -->
+                                    <div class="form-group">
+                                        <label for="keterangan">Keterangan</label>
+                                        <textarea id="keterangan" name="keterangan" class="form-control" rows="4">{{ old('keterangan', $mutasi->keterangan) }}</textarea>
+                                    </div>
+
+                                    <input type="hidden" name="action" value="validate">
+                                </form>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Card Footer for Buttons -->
                     <div class="card-footer">
                         <button type="button" id="validateBtn" class="btn btn-primary">Simpan</button>
                         <a href="{{ route('mutasi.list') }}" class="btn btn-secondary">Kembali</a>

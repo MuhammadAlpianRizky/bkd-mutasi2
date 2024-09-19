@@ -60,6 +60,7 @@
                                         <th>No Registrasi</th>
                                         <th>Nama</th>
                                         <th>NIP</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -70,6 +71,7 @@
                                             <td>{{ $mutasi->no_registrasi }}</td>
                                             <td>{{ $mutasi->nama }}</td>
                                             <td>{{ $mutasi->nip }}</td>
+                                            <td>{{ $mutasi->status }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     @if ($mutasi->is_final === 1 && !$mutasi->verified)
