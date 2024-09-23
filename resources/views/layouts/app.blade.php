@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
-    <title>Freedash Template - The Ultimate Multipurpose admin template</title>
+    <title>E-Mutasi</title>
     <!-- Custom CSS -->
     <link href="{{ asset('assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
@@ -33,7 +33,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    
+
 <![endif]-->
 </head>
 
@@ -53,19 +53,19 @@
     <div id="app">
         <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
             data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-            
+
             <!-- Header -->
             @include('partials.header')
-            
+
             <!-- Sidebar -->
             @include('partials.sidebar')
-            
+
             <!-- Content -->
             @yield('content')
-            
+
             <!-- Footer -->
             @include('partials.footer')
-            
+
         </div>
     </div>
     <!-- ============================================================== -->

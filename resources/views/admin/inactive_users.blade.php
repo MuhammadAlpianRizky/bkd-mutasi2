@@ -5,12 +5,12 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Inactive Users</h4>
+                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">User Non-Aktif</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a></li>
-                            <li class="breadcrumb-item text-muted active" aria-current="page">Inactive Users</li>
+                            <li class="breadcrumb-item text-muted active" aria-current="page">User Non-Aktif</li>
                         </ol>
                     </nav>
                 </div>
@@ -40,7 +40,7 @@
                                             <td>{{ $user->email }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary">Detail</a>
+                                                    <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary mx-2">Detail</a>
                                                     <form action="{{ route('cms.activate', $user->id) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         <button type="submit" class="btn btn-success">Aktifkan</button>

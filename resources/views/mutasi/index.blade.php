@@ -1,7 +1,7 @@
 @extends('users.dashboard')
 
 @section('content')
-    <div class="container my-5">
+    <div class="container" style="margin-top: 100px;">
         <h2 class="mb-4">Riwayat Mutasi</h2>
 
         @if(session('success'))

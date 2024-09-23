@@ -28,40 +28,37 @@
             <!-- Card untuk Detail Mutasi -->
             <div class="col-12">
                 <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">Data Diri</h4>
-                    </div>
                     <div class="card-body">
                         <!-- Tabel untuk menampilkan detail mutasi -->
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
-                                    <th>Nama</th>
-                                    <td>{{ $mutasi->nama }}</td>
+                                    <th width="5%">Nama</th>
+                                    <td width="30%">{{ $mutasi->nama }}</td>
                                 </tr>
                                 <tr>
-                                    <th>NIP</th>
-                                    <td>{{ $mutasi->nip }}</td>
+                                    <th width="5%">NIP</th>
+                                    <td width="30%">{{ $mutasi->nip }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Pangkat/Gol.Ruang</th>
-                                    <td>{{ $mutasi->pgol }}</td>
+                                    <th width="5%">Pangkat/Gol.Ruang</th>
+                                    <td width="30%">{{ $mutasi->pgol }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Jabatan</th>
-                                    <td>{{ $mutasi->jabatan }}</td>
+                                    <th width="5%">Jabatan</th>
+                                    <td width="30%">{{ $mutasi->jabatan }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Unit Kerja</th>
-                                    <td>{{ $mutasi->unit_kerja }}</td>
+                                    <th width="5%">Unit Kerja</th>
+                                    <td width="30%">{{ $mutasi->unit_kerja }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Instansi</th>
-                                    <td>{{ $mutasi->instansi }}</td>
+                                    <th width="5%">Instansi</th>
+                                    <td width="30%">{{ $mutasi->instansi }}</td>
                                 </tr>
                                 <tr>
-                                    <th>No HP</th>
-                                    <td>{{ $mutasi->no_hp }}</td>
+                                    <th width="5%">No HP</th>
+                                    <td width="30%">{{ $mutasi->no_hp }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -73,13 +70,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">File Persyaratan</h4>
+
                         <!-- Tabel untuk menampilkan file persyaratan -->
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nama Persyaratan</th>
-                                    <th>Aksi</th>
+                                    <th class="text-center" width="50%">File Persyaratan</th>
+                                    <th class="text-center" width="10%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +86,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $persyaratan->nama_persyaratan }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             @if ($upload)
                                                 <a href="{{ route('file.show', ['id' => $mutasi->id, 'filename' => basename($upload->file_path), 'action' => 'view']) }}" target="_blank" class="btn btn-primary btn-sm">Lihat</a>
                                             @else

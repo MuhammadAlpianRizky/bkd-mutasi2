@@ -3,8 +3,7 @@
 <!-- footer -->
 <!-- ============================================================== -->
 <footer class="footer text-center text-muted">
-    All Rights Reserved by Freedash. Designed and Developed by <a
-        href="https://adminmart.com/">Adminmart</a>.
+    BKD DIKLAT BANJARMASIN 2024
 </footer>
 <!-- ============================================================== -->
 <!-- End footer -->

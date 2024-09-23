@@ -60,10 +60,10 @@
 <body id="page-top" >
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style ="background: rgba(0, 0, 0, 0.5); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);" id="mainNav">
-        <div class="container px-4">
-            <a class="navbar-brand fw-bold" href="#page-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#page-top" style="font-size: 14px">
                 <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
-                BKD DIKLAT KOTA BANJARMASIN
+                BKD DIKLAT BANJARMASIN
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="google-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.2191101577746!2d114.58598137424859!3d-3.295846141123219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de423d9042b631b%3A0xdb4d3f5a6932b52d!2sAula%20BKD%20Diklat%20Kota%20Banjarmasin!5e0!3m2!1sen!2sid!4v1726622622446!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d245.77709469163923!2d114.58809136142916!3d-3.327518985058716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sbkd%20diklat!5e1!3m2!1sid!2sid!4v1724917240946!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

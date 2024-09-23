@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
-    <title>Freedash Template - The Ultimate Multipurpose admin template</title>
+    <title>E-Mutasi BKD Banjarmasin</title>
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
