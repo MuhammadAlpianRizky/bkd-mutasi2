@@ -17,14 +17,14 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-    
+
         if ($user->hasRole('admin')) {
             // Fetch user and mutasi data
             $pendingUsersCount = User::where('is_approved', false)->count();
             $activeUsersCount = Mutasi::where('verified', true)->count();
             $inactiveUsersCount = Mutasi::where('verified', false)->count();
             $mutasiCount = Mutasi::count();
-    
+
             // Return the data to the view
             return view('admin.home', [
                 'welcomeMessage' => 'Selamat datang admin',
@@ -39,7 +39,7 @@ class HomeController extends Controller
             return redirect('/');
         }
     }
-    
+
 
     /**
      * Menampilkan halaman home untuk pegawai.
@@ -97,11 +97,11 @@ class HomeController extends Controller
                 $query->where('name', 'admin');
             })
             ->paginate(10);
-    
+
         // Pass the paginated data to the view
         return view('admin.active_users', compact('activeUsers'));
     }
-    
+
     public function showInactiveUsers()
     {
         // Paginate results, excluding users with the 'admin' role
@@ -110,10 +110,10 @@ class HomeController extends Controller
                 $query->where('name', 'admin');
             })
             ->paginate(10);
-    
+
         return view('admin.inactive_users', compact('inactiveUsers'));
     }
-    
+
 
     /**
      * Menonaktifkan pengguna.
@@ -142,4 +142,10 @@ class HomeController extends Controller
 
         return redirect()->route('cms.inactive.users')->with('success', 'User has been activated.');
     }
+    public function deleteUser(User $user)
+{
+    $user->delete();
+
+    return redirect()->route('cms.users')->with('success', 'User has been deleted.');
+}
 }

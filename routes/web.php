@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('cms')->group(function () {
             Route::get('/users', [HomeController::class, 'showPendingUsers'])->name('cms.users');
+            Route::delete('/cms/users/{user}', [HomeController::class, 'deleteUser'])->name('cms.delete.user');
             Route::get('/user/{id}', [UserController::class, 'showUserDetail'])->name('cms.user.detail');
             Route::post('/approve/{user}', [HomeController::class, 'approveUser'])->name('cms.approve');
             Route::post('/deactivate/{user}', [HomeController::class, 'deactivateUser'])->name('cms.deactivate');
@@ -54,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/files/{id}/{filename}', [FileController::class, 'show'])->name('file.show');
             Route::resource('persyaratan', PersyaratanController::class);
 
-            
+
 
         });
 

@@ -42,10 +42,15 @@
                 <div class="card">
                     <div class="card-body">
                         @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: '{{ session('success') }}'
+                                });
+                            </script>
                         @endif
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered no-wrap">
                                 <thead>
@@ -63,16 +68,27 @@
                                             <td>{{ $user->nama_lengkap }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td class="text-center"> <!-- Centered content -->
+                                                <!-- Tombol Detail -->
                                                 <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary">Detail</a>
+
+                                                <!-- Tombol Approve -->
                                                 <form action="{{ route('cms.approve', $user) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     <button type="submit" class="btn btn-primary">Approve</button>
+                                                </form>
+
+                                                <!-- Tombol Delete dengan konfirmasi SweetAlert -->
+                                                <form action="{{ route('cms.delete.user', $user) }}" method="POST" style="display:inline;" id="deleteForm{{ $user->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">Hapus</button>
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
                             <!-- Pagination Links -->
                             <div class="d-flex justify-content-end">
                                 {{ $pendingUsers->links() }}
@@ -93,4 +109,27 @@
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->
+
 @endsection
+
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function confirmDelete(userId) {
+    Swal.fire({
+        title: 'Yakin Menghapus User ini?',
+        text: "Ini akan menghilangkan Akunnya",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit the form to delete the user
+            document.getElementById('deleteForm' + userId).submit();
+        }
+    });
+}
+</script>

@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="nip">NIP</label>
-                                <input class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" type="number" value="{{ old('nip') }}" required autocomplete="nip" autofocus placeholder="Masukkan NIP hanya angka" style="border-radius: 5px;">
+                                <input class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 18);" value="{{ old('nip') }}" required autocomplete="nip" autofocus placeholder="Masukkan NIP hanya angka" style="border-radius: 5px;" maxlength="18">
                                 @error('nip')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -27,7 +27,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="nama_lengkap">Nama Lengkap</label>
-                                <input class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" name="nama_lengkap" type="text" value="{{ old('nama_lengkap') }}" required autocomplete="nama_lengkap" placeholder="Masukkan nama lengkap Anda" style="border-radius: 5px;">
+                                <input class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" name="nama_lengkap"  type="text" value="{{ old('nama_lengkap') }}" required autocomplete="nama_lengkap" placeholder="Masukkan nama lengkap Anda" style="border-radius: 5px;">
                                 @error('nama_lengkap')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
