@@ -80,10 +80,11 @@
                                 <div class="mb-3">
                                     <strong>Foto KTP:</strong><br>
                                     @if ($user->photo_ktp)
-                                        <!-- Membuka gambar KTP di tab baru -->
-                                        <a href="{{ Storage::url(Crypt::decrypt($user->photo_ktp)) }}" target="_blank">
-                                            <img src="{{ Storage::url(Crypt::decrypt($user->photo_ktp)) }}" alt="Foto KTP" class="img-thumbnail rounded shadow" style="max-width: 300px; max-height: 200px; border: 2px solid #dee2e6;">
+                                        <!-- Link to view and download KTP -->
+                                        <a href="{{ route('user.photo', ['id' => $user->id, 'photoField' => 'photo_ktp', 'action' => 'view']) }}" target="_blank">
+                                            Lihat
                                         </a>
+                                        <br>
                                     @else
                                         <p>No photo available.</p>
                                     @endif
@@ -93,11 +94,12 @@
                                 <div class="mb-3">
                                     <strong>Foto Karpeg:</strong><br>
                                     @if ($user->photo_karpeg)
-                                        <!-- Membuka gambar Karpeg di tab baru -->
-                                        <a href="{{ Storage::url(Crypt::decrypt($user->photo_karpeg)) }}" target="_blank">
-                                            <img src="{{ Storage::url(Crypt::decrypt($user->photo_karpeg)) }}" alt="Foto Karpeg" class="img-thumbnail rounded shadow" style="max-width: 300px; max-height: 200px; border: 2px solid #dee2e6;">
+                                        <!-- Link to view and download Karpeg -->
+                                        <a href="{{ route('user.photo', ['id' => $user->id, 'photoField' => 'photo_karpeg', 'action' => 'view']) }}" target="_blank">
+                                        Lihat
                                         </a>
-                                    @else
+                                        <br>
+                                        @else
                                         <p>No photo available.</p>
                                     @endif
                                 </div>

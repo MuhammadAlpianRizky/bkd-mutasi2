@@ -42,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users', [HomeController::class, 'showPendingUsers'])->name('cms.users');
             Route::delete('/cms/users/{user}', [HomeController::class, 'deleteUser'])->name('cms.delete.user');
             Route::get('/user/{id}', [UserController::class, 'showUserDetail'])->name('cms.user.detail');
+            Route::get('/user/{id}/photo/{photoField}/{action?}', [UserController::class, 'showPhoto'])
+                            ->where(['photoField' => 'photo_ktp|photo_karpeg', 'action' => 'view|download'])
+                            ->name('user.photo');
             Route::post('/approve/{user}', [HomeController::class, 'approveUser'])->name('cms.approve');
             Route::post('/deactivate/{user}', [HomeController::class, 'deactivateUser'])->name('cms.deactivate');
             Route::post('/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
