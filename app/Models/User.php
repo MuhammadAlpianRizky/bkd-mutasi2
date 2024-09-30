@@ -56,5 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UploadPersyaratan::class);
     }
+    public function notifWa()
+{
+    return $this->hasMany(NotifWa::class);
+}
+
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mutasi;
+use App\Models\NotifWa;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
 use App\Models\UploadPersyaratan;
@@ -127,7 +128,16 @@ class MutasiController extends Controller
             }
         }
     }
-
+// Simpan notifikasi WhatsApp ke dalam tabel notif_wa
+        NotifWa::create([
+            'user_id' => $user->id,
+            'mutasi_id' => $mutasi->id, // ID mutasi baru saja dibuat
+            'status' => 'pengajuan_mutasi', // Atur status sesuai dengan konteks pengajuan mutasi
+            'nama' => $mutasi->nama,
+            'nip' => $mutasi->nip,
+            'no_hp' => $mutasi->no_hp,
+            'no_registrasi' => $mutasi->no_registrasi,
+        ]);
 
         // Tentukan langkah berikutnya berdasarkan tindakan
         if ($request->action == 'finish') {
@@ -135,8 +145,7 @@ class MutasiController extends Controller
         } else {
             return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
         }
-    }
-
+}
 
     private function generateRegistrationNumber()
     {
@@ -169,22 +178,20 @@ class MutasiController extends Controller
         return $datePrefix . $numberSuffix;
     }
 
-     public function edit($id)
+    public function edit(Mutasi $mutasi)
     {
-        $mutasi = Mutasi::findOrFail($id);
-
         // Periksa apakah mutasi sudah dikunci
         if ($mutasi->is_final) {
             return redirect()->route('mutasi')->with('error', 'Mutasi ini sudah dikunci dan tidak dapat diedit.');
         }
-
+    
         // Ambil semua persyaratan dari tabel Persyaratan (jika diperlukan untuk tampilan)
         $persyaratans = Persyaratan::all();
-
+    
         // Return view edit dengan data mutasi dan persyaratan (jika ada)
         return view('mutasi.edit-mutasi', compact('mutasi', 'persyaratans'));
     }
-
+    
     public function update(Request $request, $id)
     {
         $user = auth()->user();

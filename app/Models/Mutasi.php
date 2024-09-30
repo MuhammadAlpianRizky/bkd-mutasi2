@@ -31,6 +31,7 @@ class Mutasi extends Model
         'is_final',
         'status',
         'keterangan',
+        'undangan',
     ];
 
     public function user()
@@ -42,6 +43,9 @@ class Mutasi extends Model
     {
         return $this->hasMany(UploadPersyaratan::class);
     }
-
-
+    public function notifWa()
+    {
+        return $this->hasMany(NotifWa::class);
+    }
+    
 }

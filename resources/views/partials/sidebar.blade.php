@@ -52,6 +52,14 @@
                         <span class="hide-menu">Daftar Persyaratan</span>
                     </a>
                 </li>
+                <li class="nav-small-cap"><span class="hide-menu">Undangan</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('mutasi.invited') }}" aria-expanded="false">
+                        <i data-feather="mail" class="feather-icon"></i>
+                        <span class="hide-menu">Undangan Mutasi</span>
+                    </a>
+                </li>
+
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('persyaratan.create') }}" aria-expanded="false">
                         <i data-feather="file-plus" class="feather-icon"></i>

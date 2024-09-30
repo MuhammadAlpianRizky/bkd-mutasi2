@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\NotifWa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -142,7 +143,16 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('pegawai');
-
-        return $user;
-    }
+// Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
+            NotifWa::create([
+                'user_id' => $user->id,
+                'mutasi_id' => null, // This can be null now
+                'status' => 'bikin_akun',
+                'nama' => $user->nama_lengkap,
+                'nip' => $user->nip,
+                'no_hp' => $user->no_hp,
+                'no_registrasi' => null, // This can be null now
+            ]);
+            return $user;
+        }
 }

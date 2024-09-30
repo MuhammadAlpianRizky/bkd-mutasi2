@@ -89,8 +89,8 @@ class FileController extends Controller
     $mutasi = Mutasi::findOrFail($id);
 
     $status = $request->input('status');
-    $isFinal = $status === 'diterima' || $status === 'ditolak';
-    $verified = $status !== 'dibatalkan';
+    $isFinal = $status === 'diterima' || $status === 'dibatalkan';
+    $verified = $status !== 'ditolak';
 
     $mutasi->update([
         'status' => $status,

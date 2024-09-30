@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/user/{id}/photo/{photoField}/{action?}', [UserController::class, 'showPhoto'])
                             ->where(['photoField' => 'photo_ktp|photo_karpeg', 'action' => 'view|download'])
                             ->name('user.photo');
+            Route::get('/mutasi/invited', [UserController::class, 'invitedMutasi'])->name('mutasi.invited');
+            Route::post('/mutasi/send-invitation', [UserController::class, 'sendInvitation'])->name('mutasi.sendInvitation');
             Route::post('/approve/{user}', [HomeController::class, 'approveUser'])->name('cms.approve');
             Route::post('/deactivate/{user}', [HomeController::class, 'deactivateUser'])->name('cms.deactivate');
             Route::post('/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
@@ -67,19 +69,14 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Rute untuk pengguna dengan peran 'pegawai'
-    Route::middleware(['auth', 'role:pegawai'])->group(function () {
-        Route::get('/home', [HomeController::class, 'index2'])
-        ->name('home');
-        Route::get('/mutasi', [MutasiController::class, 'index'])
-        ->name('mutasi');
-        Route::get('/mutasi/create', [MutasiController::class, 'create'])
-        ->name('mutasi.create');
-        Route::post('/mutasi/store', [MutasiController::class, 'store'])
-        ->name('mutasi.store');
-        Route::get('/mutasi/{id}/edit', [MutasiController::class, 'edit'])
-        ->name('mutasi.edit');
-        Route::put('/mutasi/{id}', [MutasiController::class, 'update'])
-        ->name('mutasi.update');
+    Route::middleware(['role:pegawai'])->group(function () {
+        Route::get('/home', [HomeController::class, 'index2'])->name('home');
+        Route::get('/mutasi', [MutasiController::class, 'index'])->name('mutasi');
+        Route::get('/mutasi/create', [MutasiController::class, 'create'])->name('mutasi.create');
+        Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
+        Route::get('/mutasi/{mutasi}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
+        Route::put('/mutasi/{mutasi}', [MutasiController::class, 'update'])->name('mutasi.update');
+        Route::get('/mutasi/{mutasi}/file/{filename}/{action?}', [FileController::class, 'show'])->name('mutasi.show');
     });
 
 

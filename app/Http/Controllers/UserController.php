@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Mutasi;
+use App\Models\NotifWa;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -60,5 +63,32 @@ class UserController extends Controller
     return response()->file($fullPath, [
         'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"'
     ]);
+}
+public function invitedMutasi()
+{
+    $mutasi = Mutasi::where('is_final', 1)
+                    ->where('verified', 1)
+                    ->where('status', 'diterima')
+                    ->get();
+
+    return view('mutasi.invited', compact('mutasi'));
+}
+public function sendInvitation(Request $request)
+{
+    $invitedIds = $request->input('undang');
+
+    if ($invitedIds) {
+        // Update the mutasi records
+        Mutasi::whereIn('id', $invitedIds)->update(['undangan' => true]);
+
+        // Update the status to 'undangan' in notif_wa for those invited IDs
+        foreach ($invitedIds as $id) {
+            NotifWa::where('mutasi_id', $id)->update(['status' => 'undangan']);
+        }
+
+        // Logika untuk mengirim undangan (email atau yang lain)
+    }
+
+    return redirect()->route('mutasi.invited')->with('success', 'Undangan berhasil dikirim.');
 }
 }
