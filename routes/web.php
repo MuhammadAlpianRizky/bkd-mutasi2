@@ -76,7 +76,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
         Route::get('/mutasi/{mutasi}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
         Route::put('/mutasi/{mutasi}', [MutasiController::class, 'update'])->name('mutasi.update');
-        Route::get('/mutasi/{mutasi}/file/{filename}/{action?}', [FileController::class, 'show'])->name('mutasi.show');
+        Route::get('/mutasi/{mutasi}/file/{filename}/{action?}', [FileController::class, 'show1'])->name('mutasi.show');
     });
 
 

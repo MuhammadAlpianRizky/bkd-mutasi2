@@ -54,6 +54,36 @@ class FileController extends Controller
     ]);
 }
 
+public function show1(Mutasi $mutasi, $filename, $action = 'view')
+{
+    // Retrieve the UploadPersyaratan record for the given filename
+    $upload = UploadPersyaratan::where('mutasi_id', $mutasi->id)
+        ->where('file_path', 'like', '%'.$filename)
+        ->first();
+
+    if (!$upload) {
+        abort(404, 'File not found.');
+    }
+
+    // Get file_path from the UploadPersyaratan record
+    $filePath = $upload->file_path;
+
+    // Construct the path to the file
+    $fullPath = Storage::disk('public')->path($filePath);
+
+    if (!Storage::disk('public')->exists($filePath)) {
+        abort(404, 'File not found.');
+    }
+
+    if ($action === 'download') {
+        return response()->download($fullPath);
+    }
+
+    return response()->file($fullPath, [
+        'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"'
+    ]);
+}
+
 
     public function cancel(Request $request,$id)
     {

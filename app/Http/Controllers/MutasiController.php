@@ -192,119 +192,114 @@ class MutasiController extends Controller
         return view('mutasi.edit-mutasi', compact('mutasi', 'persyaratans'));
     }
     
-    public function update(Request $request, $id)
-    {
-        $user = auth()->user();
+    public function update(Request $request, Mutasi $mutasi)
+{
+    $user = auth()->user();
 
-        // Validasi data diri
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'nip' => 'required|numeric',
-            'pgol' => 'nullable|string|max:50',
-            'jabatan' => 'nullable|string|max:100',
-            'unit_kerja' => 'nullable|string|max:100',
-            'instansi' => 'nullable|string|max:100',
-            'no_hp' => 'required|numeric|digits_between:10,15',
-            'action' => 'required|in:finish,save', // Validasi tindakan
-        ], [
-            'nama.required' => 'Nama lengkap wajib diisi.',
-            'nip.required' => 'NIP wajib diisi.',
-            'nip.numeric' => 'NIP harus berupa angka.',
-            'no_hp.required' => 'Nomor HP harus diisi.',
-            'no_hp.numeric' => 'Nomor HP harus berupa angka.',
-            'no_hp.digits_between' => 'Nomor HP harus terdiri dari 10 sampai 15 digit.',
-            'action.required' => 'Tindakan harus dipilih.',
-            'action.in' => 'Tindakan yang dipilih tidak valid.',
-        ]);
+    // Validasi data diri
+    $validated = $request->validate([
+        'nama' => 'required|string|max:255',
+        'nip' => 'required|numeric',
+        'pgol' => 'nullable|string|max:50',
+        'jabatan' => 'nullable|string|max:100',
+        'unit_kerja' => 'nullable|string|max:100',
+        'instansi' => 'nullable|string|max:100',
+        'no_hp' => 'required|numeric|digits_between:10,15',
+        'action' => 'required|in:finish,save', // Validasi tindakan
+    ], [
+        'nama.required' => 'Nama lengkap wajib diisi.',
+        'nip.required' => 'NIP wajib diisi.',
+        'nip.numeric' => 'NIP harus berupa angka.',
+        'no_hp.required' => 'Nomor HP harus diisi.',
+        'no_hp.numeric' => 'Nomor HP harus berupa angka.',
+        'no_hp.digits_between' => 'Nomor HP harus terdiri dari 10 sampai 15 digit.',
+        'action.required' => 'Tindakan harus dipilih.',
+        'action.in' => 'Tindakan yang dipilih tidak valid.',
+    ]);
 
-        // Temukan mutasi berdasarkan ID
-        $mutasi = Mutasi::findOrFail($id);
+    // Periksa apakah mutasi sudah dikunci
+    if ($mutasi->is_final) {
+        return redirect()->route('mutasi')->with('error', 'Mutasi ini sudah dikunci dan tidak dapat diedit.');
+    }
 
-        // Periksa apakah mutasi sudah dikunci
-        if ($mutasi->is_final) {
-            return redirect()->route('mutasi')->with('error', 'Mutasi ini sudah dikunci dan tidak dapat diedit.');
-        }
+    // Validasi file unggahan secara dinamis
+    $persyaratanList = Persyaratan::all();
+    $fileRules = [];
+    $customMessages = [];
 
-        // Validasi file unggahan secara dinamis
-        $persyaratanList = Persyaratan::all();
-        $fileRules = [];
-        $customMessages = [];
+    foreach ($persyaratanList as $persyaratan) {
+        $fieldName = "persyaratan.{$persyaratan->id}";
 
-        foreach ($persyaratanList as $persyaratan) {
-            $fieldName = "persyaratan.{$persyaratan->id}";
+        // Tambahkan aturan validasi untuk setiap file berdasarkan persyaratan
+        $fileRules[$fieldName] = [
+            "file",
+            "mimes:{$persyaratan->jenis_file}",
+            "max:{$persyaratan->ukuran}",
+        ];
 
-            // Tambahkan aturan validasi untuk setiap file berdasarkan persyaratan
-            $fileRules[$fieldName] = [
-                "file",
-                "mimes:{$persyaratan->jenis_file}",
-                "max:{$persyaratan->ukuran}",
-            ];
+        // Pesan error kustom
+        $customMessages["{$fieldName}.mimes"] = "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.";
+        $customMessages["{$fieldName}.max"] = "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.";
+    }
 
-            // Pesan error kustom
-            $customMessages["{$fieldName}.mimes"] = "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.";
-            $customMessages["{$fieldName}.max"] = "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.";
-        }
+    // Validasi file unggahan
+    if ($request->has('persyaratan')) {
+        $request->validate($fileRules, $customMessages);
+    }
 
-        // Validasi file unggahan
-        if ($request->has('persyaratan')) {
-            $request->validate($fileRules, $customMessages);
-        }
+    // Perbarui data mutasi
+    $mutasi->update([
+        'nama' => $request->nama,
+        'nip' => $request->nip,
+        'pgol' => $request->pgol,
+        'jabatan' => $request->jabatan,
+        'unit_kerja' => $request->unit_kerja,
+        'instansi' => $request->instansi,
+        'no_hp' => $request->no_hp,
+        'is_final' => $request->action == 'finish' ? 1 : 0,
+        'verified' => 0,
+        'status' => $request->action == 'finish' ? 'proses' : 'draft', // Ubah status menjadi 'proses' jika dikirim
+    ]);
 
-        // Perbarui data mutasi
-        $mutasi->update([
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-            'pgol' => $request->pgol,
-            'jabatan' => $request->jabatan,
-            'unit_kerja' => $request->unit_kerja,
-            'instansi' => $request->instansi,
-            'no_hp' => $request->no_hp,
-            'is_final' => $request->action == 'finish' ? 1 : 0,
-            'verified' => 0,
-            'status' => $request->action == 'finish' ? 'proses' : 'draft', // Ubah status menjadi 'proses' jika dikirim
-        ]);
+    // Proses unggahan file persyaratan
+    if ($request->has('persyaratan')) {
+        foreach ($request->persyaratan as $persyaratan_id => $file) {
+            $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
+            $kodePersyaratan = $persyaratan->kode_persyaratan; // Ambil kode_persyaratan
 
-        // Proses unggahan file persyaratan
-        if ($request->has('persyaratan')) {
-            foreach ($request->persyaratan as $persyaratan_id => $file) {
-                $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
-                $kodePersyaratan = $persyaratan->kode_persyaratan; // Ambil kode_persyaratan
+            if ($file) {
+                // Cek apakah sudah ada file sebelumnya
+                $existingUpload = UploadPersyaratan::where('mutasi_id', $mutasi->id)
+                    ->where('persyaratan_id', $persyaratan_id)
+                    ->first();
 
-                if ($file) {
-                    // Cek apakah sudah ada file sebelumnya
-                    $existingUpload = UploadPersyaratan::where('mutasi_id', $mutasi->id)
-                        ->where('persyaratan_id', $persyaratan_id)
-                        ->first();
+                if ($existingUpload) {
+                    // Hapus file lama jika ada
+                    Storage::disk('public')->delete($existingUpload->file_path);
 
-                    if ($existingUpload) {
-                        // Hapus file lama jika ada
-                        Storage::disk('public')->delete($existingUpload->file_path);
-
-                        // Perbarui informasi file di database
-                        $existingUpload->file_path = $file->store("uploads/{$kodePersyaratan}", 'public');
-                        $existingUpload->kode_persyaratan = $kodePersyaratan; // Update kode_persyaratan juga
-                        $existingUpload->save();
-                    } else {
-                        // Simpan file baru
-                        UploadPersyaratan::create([
-                            'mutasi_id' => $mutasi->id,
-                            'user_id' => $user->id,
-                            'persyaratan_id' => $persyaratan_id,
-                            'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan
-                            'file_path' => $file->store("uploads/{$kodePersyaratan}", 'public'),
-                        ]);
-                    }
+                    // Perbarui informasi file di database
+                    $existingUpload->file_path = $file->store("uploads/{$kodePersyaratan}", 'public');
+                    $existingUpload->kode_persyaratan = $kodePersyaratan; // Update kode_persyaratan juga
+                    $existingUpload->save();
+                } else {
+                    // Simpan file baru
+                    UploadPersyaratan::create([
+                        'mutasi_id' => $mutasi->id,
+                        'user_id' => $user->id,
+                        'persyaratan_id' => $persyaratan_id,
+                        'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan
+                        'file_path' => $file->store("uploads/{$kodePersyaratan}", 'public'),
+                    ]);
                 }
             }
         }
-
-        // Tentukan langkah berikutnya berdasarkan tindakan
-        if ($request->action == 'finish') {
-            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah diperbarui dan dikunci.');
-        } else {
-            return redirect()->route('mutasi', $mutasi->id)->with('success', 'Data berhasil diperbarui.');
-        }
     }
 
-
+    // Tentukan langkah berikutnya berdasarkan tindakan
+    if ($request->action == 'finish') {
+        return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah diperbarui dan dikunci.');
+    } else {
+        return redirect()->route('mutasi', $mutasi->id)->with('success', 'Data berhasil diperbarui.');
+    }
+}
 }

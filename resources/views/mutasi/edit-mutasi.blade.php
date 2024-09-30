@@ -171,7 +171,7 @@
                                             @if ($filePath)
                                                 <!-- Jika file sudah di-upload -->
                                                 <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                    <span>File sudah di-upload. Anda dapat <a href="{{ route('mutasi.show', ['id' => $mutasi->id, 'filename' => basename($filePath), 'action' => 'view']) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
+                                                    <span>File sudah di-upload. Anda dapat <a href="{{ route('mutasi.show', ['mutasi' => $mutasi->id, 'filename' => basename($filePath), 'action' => 'view']) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
                                                     <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('{{ $persyaratan->id }}')">Ubah File</button>
                                                 </div>
 
