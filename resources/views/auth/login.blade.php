@@ -2,15 +2,17 @@
 
 @section('content')
 
+@include('users.navigation')
+
 <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative">
-        <div class="col-lg-4 col-md-7 bg-white shadow" style="border-radius: 10px; overflow: hidden;">
+        <div class="col-lg-4 col-md-7 bg-white shadow" style="border-radius: 10px; overflow: hidden; margin: 100px 10px 35px 10px ">
             <div class="p-4">
                 <div class="text-center">
                     <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="wrapkit" style="height: 70px; width: 50px;">
                 </div>
                 <h2 class="mt-3 text-center" style="color: black;">Login</h2>
                 <p class="text-center" style="color: black;">SIMUT BKD - Pemko Banjarmasin</p>
-                
+
                 <form class="mt-4" method="POST" action="{{ route('login') }}"> <!-- Updated route -->
                     @csrf
                     <div class="row">
@@ -54,6 +56,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- SweetAlert Integration -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

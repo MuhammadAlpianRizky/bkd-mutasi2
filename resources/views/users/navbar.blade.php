@@ -9,7 +9,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}" style="font-size: 16px;">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('landing') }}" style="font-size: 16px;">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('mutasi') }}" style="font-size: 16px;">Mutasi</a></li>
                     {{-- <li class="nav-item"><a class="nav-link" href="#" style="font-size: 16px;"><i class="fas fa-user"></i> Profil</a></li> --}}
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}" style="font-size: 16px;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

@@ -46,7 +46,7 @@ class RegisterController extends Controller
             'no_hp' => ['required', 'string', 'min:10','max:13', 'regex:/^[0-9]+$/'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'no_ktp' => ['required', 'string', 'min:16','max:25', 'regex:/^[0-9]+$/', 'unique:users'],
-            'no_karpeg' => ['required', 'string', 'max:25', 'regex:/^[0-9]+$/', 'unique:users'],
+            'no_karpeg' => ['required', 'string', 'max:25','unique:users'],
             'acc_on' => ['required', 'string', 'min:8', 'confirmed'],
             'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
             'photo_karpeg' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
@@ -88,7 +88,6 @@ class RegisterController extends Controller
             'no_karpeg.required' => 'Nomor Karpeg wajib diisi.',
             'no_karpeg.string' => 'Nomor Karpeg harus berupa teks.',
             'no_karpeg.max' => 'Nomor Karpeg tidak boleh lebih dari 25 karakter.',
-            'no_karpeg.regex' => 'Nomor Karpeg harus terdiri dari angka.',
             'no_karpeg.unique' => 'Nomor Karpeg sudah terdaftar.',
 
             'acc_on.required' => 'Password wajib diisi.',
