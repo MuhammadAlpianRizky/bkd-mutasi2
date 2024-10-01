@@ -23593,11 +23593,11 @@ fieldset:disabled .btn {
 }
 
 .page-breadcrumb .breadcrumb .breadcrumb-item+.breadcrumb-item::before {
-    color: #ced4da
+    color: #ced4da;
 }
 
 .page-breadcrumb .breadcrumb .breadcrumb-item a {
-    color: #8392a5
+    color: #017991;
 }
 
 .btn-circle,

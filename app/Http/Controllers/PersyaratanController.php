@@ -73,6 +73,12 @@ public function index()
     // Delete a persyaratan
     public function destroy($id)
     {
+        $persyaratan = Persyaratan::with('uploads')->find($id);
+
+        // Jika ada file terkait dengan persyaratan, jangan hapus dan berikan pesan error
+        if ($persyaratan->uploads()->exists()) {
+            return redirect()->route('persyaratan.index')->withErrors('Persyaratan ini memiliki data terkait dan tidak bisa dihapus.');
+    }
         Persyaratan::find($id)->delete();
         return redirect()->route('persyaratan.index')->with('success', 'Persyaratan deleted successfully.');
     }

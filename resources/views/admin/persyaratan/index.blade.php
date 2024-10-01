@@ -9,6 +9,7 @@
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
+
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
@@ -42,6 +43,24 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
+
+                            @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <!-- Menampilkan pesan sukses jika ada -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr class="text-center">
@@ -64,14 +83,14 @@
                                             <td class="text-center">
                                                 <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #777777; color: white">
                                                 <i class="bi bi-pencil-square px-1"></i>Edit</a>
-                                                
+
                                                 <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger me-2 delete-btn" data-id="{{ $item->id }}">
                                                         <i class="bi bi-trash3 px-1"></i>Hapus
                                                     </button>
-                                                </form>                                                
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
