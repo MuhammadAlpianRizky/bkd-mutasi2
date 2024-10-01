@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <!-- Card untuk File Persyaratan -->
+                        <!-- Card untuk File Persyaratan -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -81,25 +81,28 @@
                             </thead>
                             <tbody>
                                 @foreach($persyaratan as $persyaratan)
-                                    @php
-                                        $upload = $uploads->firstWhere('persyaratan_id', $persyaratan->id);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $persyaratan->nama_persyaratan }}</td>
-                                        <td class="text-center">
-                                            @if ($upload)
-                                                <a href="{{ route('file.show', ['id' => $mutasi->id, 'filename' => basename($upload->file_path), 'action' => 'view']) }}" target="_blank" class="btn btn-primary btn-sm">Lihat</a>
-                                            @else
-                                                <span>Data Belum Ada</span>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                    @if($persyaratan->status == 1) <!-- Only show if status is 1 -->
+                                        @php
+                                            $upload = $uploads->firstWhere('persyaratan_id', $persyaratan->id);
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $persyaratan->nama_persyaratan }}</td>
+                                            <td class="text-center">
+                                                @if ($upload)
+                                                    <a href="{{ route('file.show', ['id' => $mutasi->id, 'filename' => basename($upload->file_path), 'action' => 'view']) }}" target="_blank" class="btn btn-primary btn-sm">Lihat</a>
+                                                @else
+                                                    <span>Data Belum Ada</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Form untuk Validasi -->

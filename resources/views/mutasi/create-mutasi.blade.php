@@ -136,23 +136,25 @@
                             </div>
                             <div class="card-body">
                                 @foreach ($persyaratans as $persyaratan)
-                                    <div class="mb-4">
-                                        <label for="{{ $persyaratan->id }}" class="form-label">{{ $persyaratan->nama_persyaratan }}</label>
-                                        <div class="input-group">
-                                            <input type="file" class="form-control" id="{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
-                                                onchange="showFileLink('{{ $persyaratan->id }}', 'view-{{ $persyaratan->id }}')">
-                                            <span class="input-group-append">
-                                                <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <small class="text-danger">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
+                                    @if($persyaratan->status == 1)
+                                        <div class="mb-4">
+                                            <label for="{{ $persyaratan->id }}" class="form-label">{{ $persyaratan->nama_persyaratan }}</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control" id="{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
+                                                    onchange="showFileLink('{{ $persyaratan->id }}', 'view-{{ $persyaratan->id }}')">
+                                                <span class="input-group-append">
+                                                    <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <small class="text-danger">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
 
-                                        @error("persyaratan[{$persyaratan->id}]")
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                            @error("persyaratan[{$persyaratan->id}]")
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endif
                                 @endforeach
 
                                 <!-- Navigasi Step -->
@@ -169,6 +171,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

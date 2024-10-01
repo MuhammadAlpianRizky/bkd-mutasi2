@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
+use App\Models\UploadPersyaratan;
 
 class PersyaratanController extends Controller
 {
@@ -11,9 +12,10 @@ class PersyaratanController extends Controller
    // Display list of persyaratan
 public function index()
 {
-    $persyaratan = Persyaratan::paginate(10); // Adjust the number per page as needed
+       $persyaratan = Persyaratan::paginate(10); // Only show active persyaratan
     return view('admin.persyaratan.index', compact('persyaratan'));
 }
+
 
     // Show form to create a new persyaratan
     public function create()
@@ -62,6 +64,7 @@ public function index()
             'kode_persyaratan'=> 'required',
             'jenis_file' => 'required|string|max:255',
             'ukuran' => 'required|integer|min:0',
+            'status' => 'required|boolean',
         ]);
 
         $persyaratan = Persyaratan::find($id);
@@ -72,8 +75,22 @@ public function index()
 
     // Delete a persyaratan
     public function destroy($id)
-    {
-        Persyaratan::find($id)->delete();
-        return redirect()->route('persyaratan.index')->with('success', 'Persyaratan deleted successfully.');
+{
+    // Find the persyaratan entry by ID
+    $persyaratan = Persyaratan::findOrFail($id);
+
+    // Check if the persyaratan is referenced in UploadPersyaratan
+    if (UploadPersyaratan::where('persyaratan_id', $id)->exists()) {
+        // Redirect with an error message if the persyaratan is referenced
+        return redirect()->route('persyaratan.index')
+            ->with('error', 'Persyaratan tidak dapat dihapus karena telah digunakan.');
     }
+
+    // Proceed with deletion if no references exist
+    $persyaratan->delete();
+
+    // Redirect with a success message after deletion
+    return redirect()->route('persyaratan.index')
+        ->with('success', 'Persyaratan berhasil dihapus.');
+}
 }

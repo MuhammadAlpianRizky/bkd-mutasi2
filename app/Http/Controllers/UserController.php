@@ -78,17 +78,39 @@ public function sendInvitation(Request $request)
     $invitedIds = $request->input('undang');
 
     if ($invitedIds) {
-        // Update the mutasi records
+        // Update the mutasi records to set 'undangan' column to true
         Mutasi::whereIn('id', $invitedIds)->update(['undangan' => true]);
 
-        // Update the status to 'undangan' in notif_wa for those invited IDs
+        // Insert new 'undangan' entries into the NotifWa table for each invited ID
         foreach ($invitedIds as $id) {
-            NotifWa::where('mutasi_id', $id)->update(['status' => 'undangan']);
+            // Retrieve the Mutasi record to get 'nama'
+            $mutasi = Mutasi::findOrFail($id);
+
+            // Check if a 'undangan' entry already exists for this mutasi_id
+            $existingNotif = NotifWa::where('mutasi_id', $id)
+                ->where('status', 'undangan')
+                ->first();
+
+            // Only insert a new record if none exists
+            if (!$existingNotif) {
+                NotifWa::create([
+                    'mutasi_id' => $id,
+                    'user_id' => $mutasi->user_id, // Set the current user's ID or provide the correct value
+                    'nama' => $mutasi->nama,  // Add 'nama' from the Mutasi model
+                    'nip' =>$mutasi->nip,
+                    'no_hp' =>$mutasi->no_hp,
+                    'no_registrasi' =>$mutasi->no_registrasi,
+                    'status' => 'undangan',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
 
-        // Logika untuk mengirim undangan (email atau yang lain)
+        // Logic for sending invitations (email, WhatsApp, etc.)
     }
 
     return redirect()->route('mutasi.invited')->with('success', 'Undangan berhasil dikirim.');
 }
+
 }

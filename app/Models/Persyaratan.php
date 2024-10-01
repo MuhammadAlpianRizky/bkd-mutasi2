@@ -16,6 +16,7 @@ class Persyaratan extends Model
         'kode_persyaratan',
         'jenis_file',
         'ukuran',
+        'status',
     ];
 
     public function uploads()
