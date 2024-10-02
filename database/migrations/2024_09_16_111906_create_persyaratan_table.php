@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_persyaratan');
             $table->string('jenis_file'); // jenis file yang diizinkan, contoh: "pdf", "jpeg"
             $table->integer('ukuran'); // Ukuran maksimum file dalam KB
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

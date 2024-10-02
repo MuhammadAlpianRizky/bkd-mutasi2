@@ -51,6 +51,24 @@
                                 <input type="number" name="ukuran" class="form-control" id="ukuran" value="{{ $persyaratan->ukuran }}" required>
                             </div>
 
+                            <div class="form-group">
+                                <label for="status">Status Persyaratan</label>
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="aktif" value="1" {{ $persyaratan->status == 1 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="aktif">
+                                            Aktif
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="nonaktif" value="0" {{ $persyaratan->status == 0 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="nonaktif">
+                                            Nonaktif
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('persyaratan.index') }}" class="btn btn-secondary">Cancel</a>
                         </form>

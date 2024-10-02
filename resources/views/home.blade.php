@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
     <title>E-Mutasi BKD Banjarmasin</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('landing-page/assets/favicon.ico') }}" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('landing-page/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('landing-page/css/beranda.css') }}" rel="stylesheet" />
@@ -30,7 +31,7 @@
         <div class="container px-4 text-center" style="position: relative; z-index: 2; padding: 2rem;">
             <h1 class="fw-bolder">E-MUTASI</h1>
             <p class="lead" style="font-weight: 500;">Sistem Informasi Layanan Mutasi <br> Badan Kepegawaian Daerah Kota Banjarmasin</p>
-            <a class="btn btn-lg btn-light" href="#tutorial">Panduan Aplikasi</a>
+            {{-- <a class="btn btn-lg btn-light" href="#tutorial">Panduan Aplikasi</a> --}}
         </div>
     </header>
 
@@ -80,7 +81,7 @@
     </section>
 
     <!-- Panduan section-->
-    <section class="bg-light" id="tutorial" style="background-image: linear-gradient(#e8e9dc, white);">
+    {{-- <section class="bg-light" id="tutorial" style="background-image: linear-gradient(#e8e9dc, white);">
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8" style="margin: 0 auto; text-align: center;">
@@ -91,7 +92,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- Contact --}}
     @include('users.contact')

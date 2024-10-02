@@ -2,13 +2,8 @@
 
 @section('content')
 
-<!-- ============================================================== -->
-<!-- Page wrapper  -->
-<!-- ============================================================== -->
+
 <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
@@ -27,21 +22,26 @@
             </div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
+    
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
+                            @if (session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr class="text-center">
@@ -50,6 +50,7 @@
                                         <th>Kode Persyaratan</th>
                                         <th>Jenis File</th>
                                         <th>Ukuran (KB)</th>
+                                        <th>Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -61,9 +62,18 @@
                                             <td>{{ $item->kode_persyaratan }}</td>
                                             <td class="text-center">{{ $item->jenis_file }}</td>
                                             <td class="text-center">{{ $item->ukuran }}</td>
+                                            <!-- Status Column -->
+                                            <td class="text-center">
+                                                @if ($item->status == 1)
+                                                    <span class="badge badge-success">Aktif</span>
+                                                @else
+                                                    <span class="badge badge-danger">Nonaktif</span>
+                                                @endif
+                                            </td>
                                             <td class="text-center">
                                                 <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #777777; color: white">
-                                                <i class="bi bi-pencil-square px-1"></i>Edit</a>
+                                                    <i class="bi bi-pencil-square px-1"></i>Edit
+                                                </a>
                                                 
                                                 <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
                                                     @csrf
@@ -71,7 +81,7 @@
                                                     <button type="button" class="btn btn-danger me-2 delete-btn" data-id="{{ $item->id }}">
                                                         <i class="bi bi-trash3 px-1"></i>Hapus
                                                     </button>
-                                                </form>                                                
+                                                </form>                                                 
                                             </td>
                                         </tr>
                                     @endforeach
@@ -86,18 +96,8 @@
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page Content -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
 </div>
-<!-- ============================================================== -->
-<!-- End Page wrapper  -->
-<!-- ============================================================== -->
 
 <script src="{{ asset('js-mutasi/admin.js') }}"></script>
 @endsection
-
