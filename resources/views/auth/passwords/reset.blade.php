@@ -46,7 +46,7 @@
 
                             <div class="col-md-6">
                                 <input id="acc_on-confirm" type="password" class="form-control @error('acc_on_confirmation') is-invalid @enderror" name="acc_on_confirmation" required autocomplete="new-password">
-                                
+
                                 @error('acc_on_confirmation')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

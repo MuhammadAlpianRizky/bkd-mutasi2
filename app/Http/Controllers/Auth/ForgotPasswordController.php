@@ -42,6 +42,8 @@ class ForgotPasswordController extends Controller
                     ->first();
 
         if ($user) {
+
+
             // Buat token reset password
             $token = Password::createToken($user);
             $resetUrl = url('password/reset/'.$token.'?email='.$user->email);
@@ -49,7 +51,7 @@ class ForgotPasswordController extends Controller
             // Kirimkan notifikasi reset password
             Notification::send($user, new ResetPasswordNotification($resetUrl));
 
-            return back()->with('status', 'Link reset password telah dikirim.');
+            return back()->with('status', 'Link reset password telah dikirim melalui: ' . $user->email);
         }
 
         return back()->withErrors(['email' => 'Pengguna tidak ditemukan.']);

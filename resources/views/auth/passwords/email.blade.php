@@ -2,8 +2,11 @@
 
 @section('content')
 
-<div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative">
-        <div class="col-lg-4 col-md-7 bg-white shadow" style="border-radius: 10px; overflow: hidden;">
+
+@include('users.navigation')
+
+<div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" >
+        <div class="col-lg-4 col-md-7 bg-white shadow" style="border-radius: 10px; overflow: hidden; margin: 100px 10px 35px 10px">
             <div class="p-5">
                 <div class="text-center">
                     <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="wrapkit" style="height: 70px; width: 50px;">

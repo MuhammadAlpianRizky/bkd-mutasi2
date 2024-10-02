@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengumuman extends Model
 {
+    protected $table = "pengumuman";
+
+    protected $fillable = [
+        'judul', 'deskripsi', 'file_path', 'tanggal_pengumuman'
+    ];
+
     use HasFactory;
 }
