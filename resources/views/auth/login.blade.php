@@ -30,7 +30,7 @@
                             <label class="form-label text-dark" for="acc_on">Password</label>
                             <div class="input-group">
                                 <input class="form-control" id="acc_on" name="acc_on" type="password" placeholder="Enter your password" required style="border-radius: 5px;">
-                                <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('acc_on', this)">
+                                <button type="button" class="btn btn-outline-secondary align-items-center" onclick="togglePassword('acc_on', this)">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>

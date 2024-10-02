@@ -1,8 +1,21 @@
+<style>
+    /* Hover state */
+    a#validateLogout:hover {
+        background-color: #77838d; /* Gray color */
+        color: #fff; /* White text */
+    }
+
+    /* Active (click) state */
+    a#validateLogout:active {
+        background-color: #5a6268; /* Slightly darker gray */
+    }
+</style>
+
 <!-- resources/views/partials/header.blade.php -->
 <!-- ============================================================== -->
 <!-- Topbar header - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<header class="topbar" data-navbarbg="skin6">
+<header class="topbar" data-navbarbg="skin6" >
     <nav class="navbar top-navbar navbar-expand-lg">
         <div class="navbar-header" data-logobg="skin6">
             <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -31,7 +44,7 @@
         <!-- ============================================================== -->
         <!-- End Logo -->
         <!-- ============================================================== -->
-        <div class="navbar-collapse collapse shadow-sm" id="navbarSupportedContent" style="background-color: white">
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <!-- ============================================================== -->
             <!-- toggle and nav items -->
             <!-- ============================================================== -->
@@ -39,20 +52,14 @@
                 <!-- ============================================================== -->
                 <!-- User profile and search -->
                 <!-- ============================================================== -->
-                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ asset('assets/images/users/profile-pic.png') }}" alt="user" class="rounded-circle" width="40" style="background-image: white">
-                        <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ auth()->user()->nama_lengkap }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
-                        <div class="dropdown-divider"></div>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
+                        aria-haspopup="true" aria-expanded="false">
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none; align-items: center">
+                        @csrf
                         </form>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i data-feather="power" class="svg-icon me-2 ms-1"></i>Logout</a>
-                        <div class="dropdown-divider"></div>
-                    </div>
+                        <a class="dropdown-item py-2 rounded" style="transition: background-color 0.3s, color 0.3s;" href="javascript:void(0)" id="validateLogout" document.getElementById('logout-form').submit();"><i data-feather="power" class="svg-icon me-2"></i>Log Out</a>
+                    </a>
                 </li>
                 <!-- ============================================================== -->
                 <!-- User profile and search -->
@@ -64,3 +71,20 @@
 <!-- ============================================================== -->
 <!-- End Topbar header -->
 <!-- ============================================================== -->
+
+<script>
+    document.getElementById('validateLogout').addEventListener('click', function() {
+        Swal.fire({
+            title: 'Apakah Anda yakin ingin keluar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, keluar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();  // Submit the form
+            }
+        });
+    });
+    </script>

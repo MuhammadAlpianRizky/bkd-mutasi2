@@ -23,7 +23,7 @@
     @include('users.navigation')
 
     <!-- Header-->
-    <header class="text-white" style="position: relative; background-image: url('{{ asset('wallps/menarapandang.jpg') }}'); background-size: cover; background-position: center;">
+    <header class="text-white" style="position: relative; background-image: url('{{ asset('wallps/depan-bkd.png') }}'); background-size: cover; background-position: center;">
         <!-- Overlay Hitam -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
 

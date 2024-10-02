@@ -27,7 +27,7 @@ class HomeController extends Controller
 
             // Return the data to the view
             return view('admin.home', [
-                'welcomeMessage' => 'Selamat datang admin',
+                'welcomeMessage' => 'Selamat Datang, Admin',
                 'pendingUsersCount' => $pendingUsersCount,
                 'activeUsersCount' => $activeUsersCount,
                 'inactiveUsersCount' => $inactiveUsersCount,
