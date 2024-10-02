@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -35,7 +35,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        
+
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
@@ -74,14 +74,14 @@
                                                 <a href="{{ route('persyaratan.edit', $item->id) }}" class="btn mx-2" style="background-color: #777777; color: white">
                                                     <i class="bi bi-pencil-square px-1"></i>Edit
                                                 </a>
-                                                
+
                                                 <form id="delete-form-{{ $item->id }}" action="{{ route('persyaratan.destroy', $item->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger me-2 delete-btn" data-id="{{ $item->id }}">
                                                         <i class="bi bi-trash3 px-1"></i>Hapus
                                                     </button>
-                                                </form>                                                 
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
