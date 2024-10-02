@@ -19,6 +19,6 @@ class LandingPageController extends Controller
         }
     }
 
-    return view('home');
+    return view('users.home');
 }
 }

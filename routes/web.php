@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 // // })->middleware('web');
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
 
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -59,6 +61,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/mutasi/{id}/cancel', [FileController::class, 'cancel'])->name('mutasi.cancel');
             Route::get('/files/{id}/{filename}', [FileController::class, 'show'])->name('file.show');
             Route::resource('persyaratan', PersyaratanController::class);
+            // Route untuk pengumuman
+            Route::get('/pengumuman/index', [PengumumanController::class, 'index2'])->name('pengumuman.index');
+            Route::get('/pengumuman/create', [PengumumanController::class, 'create'])->name('pengumuman.create');
+            Route::post('/pengumuman/store', [PengumumanController::class, 'store'])->name('pengumuman.store');
+            Route::get('/pengumuman/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit');
+            Route::put('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
+            Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
 
 
 

@@ -15,7 +15,7 @@
                     </a>
                 </li>
                 <li class="list-divider"></li>
-                
+
                 <li class="nav-small-cap"><span class="hide-menu">User</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('cms.users') }}" aria-expanded="false">
@@ -35,7 +35,7 @@
                         <span class="hide-menu">User Non-Aktif</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-small-cap"><span class="hide-menu">Dokumen</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('mutasi.list') }}" aria-expanded="false">
@@ -60,6 +60,14 @@
                     </a>
                 </li>
 
+                <li class="nav-small-cap"><span class="hide-menu">Pengumuman</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('pengumuman.index') }}" aria-expanded="false">
+                        <i data-feather="mail" class="feather-icon"></i>
+                        <span class="hide-menu">Pengumuman</span>
+                    </a>
+                </li>
+
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('persyaratan.create') }}" aria-expanded="false">
                         <i data-feather="file-plus" class="feather-icon"></i>
@@ -67,7 +75,7 @@
                     </a>
                 </li> --}}
                 <!-- Add more links if needed -->
-                
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

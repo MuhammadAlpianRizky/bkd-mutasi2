@@ -10,7 +10,7 @@ class Pengumuman extends Model
     protected $table = "pengumuman";
 
     protected $fillable = [
-        'judul', 'deskripsi', 'file_path', 'tanggal_pengumuman'
+        'judul', 'deskripsi', 'file_path', 'tanggal'
     ];
 
     use HasFactory;

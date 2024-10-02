@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('deskripsi');
             $table->string('file_path');
-            $table->date('tanggal_pengumuman');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

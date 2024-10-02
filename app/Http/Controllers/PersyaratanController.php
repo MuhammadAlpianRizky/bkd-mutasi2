@@ -10,11 +10,11 @@ class PersyaratanController extends Controller
 {
     // Display list of persyaratan
    // Display list of persyaratan
-public function index()
-{
-       $persyaratan = Persyaratan::paginate(10); // Only show active persyaratan
-    return view('admin.persyaratan.index', compact('persyaratan'));
-}
+    public function index()
+    {
+        $persyaratan = Persyaratan::paginate(10); // Only show active persyaratan
+        return view('admin.persyaratan.index', compact('persyaratan'));
+    }
 
 
     // Show form to create a new persyaratan
