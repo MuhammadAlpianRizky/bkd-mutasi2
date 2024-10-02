@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
             // Kirimkan notifikasi reset password
             Notification::send($user, new ResetPasswordNotification($resetUrl));
 
-            return back()->with('status', 'Link reset password telah dikirim melalui: ' . $user->email);
+            return back()->with('status', 'Link reset password telah dikirim melalui:' . $user->email);
         }
 
         return back()->withErrors(['email' => 'Pengguna tidak ditemukan.']);
