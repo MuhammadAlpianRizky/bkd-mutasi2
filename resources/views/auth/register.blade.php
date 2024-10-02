@@ -114,9 +114,9 @@
                                 <div class="input-group">
                                     <input class="form-control @error('acc_on') is-invalid @enderror" id="acc_on" name="acc_on" type="password" required autocomplete="new-acc_on" placeholder="Masukkan password minimal 8 karakter" style="border-radius: 5px;">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
-                                            <i class="fa fa-eye"></i>
-                                        </span>
+                                        <button type="button" class="btn btn-outline-secondary" id="togglePassword" style="cursor: pointer;">
+                                            <i class="fa fa-eye "></i>
+                                        </button>
                                     </div>
                                 </div>
                                 @error('acc_on')
@@ -124,7 +124,7 @@
                                 @enderror
                             </div>
                         </div>
-    
+
                         <!-- Confirm Password field with show/hide functionality -->
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
@@ -132,18 +132,18 @@
                                 <div class="input-group">
                                     <input class="form-control" id="acc_on_confirmation" name="acc_on_confirmation" type="password" required autocomplete="new-acc_on" placeholder="Masukkan ulang password" style="border-radius: 5px;">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="togglePasswordConfirm" style="cursor: pointer;">
+                                        <button type="button" class="btn btn-outline-secondary" id="togglePasswordConfirm" style="cursor: pointer;">
                                             <i class="fa fa-eye"></i>
-                                        </span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn w-100 btn-dark" style="color: white; background-color: #0e1221; border-radius: 5px;">Register</button>
                         </div>
-    
+
                         <div class="col-lg-12 text-center mt-5"  style="color: #222831">
                             Sudah punya akun? <a href="{{ route('login') }}" style="font-weight: 700; color: black">Login</a>
                         </div>
@@ -152,34 +152,34 @@
             </div>
         </div>
     </div>
-    
+
     <!-- JavaScript for toggling password visibility -->
     <script>
         const togglePassword = document.querySelector('#togglePassword');
         const passwordField = document.querySelector('#acc_on');
-        
+
         togglePassword.addEventListener('click', function () {
             // Toggle the type attribute
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
-            
+
             // Toggle the eye icon
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
         });
-    
+
         const togglePasswordConfirm = document.querySelector('#togglePasswordConfirm');
         const confirmPasswordField = document.querySelector('#acc_on_confirmation');
-        
+
         togglePasswordConfirm.addEventListener('click', function () {
             // Toggle the type attribute
             const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
             confirmPasswordField.setAttribute('type', type);
-            
+
             // Toggle the eye icon
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
         });
     </script>
-    
+
     @endsection
