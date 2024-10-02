@@ -184,14 +184,14 @@ class MutasiController extends Controller
         if ($mutasi->is_final) {
             return redirect()->route('mutasi')->with('error', 'Mutasi ini sudah dikunci dan tidak dapat diedit.');
         }
-    
+
         // Ambil semua persyaratan dari tabel Persyaratan (jika diperlukan untuk tampilan)
         $persyaratans = Persyaratan::all();
-    
+
         // Return view edit dengan data mutasi dan persyaratan (jika ada)
         return view('mutasi.edit-mutasi', compact('mutasi', 'persyaratans'));
     }
-    
+
     public function update(Request $request, Mutasi $mutasi)
 {
     $user = auth()->user();

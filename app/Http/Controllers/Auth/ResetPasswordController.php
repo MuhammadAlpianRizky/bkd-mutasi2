@@ -34,13 +34,18 @@ class ResetPasswordController extends Controller
             'email.exists' => 'Email tidak terdaftar di sistem kami.',
         ]);
 
+
+
         // Coba reset password menggunakan token
-        $response = $this->broker()->reset(
+        $response = $this->broker()->reset
+        (
             $this->credentials($request),
             function ($user, $acc_on) {
-                $this->resetAccOn($user, $acc_on); // Panggil resetAccOn dengan password baru
+                $this->resetAccOn($user, $acc_on);
+                // Panggil resetAccOn dengan password baru
             }
         );
+
 
         // Menangani respons berdasarkan hasil reset password
         if ($response == Password::PASSWORD_RESET) {

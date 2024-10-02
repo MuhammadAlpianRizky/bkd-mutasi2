@@ -40,7 +40,7 @@
                                             <td>{{ $user->email }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary mx-2">Detail</a>
+                                                    <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary mx-2 rounded">Detail</a>
                                                     <form action="{{ route('cms.activate', $user->id) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         <button type="submit" class="btn btn-success">Aktifkan</button>

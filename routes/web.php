@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PersyaratanController;
@@ -17,7 +19,10 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 // //     return view('welcome');
 // // })->middleware('web');
 
-Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+Route::get('/', [BlogController::class, 'index'])->name('landing');
+
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -60,6 +65,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/files/{id}/{filename}', [FileController::class, 'show'])->name('file.show');
             Route::resource('persyaratan', PersyaratanController::class);
 
+            // Untuk Halaman Post Blog
+            Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+            Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+            Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+            Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+            Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 
         });
