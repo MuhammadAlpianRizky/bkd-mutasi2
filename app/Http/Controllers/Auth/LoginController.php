@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -37,31 +36,32 @@ class LoginController extends Controller
     
         if ($user) {
             if (Hash::check($credentials['acc_on'], $user->acc_on)) {
-                if (!$user->is_approved) {
+                // Menggunakan fungsi canLogin untuk memeriksa is_approved dan status_verifikasi
+                if (!$user->canLogin()) {
                     return back()->withErrors([
-                        'nip' => 'Akun Belum Diaktifkan',
+                        'nip' => $user->is_approved ? 'Akun Belum Terverifikasi' : 'Akun Belum Diaktifkan',
                     ])->withInput($request->except('acc_on'));
                 }
     
                 Auth::login($user);
     
-                // Redirect based on user role
+                // Redirect berdasarkan peran pengguna
                 if ($user->hasRole('admin')) {
                     return redirect()->route('dashboard');
                 } elseif ($user->hasRole('pegawai')) {
                     return redirect()->route('home');
                 }
             } else {
-                // Password is incorrect
+                // Password tidak cocok
                 return back()->withErrors([
                     'acc_on' => 'Akun Tidak Sesuai',
                 ])->withInput($request->except('acc_on'));
             }
         } else {
-            // Nip is incorrect or not registered
+            // NIP tidak ditemukan atau belum terdaftar
             return back()->withErrors([
                 'nip' => 'NIP Belum Terdaftar',
             ])->withInput($request->except('acc_on'));
         }
     }
-}    
+}
