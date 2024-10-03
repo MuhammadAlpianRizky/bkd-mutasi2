@@ -47,5 +47,8 @@ class Mutasi extends Model
     {
         return $this->hasMany(NotifWa::class);
     }
-    
+    public function undangan()
+    {
+        return $this->hasOne(Undangan::class);
+    }
 }

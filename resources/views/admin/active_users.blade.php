@@ -41,11 +41,19 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="d-flex justify-content-end mb-3">
+                            <form method="GET" action="{{ route('cms.active.users') }}" class="d-flex">
+                                <input type="text" name="search" class="form-control me-2" placeholder="Pencarian" value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div> 
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered no-wrap">
                                 <thead>
                                     <tr>
-                                        <th>Nama</th>
+                                        <th>Nama Lengkap</th>
                                         <th>NIP</th>
                                         <th>Email</th>
                                         <th>Action</th>

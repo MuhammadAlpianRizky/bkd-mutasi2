@@ -41,22 +41,30 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="d-flex justify-content-end mb-3">
+                            <form method="GET" action="{{ route('cms.users') }}" class="d-flex">
+                                <input type="text" name="search" class="form-control me-2" placeholder="Pencarian" value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div> 
                         @if(session('success'))
-                            <script>
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: '{{ session('success') }}'
-                                });
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: '{{ session('success') }}'
+                            });
                             </script>
                         @endif
-
+                        
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered no-wrap">
                                 <thead>
                                     <tr>
-                                        <th>NIP</th>
                                         <th>Nama Lengkap</th>
+                                        <th>NIP</th>
                                         <th>Email</th>
                                         <th class="text-center">Action</th> <!-- Centered header -->
                                     </tr>
@@ -64,8 +72,8 @@
                                 <tbody>
                                     @foreach($pendingUsers as $user)
                                         <tr>
-                                            <td>{{ $user->nip }}</td>
                                             <td>{{ $user->nama_lengkap }}</td>
+                                            <td>{{ $user->nip }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td class="text-center"> <!-- Centered content -->
                                                 <!-- Tombol Detail -->

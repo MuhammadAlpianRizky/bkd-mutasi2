@@ -57,17 +57,33 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showPendingUsers()
-    {
-        // Define the number of users per page
-        $perPage = 10; // You can adjust this number as needed
+    public function showPendingUsers(Request $request)
+{
+    // Define the number of users per page
+    $perPage = 10; // You can adjust this number as needed
 
-        // Fetch paginated pending users
-        $pendingUsers = User::where('is_approved', false)->paginate($perPage);
+    // Get the search query from the request
+    $searchQuery = $request->input('search');
 
-        // Pass paginated data to the view
-        return view('admin.users', compact('pendingUsers'));
+    // Build the query for pending users
+    $pendingUsers = User::where('is_approved', false);
+
+    // If there is a search query, filter by relevant fields
+    if ($searchQuery) {
+        $pendingUsers->where(function ($query) use ($searchQuery) {
+            $query->where('nama_lengkap', 'like', "%{$searchQuery}%")
+                ->orWhere('email', 'like', "%{$searchQuery}%")
+                ->orWhere('nip', 'like', "%{$searchQuery}%");
+        });
     }
+
+    // Paginate the results
+    $pendingUsers = $pendingUsers->paginate($perPage);
+
+    // Pass paginated data to the view
+    return view('admin.users', compact('pendingUsers'));
+}
+
 
     /**
      * Menyetujui pengguna.
@@ -89,30 +105,64 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showActiveUsers()
+    public function showActiveUsers(Request $request)
     {
+         // Define the number of users per page
+        $perPage = 10; // You can adjust this number as needed
+
+        // Get the search query from the request
+        $searchQuery = $request->input('search');
+
         // Paginate results, excluding users with the 'admin' role
         $activeUsers = User::where('status_verifikasi', true)
             ->whereDoesntHave('roles', function ($query) {
                 $query->where('name', 'admin');
-            })
-            ->paginate(10);
+            });
+            // If there is a search query, filter by name or email
+    if ($searchQuery) {
+        $activeUsers->where(function ($query) use ($searchQuery) {
+            $query->where('nama_lengkap', 'like', "%{$searchQuery}%")
+                ->orWhere('email', 'like', "%{$searchQuery}%")
+                ->orWhere('nip','like',"%{$searchQuery}%");
+        });
+    }
+
+    // Paginate the results
+    $activeUsers = $activeUsers->paginate($perPage);
 
         // Pass the paginated data to the view
         return view('admin.active_users', compact('activeUsers'));
     }
 
-    public function showInactiveUsers()
-    {
-        // Paginate results, excluding users with the 'admin' role
-        $inactiveUsers = User::where('status_verifikasi', false)
-            ->whereDoesntHave('roles', function ($query) {
-                $query->where('name', 'admin');
-            })
-            ->paginate(10);
+    public function showInactiveUsers(Request $request)
+{
+    // Define the number of users per page
+    $perPage = 10; // You can adjust this number as needed
 
-        return view('admin.inactive_users', compact('inactiveUsers'));
+    // Get the search query from the request
+    $searchQuery = $request->input('search');
+
+    // Build the query
+    $inactiveUsers = User::where('status_verifikasi', false)
+        ->whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'admin');
+        });
+
+    // If there is a search query, filter by name or email
+    if ($searchQuery) {
+        $inactiveUsers->where(function ($query) use ($searchQuery) {
+            $query->where('nama_lengkap', 'like', "%{$searchQuery}%")
+                ->orWhere('email', 'like', "%{$searchQuery}%")
+                ->orWhere('nip','like',"%{$searchQuery}%");
+        });
     }
+
+    // Paginate the results
+    $inactiveUsers = $inactiveUsers->paginate($perPage);
+
+    return view('admin.inactive_users', compact('inactiveUsers'));
+}
+
 
 
     /**
@@ -148,4 +198,20 @@ class HomeController extends Controller
 
     return redirect()->route('cms.users')->with('success', 'User has been deleted.');
 }
+public function deleteUser2(User $user)
+{
+    // Check if the user has a related mutasi with no_register
+    $hasNoRegister = Mutasi::where('user_id', $user->id)
+                            ->whereNotNull('no_registrasi')
+                            ->exists();
+
+    if ($hasNoRegister) {
+        return redirect()->route('cms.inactive.users')->with('error', 'Akun ini tidak bisa dihapus dikarenakan data mutasi masih ada');
+    }
+
+    $user->delete();
+
+    return redirect()->route('cms.users')->with('success', 'Akun berhasil dihapus');
+}
+
 }

@@ -10,11 +10,45 @@ class PersyaratanController extends Controller
 {
     // Display list of persyaratan
    // Display list of persyaratan
-    public function index()
-    {
-        $persyaratan = Persyaratan::paginate(10); // Only show active persyaratan
-        return view('admin.persyaratan.index', compact('persyaratan'));
+public function index(Request $request)
+{
+       // Define the number of persyaratan per page
+       $perPage = 10; // You can adjust this number as needed
+
+       // Get the search query from the request
+    $searchQuery = $request->input('search');
+    $statusFilter = $request->input('status');
+
+       // Build the query for active persyaratan
+    $persyaratan = Persyaratan::query();
+
+       // If there is a search query, filter by relevant fields
+    if ($searchQuery) {
+        $persyaratan->where(function ($query) use ($searchQuery) {
+            $query->where('nama_persyaratan', 'like', "%{$searchQuery}%")
+                    ->orWhere('kode_persyaratan', 'like', "%{$searchQuery}%")
+                    ->orWhere('jenis_file', 'like', "%{$searchQuery}%")
+                    ->orWhere('ukuran', 'like', "%{$searchQuery}%")
+                    ->orWhere('status', 'like', "%{$searchQuery}%");// Add other fields as necessary
+        });
     }
+
+     // If a status filter is provided, apply it
+    if ($statusFilter) {
+        if ($statusFilter === 'active') {
+            $persyaratan->where('status', 1); // Assuming 1 is for active
+        } elseif ($statusFilter === 'inactive') {
+            $persyaratan->where('status', 0); // Assuming 0 is for inactive
+        }
+    }
+
+    // Paginate the results
+    $persyaratan = $persyaratan->paginate($perPage);
+
+    // Pass paginated data to the view
+    return view('admin.persyaratan.index', compact('persyaratan'));
+}
+
 
 
     // Show form to create a new persyaratan

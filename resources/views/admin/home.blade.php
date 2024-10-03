@@ -59,7 +59,7 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h2 class="text-dark mb-1 font-weight-medium">{{ $activeUsersCount }}</h2>
-                                <h6 class="text-muted font-weight-normal mb-0">Sudah divalidasi</h6>
+                                <h6 class="text-muted font-weight-normal mb-0">Sudah Divalidasi</h6>
                             </div>
                             <div class="ms-auto">
                                 <span class="text-muted"><i data-feather="user-check"></i></span>
@@ -76,7 +76,7 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h2 class="text-dark mb-1 font-weight-medium">{{ $inactiveUsersCount }}</h2>
-                                <h6 class="text-muted font-weight-normal mb-0">Belum divalidasi</h6>
+                                <h6 class="text-muted font-weight-normal mb-0">Belum Divalidasi</h6>
                             </div>
                             <div class="ms-auto">
                                 <span class="text-muted"><i data-feather="user-x"></i></span>
@@ -93,7 +93,7 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h2 class="text-dark mb-1 font-weight-medium">{{ $mutasiCount }}</h2>
-                                <h6 class="text-muted font-weight-normal mb-0">Pengaju Mutasi</h6>
+                                <h6 class="text-muted font-weight-normal mb-0">Pengajuan Mutasi</h6>
                             </div>
                             <div class="ms-auto">
                                 <span class="text-muted"><i data-feather="file"></i></span>

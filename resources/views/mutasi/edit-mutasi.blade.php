@@ -152,72 +152,69 @@
                             </div>
                         </div>
                         <!-- Card untuk Upload File (Step 2) -->
-                        <div id="step-2" class="card d-none shadow">
-                            <div class="card-header bg-dark text-white text-center">
-                                <h4 class="my-2">Pengajuan Mutasi - Upload Dokumen</h4>
-                            </div>
-                            <div class="card-body">
-                             @foreach ($persyaratans as $persyaratan)
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <label for="{{ $persyaratan->id }}" class="form-label fw-bold">{{ $persyaratan->nama_persyaratan }}</label>
+                    <div id="step-2" class="card d-none shadow">
+                        <div class="card-header bg-dark text-white text-center">
+                            <h4 class="my-2">Pengajuan Mutasi - Upload Dokumen</h4>
+                        </div>
+                        <div class="card-body">
+                            @foreach ($persyaratans as $persyaratan)
+                                @if ($persyaratan->status == 1)
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label for="{{ $persyaratan->id }}" class="form-label fw-bold">{{ $persyaratan->nama_persyaratan }}</label>
+                                            @php
+                                                // Ambil path file dari tabel upload_persyaratan
+                                                $uploadPersyaratan = $mutasi->uploads->where('persyaratan_id', $persyaratan->id)->first();
+                                                $filePath = $uploadPersyaratan ? $uploadPersyaratan->file_path : null;
+                                            @endphp
+                                                @if ($filePath)
+                                                    <!-- Jika file sudah di-upload -->
+                                                    <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                                                        <span>File sudah di-upload. Anda dapat <a href="{{ route('mutasi.show', ['mutasi' => $mutasi->id, 'filename' => basename($filePath), 'action' => 'view']) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
+                                                        <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('{{ $persyaratan->id }}')">Ubah File</button>
+                                                    </div>
+                                                <!-- Kontainer input file untuk ubah file, tersembunyi secara default -->
+                                                <div id="fileInputContainer-{{ $persyaratan->id }}" style="display: none;">
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" id="file-{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
+                                                            aria-describedby="upload-help-{{ $persyaratan->id }}" onchange="validateFileUpload('{{ $persyaratan->id }}', '{{ $persyaratan->ukuran }}')">
+                                                        <span class="input-group-append">
+                                                            <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <!-- Pesan validasi dipindahkan ke bawah -->
+                                                    <small id="upload-help-{{ $persyaratan->id }}" class="form-text ">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
+                                                    <!-- Elemen untuk menampilkan pesan validasi -->
+                                                    <div id="validation-message-{{ $persyaratan->id }}" class="text-danger mt-2"></div>
+                                                </div>
+                                            @else
+                                                <!-- Jika file belum di-upload -->
+                                                <div class="input-group mb-3">
+                                                    <input type="file" class="form-control" id="file-{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
+                                                        aria-describedby="upload-help-{{ $persyaratan->id }}" onchange="validateFileUpload('{{ $persyaratan->id }}', '{{ $persyaratan->ukuran }}')">
+                                                    <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none"
+                                                    style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <!-- Pesan validasi dipindahkan ke bawah -->
+                                                <small id="upload-help-{{ $persyaratan->id }}" class="form-text">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
+                                                <!-- Elemen untuk menampilkan pesan validasi -->
+                                                <div id="validation-message-{{ $persyaratan->id }}" class="text-danger mt-2"></div>
+                                            @endif
 
-                        @php
-                            // Ambil path file dari tabel upload_persyaratan
-                            $uploadPersyaratan = $mutasi->uploads->where('persyaratan_id', $persyaratan->id)->first();
-                            $filePath = $uploadPersyaratan ? $uploadPersyaratan->file_path : null;
-                        @endphp
-
-                        @if ($filePath)
-                            <!-- Jika file sudah di-upload -->
-                            <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                <span>File sudah di-upload. Anda dapat <a href="{{ route('mutasi.show', ['mutasi' => $mutasi->id, 'filename' => basename($filePath), 'action' => 'view']) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
-                                <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('{{ $persyaratan->id }}')">Ubah File</button>
-                            </div>
-
-                            <!-- Kontainer input file untuk ubah file, tersembunyi secara default -->
-                            <div id="fileInputContainer-{{ $persyaratan->id }}" style="display: none;">
-                                <div class="input-group">
-                                    <input type="file" class="form-control" id="file-{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
-                                        aria-describedby="upload-help-{{ $persyaratan->id }}" onchange="validateFileUpload('{{ $persyaratan->id }}', '{{ $persyaratan->ukuran }}')">
-                                    <span class="input-group-append">
-                                        <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                <!-- Pesan validasi dipindahkan ke bawah -->
-                                <small id="upload-help-{{ $persyaratan->id }}" class="form-text ">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
-                                <!-- Elemen untuk menampilkan pesan validasi -->
-                                <div id="validation-message-{{ $persyaratan->id }}" class="text-danger mt-2"></div>
-                            </div>
-                        @else
-                            <!-- Jika file belum di-upload -->
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="file-{{ $persyaratan->id }}" name="persyaratan[{{ $persyaratan->id }}]" accept=".{{ $persyaratan->jenis_file }}"
-                                    aria-describedby="upload-help-{{ $persyaratan->id }}" onchange="validateFileUpload('{{ $persyaratan->id }}', '{{ $persyaratan->ukuran }}')">
-                                <a id="view-{{ $persyaratan->id }}" href="#" target="_blank" class="btn btn-outline-info d-none"
-                                style="border-color: #17a2b8; color: #17a2b8; display: flex; align-items: center; padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 400; margin-left: -1px;">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                            <!-- Pesan validasi dipindahkan ke bawah -->
-                            <small id="upload-help-{{ $persyaratan->id }}" class="form-text">Format {{ strtoupper($persyaratan->jenis_file) }}, ukuran maksimal {{ $persyaratan->ukuran }}KB</small>
-                            <!-- Elemen untuk menampilkan pesan validasi -->
-                            <div id="validation-message-{{ $persyaratan->id }}" class="text-danger mt-2"></div>
-                        @endif
-
-                        <!-- Pesan error validasi -->
-                        @if ($errors->has("persyaratan.{$persyaratan->id}"))
-                            <div class="text-danger mt-2">
-                                <i class="fas fa-exclamation-triangle"></i> {{ $errors->first("persyaratan.{$persyaratan->id}") }}
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-
-
+                                            <!-- Pesan error validasi -->
+                                            @if ($errors->has("persyaratan.{$persyaratan->id}"))
+                                                <div class="text-danger mt-2">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ $errors->first("persyaratan.{$persyaratan->id}") }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                                 <!-- Navigasi Step -->
                                 <div class="d-grid gap-2">
                                     <button type="button" class="btn btn-secondary" id="prev-btn" onclick="previousStep()">
