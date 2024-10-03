@@ -19,7 +19,7 @@
                     <div class="col-lg-12">
                         <div class="form-group mb-3">
                             <label class="form-label text-dark" for="nip">NIP</label>
-                            <input class="form-control" id="nip" name="nip" type="text" placeholder="Enter your NIP" required style="border-radius: 5px;">
+                            <input class="form-control" id="nip" name="nip" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 18);" placeholder="Masukkan NIP Anda" required style="border-radius: 5px;">
                             @error('nip')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -29,7 +29,7 @@
                         <div class="form-group mb-3">
                             <label class="form-label text-dark" for="acc_on">Password</label>
                             <div class="input-group">
-                                <input class="form-control" id="acc_on" name="acc_on" type="password" placeholder="Enter your password" required style="border-radius: 5px;">
+                                <input class="form-control" id="acc_on" name="acc_on" type="password" placeholder="Masukkan Password Anda" required style="border-radius: 5px;">
                                 <button type="button" class="btn btn-outline-secondary align-items-center" onclick="togglePassword('acc_on', this)">
                                     <i class="fas fa-eye"></i>
                                 </button>

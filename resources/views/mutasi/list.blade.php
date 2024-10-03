@@ -51,34 +51,47 @@
                             </form>
                         </div>
                         <!-- End Search Form -->
-
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered no-wrap">
-                                <thead>
+                            <table class="table table-striped table-bordered">
+                                <thead class="table">
                                     <tr>
-                                        <th>No</th>
-                                        <th>No Registrasi</th>
-                                        <th>Nama</th>
-                                        <th>NIP</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th style="width: 5%;" class="text-center">No</th>
+                                        <th style="width: 15%;">No Registrasi</th>
+                                        <th style="width: 25%;">Nama</th>
+                                        <th style="width: 15%;">NIP</th>
+                                        <th style="width: 10%;" class="text-center">Status</th>
+                                        <th style="width: 20%;" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($mutasis as $index => $mutasi)
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
+                                            <td class="text-center">{{ $index + 1 }}</td>
                                             <td>{{ $mutasi->no_registrasi }}</td>
                                             <td>{{ $mutasi->nama }}</td>
                                             <td>{{ $mutasi->nip }}</td>
-                                            <td>{{ $mutasi->status }}</td>
-                                            <td>
+                                            <td class="text-center">
+                                                @switch($mutasi->status)
+                                                    @case('proses')
+                                                        <span class="badge bg-info">Proses</span>
+                                                        @break
+                                                    @case('diterima')
+                                                        <span class="badge bg-success">Diterima</span>
+                                                        @break
+                                                    @case('ditolak')
+                                                        <span class="badge bg-danger">Ditolak</span>
+                                                        @break
+                                                    @default
+                                                        <span class="badge bg-secondary">Dibatalkan</span>
+                                                @endswitch
+                                            </td>
+                                            <td class="text-center">
                                                 <div class="btn-group" role="group">
                                                     @if ($mutasi->is_final === 1 && !$mutasi->verified)
-                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary me-2">Validasi</a>
+                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary btn-sm me-2">Validasi</a>
                                                     @endif
                                                     @if ($mutasi->is_final === 1 && $mutasi->verified)
-                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-secondary me-2">Edit</a>
+                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-secondary btn-sm me-2">Edit</a>
                                                     @endif
                                                 </div>
                                             </td>

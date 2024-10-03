@@ -11,7 +11,6 @@
             </div>
         @endif
 
-        <!-- Alert jika ada pesan error -->
         @if(session('error'))
             <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
                 {{ session('error') }}
@@ -19,63 +18,58 @@
             </div>
         @endif
 
-        <!-- Tombol Tambah Mutasi -->
         <div class="mb-4">
             <a href="{{ route('mutasi.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Tambah Mutasi
             </a>
         </div>
 
-        <!-- Tabel Riwayat Mutasi -->
         <div class="card shadow-sm">
             <div class="card-body">
-                <!-- Tambahkan kelas table-responsive untuk tabel yang lebih responsif -->
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
+                    <table class="table table-bordered table-hover table-striped align-middle">
+                        <thead class="table-success">
                             <tr>
-                                <th>No</th>
-                                <th>No. Registrasi</th>
-                                <th>Tanggal Diajukan</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                                <th>Keterangan</th>
+                                <th style="width: 5%;" class="text-center">No</th>
+                                <th style="width: 15%;" class="text-center">No. Registrasi</th>
+                                <th style="width: 10%;" class="text-center">Status</th>
+                                <th style="width: 40%;">Keterangan</th>
+                                <th style="width: 10%;" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($mutasi as $index => $item)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item->no_registrasi }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $index + 1 }}</td>
+                                    <td class="text-center">{{ $item->no_registrasi }}</td>
+                                    <td class="text-center">
                                         @switch($item->status)
                                             @case('draft')
-                                                <span class="badge bg-secondary">Draft</span>
+                                                <span class="badge bg-secondary rounded-pill">Draft</span>
                                                 @break
                                             @case('proses')
-                                                <span class="badge bg-info">Proses</span>
+                                                <span class="badge bg-info rounded-pill">Proses</span>
                                                 @break
                                             @case('diterima')
-                                                <span class="badge bg-success">Diterima</span>
+                                                <span class="badge bg-success rounded-pill">Diterima</span>
                                                 @break
                                             @case('ditolak')
-                                                <span class="badge bg-danger">Ditolak</span>
+                                                <span class="badge bg-danger rounded-pill">Ditolak</span>
                                                 @break
                                             @case('dibatalkan')
-                                                <span class="badge bg-dark">Dibatalkan</span>
+                                                <span class="badge bg-dark rounded-pill">Dibatalkan</span>
                                                 @break
                                             @default
-                                                <span class="badge bg-light text-dark">Unknown</span>
+                                                <span class="badge bg-light text-dark rounded-pill">Unknown</span>
                                         @endswitch
                                     </td>
-                                    <td>
+                                    <td>{{ $item->keterangan }}</td>
+                                    <td class="text-center">
                                         <a href="{{ route('mutasi.edit', $item->id) }}"
-                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm">
-                                        <i class="fas fa-pencil-alt"></i> Edit
+                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm d-flex align-items-center justify-content-center">
+                                        <i class="fas fa-pencil-alt me-1"></i> Edit
                                         </a>
                                     </td>
-                                    <td>{{ $item->keterangan }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
