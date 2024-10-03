@@ -152,12 +152,13 @@
                             </div>
                         </div>
                         <!-- Card untuk Upload File (Step 2) -->
-                        <div id="step-2" class="card d-none shadow">
-                            <div class="card-header bg-dark text-white text-center">
-                                <h4 class="my-2">Pengajuan Mutasi - Upload Dokumen</h4>
-                            </div>
-                            <div class="card-body">
-                                @foreach ($persyaratans as $persyaratan)
+                    <div id="step-2" class="card d-none shadow">
+                        <div class="card-header bg-dark text-white text-center">
+                            <h4 class="my-2">Pengajuan Mutasi - Upload Dokumen</h4>
+                        </div>
+                        <div class="card-body">
+                            @foreach ($persyaratans as $persyaratan)
+                                @if ($persyaratan->status == 1)
                                     <div class="row mb-4">
                                         <div class="col-12">
                                             <label for="{{ $persyaratan->id }}" class="form-label fw-bold">{{ $persyaratan->nama_persyaratan }}</label>
@@ -171,7 +172,7 @@
                                             @if ($filePath)
                                                 <!-- Jika file sudah di-upload -->
                                                 <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                                    <span>File sudah di-upload. Anda dapat. <a href="{{ route('mutasi.show', ['mutasi' => $mutasi->id, 'filename' => basename($filePath), 'action' => 'view']) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
+                                                    <span>File sudah di-upload. Anda dapat <a href="{{ route('mutasi.show', ['mutasi' => $mutasi->id, 'filename' => basename($filePath), 'action' => 'view']) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
                                                     <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput('{{ $persyaratan->id }}')">Ubah File</button>
                                                 </div>
 
@@ -209,8 +210,8 @@
                                             @endif
                                         </div>
                                     </div>
-                                @endforeach
-
+                                @endif
+                            @endforeach
                                 <!-- Navigasi Step -->
                                 <div class="d-grid gap-2">
                                     <button type="button" class="btn btn-secondary" id="prev-btn" onclick="previousStep()">

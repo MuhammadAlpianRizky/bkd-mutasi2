@@ -60,6 +60,11 @@ class User extends Authenticatable
 {
     return $this->hasMany(NotifWa::class);
 }
+
+public function Undangan()
+{
+    return $this->hasMany(Undangan::class);
+}
 public function canLogin()
 {
     return $this->is_approved == 1 && $this->status_verifikasi == 1;

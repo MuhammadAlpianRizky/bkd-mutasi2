@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UndanganController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
@@ -40,13 +41,14 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('cms')->group(function () {
             Route::get('/users', [HomeController::class, 'showPendingUsers'])->name('cms.users');
-            Route::delete('/cms/users/{user}', [HomeController::class, 'deleteUser'])->name('cms.delete.user');
+            Route::delete('/cms/users/pending/{user}', [HomeController::class, 'deleteUser'])->name('cms.delete.user');
+            Route::delete('/cms/users/{user}', [HomeController::class, 'deleteUser2'])->name('cms.delete.user2');
             Route::get('/user/{id}', [UserController::class, 'showUserDetail'])->name('cms.user.detail');
             Route::get('/user/{id}/photo/{photoField}/{action?}', [UserController::class, 'showPhoto'])
                             ->where(['photoField' => 'photo_ktp|photo_karpeg', 'action' => 'view|download'])
                             ->name('user.photo');
-            Route::get('/mutasi/invited', [UserController::class, 'invitedMutasi'])->name('mutasi.invited');
-            Route::post('/mutasi/send-invitation', [UserController::class, 'sendInvitation'])->name('mutasi.sendInvitation');
+            Route::get('/mutasi/invited', [UndanganController::class, 'invitedMutasi'])->name('mutasi.invited');
+            Route::post('/mutasi/send-invitation', [UndanganController::class, 'sendInvitation'])->name('mutasi.sendInvitation');
             Route::post('/approve/{user}', [HomeController::class, 'approveUser'])->name('cms.approve');
             Route::post('/deactivate/{user}', [HomeController::class, 'deactivateUser'])->name('cms.deactivate');
             Route::post('/activate/{user}', [HomeController::class, 'activateUser'])->name('cms.activate');
@@ -59,6 +61,20 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/mutasi/{id}/cancel', [FileController::class, 'cancel'])->name('mutasi.cancel');
             Route::get('/files/{id}/{filename}', [FileController::class, 'show'])->name('file.show');
             Route::resource('persyaratan', PersyaratanController::class);
+
+            //undangan
+            // Routes for Undangan
+            Route::get('/undangan', [UndanganController::class, 'index'])->name('undangan.index');
+            Route::get('/undangan/create', [UndanganController::class, 'create'])->name('undangan.create');
+            Route::post('/undangan', [UndanganController::class, 'store'])->name('undangan.store');
+            Route::get('/undangan/{undangan}', [UndanganController::class, 'show'])->name('undangan.show');
+            Route::get('/undangan/{undangan}/edit', [UndanganController::class, 'edit'])->name('undangan.edit');
+            Route::put('/undangan/{undangan}', [UndanganController::class, 'update'])->name('undangan.update');
+            Route::delete('/undangan/{undangan}', [UndanganController::class, 'destroy'])->name('undangan.destroy');
+            Route::get('/undangan/{id}/download', [UndanganController::class, 'download'])->name('undangan.download');
+            // In your web.php or routes file
+            Route::get('/mutasi/filter', [UndanganController::class, 'filterMutasi'])->name('mutasi.filter');
+
 
 
 
