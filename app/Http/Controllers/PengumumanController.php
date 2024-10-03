@@ -99,6 +99,18 @@ class PengumumanController extends Controller
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus!');
     }
 
+    public function show(Pengumuman $pengumuman)
+    {
+        $filePath = $pengumuman->file_path;
+
+        if (!Storage::disk('public')->exists($filePath)) {
+            abort(404, 'File not found.');
+        }
+
+        return response()->file(storage_path('app/public/' . $filePath), [
+            'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"'
+        ]);
+    }
 
 
 }

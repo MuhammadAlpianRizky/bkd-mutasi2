@@ -89,7 +89,10 @@
                                             <td>{{ $persyaratan->nama_persyaratan }}</td>
                                             <td class="text-center">
                                                 @if ($upload)
-                                                    <a href="{{ route('file.show', ['id' => $mutasi->id, 'filename' => basename($upload->file_path), 'action' => 'view']) }}" target="_blank" class="btn btn-primary btn-sm">Lihat</a>
+                                                    <a href="{{ route('file.show', ['id' => $mutasi->id, 'filename' => basename($upload->file_path), 'action' => 'view']) }}"
+                                                    target="_blank"
+                                                    class="btn btn-primary btn-sm view-button"
+                                                    onclick="changeButtonColor(this)">Lihat</a>
                                                 @else
                                                     <span>Data Belum Ada</span>
                                                 @endif
@@ -102,9 +105,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
         <!-- Form untuk Validasi -->
         <div class="row">
             <div class="col-12">
@@ -120,7 +121,6 @@
                                     <option value="dibatalkan" {{ old('status', $mutasi->status) === 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                                 </select>
                             </div>
-
                                     <!-- Keterangan Text Area -->
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
@@ -163,6 +163,12 @@ document.getElementById('validateBtn').addEventListener('click', function() {
         }
     });
 });
+
+function changeButtonColor(button) {
+        button.classList.remove('btn-primary'); // Menghapus kelas biru
+        button.classList.add('btn-success'); // Menambahkan kelas hijau
+        button.textContent = "Dilihat"; // Mengubah teks tombol jika perlu
+    }
 </script>
 
 @endsection

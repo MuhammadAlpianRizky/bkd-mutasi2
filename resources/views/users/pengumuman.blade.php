@@ -42,7 +42,7 @@
                         <p class="card-text text-muted">{{ \Carbon\Carbon::parse($pengumuman->tanggal)->translatedFormat('l, d F Y') }}</p>
                         <p class="card-text">{{ $pengumuman->deskripsi }}</p>
                         @if($pengumuman->file_path) <!-- Memastikan ada file yang diupload -->
-                            <a href="{{ asset('storage/' . $pengumuman->file_path) }}" class="btn btn-sm btn-primary" target="_blank">
+                            <a href="{{ route('pengumuman.show', $pengumuman) }}" class="btn btn-sm btn-primary" target="_blank">
                                 <i class="fa fa-download"></i> Dokumen Pengumuman
                             </a>
                         @endif

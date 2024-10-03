@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
+Route::get('pengumuman/{pengumuman}', [PengumumanController::class, 'show'])->name('pengumuman.show');
 
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
