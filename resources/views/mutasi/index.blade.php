@@ -63,12 +63,23 @@
                                                 <span class="badge bg-light text-dark rounded-pill">Unknown</span>
                                         @endswitch
                                     </td>
-                                    <td>{{ $item->keterangan }}</td>
+                                    <td>{{ $item->keterangan }}</td>                                                                                                                                                                            
                                     <td class="text-center">
                                         <a href="{{ route('mutasi.edit', $item->id) }}"
-                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm d-flex align-items-center justify-content-center">
-                                        <i class="fas fa-pencil-alt me-1"></i> Edit
+                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm mb-2 align-items-center justify-content-center">
+                                            <i class="fas fa-pencil-alt me-1"></i> Edit
                                         </a>
+                                        <br>
+                                        @if($item->undangan && $item->undangan->file)
+                                            
+                                            <!-- Tombol untuk melihat file -->
+                                            <a href="{{ route('mutasi.show1', ['mutasi' => $item->id, 'action' => 'view']) }}?filename={{ basename($item->undangan->file) }}" target="_blank" class="btn btn-sm btn-info mb-2">
+                                                <i class="fas fa-eye"></i> Undangan
+                                            </a>
+                                            
+                                        @else
+                                        
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

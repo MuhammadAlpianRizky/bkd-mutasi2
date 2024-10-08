@@ -24,4 +24,5 @@ class Undangan extends Model
     {
         return $this->belongsTo(Mutasi::class);
     }
+    
 }

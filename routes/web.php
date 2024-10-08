@@ -75,10 +75,11 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
             //undangan
             // Routes for Undangan
-            Route::get('/undangan', [UndanganController::class, 'index'])->name('undangan.index');
             Route::get('/undangan/create', [UndanganController::class, 'create'])->name('undangan.create');
+            Route::get('undangan/{id}/{action?}', [UndanganController::class, 'show'])->name('undangan.show');
+            Route::get('/undangan', [UndanganController::class, 'index'])->name('undangan.index');
+            
             Route::post('/undangan', [UndanganController::class, 'store'])->name('undangan.store');
-            Route::get('/undangan/{undangan}', [UndanganController::class, 'show'])->name('undangan.show');
             Route::get('/undangan/{undangan}/edit', [UndanganController::class, 'edit'])->name('undangan.edit');
             Route::put('/undangan/{undangan}', [UndanganController::class, 'update'])->name('undangan.update');
             Route::delete('/undangan/{undangan}', [UndanganController::class, 'destroy'])->name('undangan.destroy');
@@ -102,8 +103,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/mutasi/create', [MutasiController::class, 'create'])->name('mutasi.create');
         Route::post('/mutasi/store', [MutasiController::class, 'store'])->name('mutasi.store');
         Route::get('/mutasi/{mutasi}/edit', [MutasiController::class, 'edit'])->name('mutasi.edit');
+        Route::get('/mutasi/{mutasi}/file/{action?}', [UndanganController::class, 'show1'])->name('mutasi.show1');
         Route::put('/mutasi/{mutasi}', [MutasiController::class, 'update'])->name('mutasi.update');
         Route::get('/mutasi/{mutasi}/file/{filename}/{action?}', [FileController::class, 'show1'])->name('mutasi.show');
+        
     });
 
 

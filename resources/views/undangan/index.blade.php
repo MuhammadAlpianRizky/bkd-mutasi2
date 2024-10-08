@@ -68,7 +68,6 @@
                                 <th>Jabatan</th>
                                 <th>Unit Kerja</th>
                                 <th>File PDF</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,16 +81,7 @@
                                     <td>{{ $item->mutasi->jabatan }}</td>
                                     <td>{{ $item->mutasi->unit_kerja }}</td>
                                     <td>
-                                        @if($item->file)
-                                            <a href="{{ route('undangan.download', $item->id) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-download"></i> Download PDF
-                                            </a>
-                                        @else
-                                            <span class="text-muted">Tidak ada file</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('undangan.show', $item->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('undangan.show',['id' => $item->id, 'filename' => basename($item->file), 'action' => 'view']) }}" class="btn btn-sm btn-primary">
                                             <i class="fas fa-eye"></i> Lihat
                                         </a>
                                     </td>
