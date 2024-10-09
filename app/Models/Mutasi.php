@@ -13,6 +13,7 @@ class Mutasi extends Model
 
     protected $fillable = [
         'user_id',
+        'undangan_id',
         'no_registrasi',
         'nama',
         'nip',
@@ -31,7 +32,6 @@ class Mutasi extends Model
         'is_final',
         'status',
         'keterangan',
-        'undangan',
     ];
 
     public function user()
@@ -48,7 +48,7 @@ class Mutasi extends Model
         return $this->hasMany(NotifWa::class);
     }
     public function undangan()
-    {
-        return $this->hasOne(Undangan::class);
-    }
+{
+    return $this->belongsTo(Undangan::class, 'undangan_id');
+}
 }

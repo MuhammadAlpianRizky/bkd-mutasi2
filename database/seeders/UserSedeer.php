@@ -28,6 +28,7 @@ class UserSedeer extends Seeder
             'no_hp' => '0812345678',
             'acc_on' => bcrypt('1234'),
             'is_approved' => true, // Pegawai belum disetujui
+            'status_verifikasi'=>true,
         ]);
         $pegawai->assignRole('pegawai');
     }
