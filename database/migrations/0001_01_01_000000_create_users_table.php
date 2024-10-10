@@ -17,7 +17,7 @@ Schema::create('users', function (Blueprint $table) {
     $table->string('nip', 18)->unique();
     $table->string('nama_lengkap', 150);
     $table->string('alamat_tinggal', 255)->nullable();
-    $table->string('no_hp', 13)->nullable();
+    $table->string('no_hp', 15)->nullable();
     $table->string('email', 100)->unique()->nullable();
     $table->string('no_ktp', 25)->unique()->nullable();
     $table->string('no_karpeg', 25)->unique()->nullable();
