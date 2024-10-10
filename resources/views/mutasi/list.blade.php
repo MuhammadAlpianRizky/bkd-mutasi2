@@ -16,7 +16,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-link">Home</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Daftar Mutasi</li>
                         </ol>
                     </nav>
@@ -45,6 +45,13 @@
                         <div class="d-flex justify-content-end mb-3">
                             <form method="GET" action="{{ route('mutasi.list') }}" class="d-flex">
                                 <input type="text" name="search" class="form-control me-2" placeholder="Pencarian" value="{{ request('search') }}">
+                                <select name="status">
+                                    <option value="">Pilih Status</option>
+                                    <option value="proses" {{ request('status') == 'proses' ? 'selected' : '' }}> Proses</option>
+                                    <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : ''}}>Diterima</option>
+                                    <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                    <option value="dibatalkan" {{ request('dibatalkan') == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                                </select>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -64,7 +71,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($mutasis as $index => $mutasi)
+                                    @foreach ($daftarMutasis as $index => $mutasi)
                                         <tr>
                                             <td class="text-center">{{ $index + 1 }}</td>
                                             <td>{{ $mutasi->no_registrasi }}</td>
@@ -101,7 +108,7 @@
                             </table>
                             <!-- Pagination Links -->
                             <div class="pagination float-end">
-                                {!! $mutasis->links() !!}
+                                {!! $daftarMutasis->links() !!}
                             </div>
                         </div>
                     </div>

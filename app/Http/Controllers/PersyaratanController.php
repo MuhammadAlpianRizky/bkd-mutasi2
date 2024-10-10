@@ -12,10 +12,10 @@ class PersyaratanController extends Controller
    // Display list of persyaratan
 public function index(Request $request)
 {
-       // Define the number of persyaratan per page
-       $perPage = 10; // You can adjust this number as needed
+    // Define the number of persyaratan per page
+    $perPage = 10; // You can adjust this number as needed
 
-       // Get the search query from the request
+    // Get the search query from the request
     $searchQuery = $request->input('search');
     $statusFilter = $request->input('status');
 

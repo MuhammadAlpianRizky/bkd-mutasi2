@@ -33,10 +33,7 @@
                                     <label for="nama" class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $mutasi->nama) }}" required>
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
+                                            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $mutasi->nama) }}" readonly>
                                         </div>
                                         @error('nama')
                                             <div class="text-danger">{{ $message }}</div>
@@ -49,10 +46,7 @@
                                     <label for="nip" class="col-sm-4 col-form-label">NIP</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="nip" name="nip" value="{{ old('nip', $mutasi->nip) }}" required>
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
+                                            <input type="number" class="form-control" id="nip" name="nip" value="{{ old('nip', $mutasi->nip) }}" readonly>
                                         </div>
                                         @error('nip')
                                             <div class="text-danger">{{ $message }}</div>
@@ -66,9 +60,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="pgol" name="pgol" value="{{ old('pgol', $mutasi->pgol) }}">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('pgol')
                                             <div class="text-danger">{{ $message }}</div>
@@ -82,9 +73,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan', $mutasi->jabatan) }}">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('jabatan')
                                             <div class="text-danger">{{ $message }}</div>
@@ -98,9 +86,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="unit_kerja" name="unit_kerja" value="{{ old('unit_kerja', $mutasi->unit_kerja) }}">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('unit_kerja')
                                             <div class="text-danger">{{ $message }}</div>
@@ -114,9 +99,6 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="instansi" name="instansi" value="{{ old('instansi', $mutasi->instansi) }}">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
                                         </div>
                                         @error('instansi')
                                             <div class="text-danger">{{ $message }}</div>
@@ -129,10 +111,7 @@
                                     <label for="no_hp" class="col-sm-4 col-form-label">No. HP</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $mutasi->no_hp) }}">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </span>
+                                            <input type="number" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $mutasi->no_hp) }}"  readonly>
                                         </div>
                                         @error('no_hp')
                                             <div class="text-danger">{{ $message }}</div>

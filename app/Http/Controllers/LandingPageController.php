@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,8 @@ class LandingPageController extends Controller
 {
     public function index()
 {
+    $pengumumans = Pengumuman::all();
+
     if (Auth::check()) {
         $user = Auth::user();
         if ($user->hasRole('admin')) {
@@ -19,6 +22,6 @@ class LandingPageController extends Controller
         }
     }
 
-    return view('users.home');
+    return view('users.home', compact('pengumumans'));
 }
 }

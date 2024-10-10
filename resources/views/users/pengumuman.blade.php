@@ -15,7 +15,7 @@
     <!-- Core Theme CSS (includes Bootstrap) -->
     <link href="{{ asset('landing-page/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('landing-page/css/beranda.css') }}" rel="stylesheet" />
-    <link href="{{ asset('pengumumancss/css/file.css') }}" rel="stylesheet" />
+    <link href="{{ asset('pengumumans/css/file.css') }}" rel="stylesheet" />
 
     <!-- Bootstrap and Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%; /* Mengatur tinggi body menjadi 100% dari viewport */
+            margin: 0; /* Menghilangkan margin default */
+            display: grid;
+            grid-template-rows: 1fr auto; /* Membagi grid menjadi dua bagian: konten dan footer */
+        }
 
+        footer {
+            background-color: black;
+            color: white;
+            padding: 20px; /* Memberikan padding untuk footer */
+        }
+    </style>
 </head>
 <body id="page-top">
     <!-- Navigation -->
@@ -53,9 +66,6 @@
             @endforeach
         </div>
     </section>
-
-    <!-- Contact -->
-    @include('users.contact')
 
     <!-- Footer -->
     @include('users.footer')

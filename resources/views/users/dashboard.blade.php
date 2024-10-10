@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Mutasi</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
+    <title>E-Mutasi BKD Diklat Banjarmasin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +13,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        html, body {
+            height: 100%; /* Mengatur tinggi body menjadi 100% dari viewport */
+            margin: 0; /* Menghilangkan margin default */
+            display: flex; /* Mengubah layout menjadi flex */
+            flex-direction: column; /* Mengatur arah layout vertikal */
             font-family: 'Montserrat', sans-serif;
+        }
+
+        .content {
+            flex: 1; /* Mengisi ruang yang tersedia */
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 20px; /* Memberikan padding untuk footer */
+            text-align: center; /* Menyelaraskan teks di tengah */
         }
 
         .nav-link {

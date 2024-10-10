@@ -78,6 +78,8 @@ class HomeController extends Controller
         });
     }
 
+    $pendingUsers->latest();
+
     // Paginate the results
     $pendingUsers = $pendingUsers->paginate($perPage);
 

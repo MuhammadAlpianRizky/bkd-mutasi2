@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\NotifWa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +19,8 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $pengumumans = Pengumuman::all();
+        return view('auth.register', compact('pengumumans'));
     }
 
     public function register(Request $request)

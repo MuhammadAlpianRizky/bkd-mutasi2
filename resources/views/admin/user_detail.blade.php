@@ -43,71 +43,63 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <!-- Tabel untuk menampilkan detail mutasi -->
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <th width="5%">Nama</th>
-                                        <td width="30%">{{ $user->nama_lengkap }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th width="5%">NIP</th>
-                                        <td width="30%">{{ $user->nip }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th width="5%">Nomor KTP</th>
-                                        <td width="30%">{{ $user->no_ktp }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th width="5%">Nomor Karpeg</th>
-                                        <td width="30%">{{ $user->no_karpeg }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th width="5%">Alamat</th>
-                                        <td width="30%">{{ $user->alamat_tinggal }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th width="5%">Nomor HP</th>
-                                        <td width="30%">{{ $user->no_hp }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th width="5%">Email</th>
-                                        <td width="30%">{{ $user->email }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <hr>
-
-                            <!-- Bagian Foto Dokumen -->
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <strong>Foto KTP:</strong><br>
-                                        @if ($user->photo_ktp)
-                                            <!-- Link to view and download KTP -->
-                                            <a href="{{ route('user.photo', ['id' => $user->id, 'photoField' => 'photo_ktp', 'action' => 'view']) }}" target="_blank">
-                                                Lihat
-                                            </a>
-                                            <br>
-                                        @else
-                                            <p>No photo available.</p>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <strong>Foto Karpeg:</strong><br>
-                                        @if ($user->photo_karpeg)
-                                            <!-- Link to view and download Karpeg -->
-                                            <a href="{{ route('user.photo', ['id' => $user->id, 'photoField' => 'photo_karpeg', 'action' => 'view']) }}" target="_blank">
-                                                Lihat
-                                            </a>
-                                            <br>
-                                        @else
-                                            <p>No photo available.</p>
-                                        @endif
-                                    </div>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th width="30%">Nama</th>
+                                            <td>{{ $user->nama_lengkap }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>NIP</th>
+                                            <td>{{ $user->nip }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nomor KTP</th>
+                                            <td>{{ $user->no_ktp }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nomor Karpeg</th>
+                                            <td>{{ $user->no_karpeg }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Alamat</th>
+                                            <td>{{ $user->alamat_tinggal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nomor HP</th>
+                                            <td>{{ $user->no_hp }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ $user->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Foto KTP</th>
+                                            <td>
+                                                @if ($user->photo_ktp)
+                                                    <a href="{{ route('user.photo', ['id' => $user->id, 'photoField' => 'photo_ktp', 'action' => 'view']) }}" target="_blank" class="btn btn-primary btn-sm">
+                                                        Lihat Gambar
+                                                    </a>
+                                                @else
+                                                    <p>No photo available.</p>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Foto Karpeg</th>
+                                            <td>
+                                                @if ($user->photo_karpeg)
+                                                    <a href="{{ route('user.photo', ['id' => $user->id, 'photoField' => 'photo_karpeg', 'action' => 'view']) }}" target="_blank" class="btn btn-primary btn-sm">
+                                                        Lihat Gambar
+                                                    </a>
+                                                @else
+                                                    <p>No photo available.</p>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -115,21 +107,20 @@
             </div>
         </div>
 
-
-                        <div class="row" style="margin-left: 1px">
-                            <div class="col-md-12">
-                                <a href="{{ route('cms.users') }}" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left"></i> Kembali
-                                </a>
-                            </div>
-                        </div>
-                    </div>        <!-- ============================================================== -->
-        <!-- End Page Content -->
-        <!-- ============================================================== -->
-    </div>
+        {{-- <div class="row" style="margin-left: 1px">
+            <div class="col-md-12">
+                <a href="{{ route('cms.users') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+        </div> --}}
+    </div> <!-- ============================================================== -->
+    <!-- End Page Content -->
     <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
 </div>
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->

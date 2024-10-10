@@ -31,7 +31,7 @@
                                     <label for="nama" class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $user->nama_lengkap) }}" required>
+                                            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $user->nama_lengkap) }}" readonly>
                                         </div>
                                         @error('nama')
                                             <div class="text-danger">{{ $message }}</div>
@@ -44,7 +44,7 @@
                                     <label for="nip" class="col-sm-4 col-form-label">NIP</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="nip" name="nip" value="{{ old('nip', $user->nip) }}" required>
+                                            <input type="number" class="form-control" id="nip" name="nip" value="{{ old('nip', $user->nip) }}" readonly>
                                         </div>
                                         @error('nip')
                                             <div class="text-danger">{{ $message }}</div>
@@ -109,7 +109,7 @@
                                     <label for="no_hp" class="col-sm-4 col-form-label">No. HP</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" required>
+                                            <input type="number" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" readonly>
                                         </div>
                                         @error('no_hp')
                                             <div class="text-danger">{{ $message }}</div>

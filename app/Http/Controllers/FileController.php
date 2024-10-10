@@ -146,17 +146,37 @@ public function show1(Mutasi $mutasi, $filename, $action = 'view')
 
     public function list(Request $request)
     {
-        $query = Mutasi::query();
+        $perPage = 10;
+        // Ambil data query dari request user
+        $searchQuery = $request->input('search');
+        $statusFilter = $request->input('status');
 
-        if ($search = $request->input('search')) {
-            $query->where('no_registrasi', 'like', "%{$search}%")
-                ->orWhere('nama', 'like', "%{$search}%")
-                ->orWhere('nip', 'like', "%{$search}%");
+        $daftarMutasi = Mutasi::query();
+
+        if ($searchQuery) {
+            $daftarMutasi->where(function ($query) use ($searchQuery) {
+                $query->where('no_registrasi', 'like', "%{$searchQuery}%")
+                ->orWhere('nama', 'like', "%{$searchQuery}%")
+                ->orWhere('nip', 'like', "%{$searchQuery}%");
+            });
         }
 
-        $mutasis = $query->orderBy('verified', 'asc')->orderBy('id', 'desc')->paginate(5);
+        if ($statusFilter) {
+            if ($statusFilter === 'proses') {
+                $daftarMutasi->where('status', 'proses');
+            } elseif ($statusFilter === 'diterima'){
+                $daftarMutasi->where('status', 'diterima');
+            } elseif ($statusFilter === 'ditolak') {
+                $daftarMutasi->where('status', 'ditolak');
+            } elseif ($statusFilter === 'dibatalkan') {
+                $daftarMutasi->where('status', 'dibatalkan');
+            }
+        }
 
-        return view('mutasi.list', compact('mutasis'));
+
+        $daftarMutasis = $daftarMutasi->orderBy('verified', 'asc')->orderBy('id', 'desc')->paginate(10);
+
+        return view('mutasi.list', compact('daftarMutasis'));
     }
     public function edit($id)
 {

@@ -29,22 +29,22 @@ class LoginController extends Controller
             'nip' => 'required|string',
             'acc_on' => 'required|string',
         ]);
-    
+
         $credentials = $request->only('nip', 'acc_on');
-    
+
         $user = User::where('nip', $credentials['nip'])->first();
-    
+
         if ($user) {
             if (Hash::check($credentials['acc_on'], $user->acc_on)) {
                 // Menggunakan fungsi canLogin untuk memeriksa is_approved dan status_verifikasi
                 if (!$user->canLogin()) {
                     return back()->withErrors([
-                        'nip' => $user->is_approved ? 'Akun Belum Terverifikasi' : 'Akun Belum Diaktifkan',
+                        'nip' => $user->is_approved ? 'Akun Anda Dinonaktifkan' : 'Akun Belum Diverifikasi oleh Admin',
                     ])->withInput($request->except('acc_on'));
                 }
-    
+
                 Auth::login($user);
-    
+
                 // Redirect berdasarkan peran pengguna
                 if ($user->hasRole('admin')) {
                     return redirect()->route('dashboard');
