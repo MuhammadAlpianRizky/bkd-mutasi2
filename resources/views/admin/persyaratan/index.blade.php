@@ -11,7 +11,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-muted">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-link">Home</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Persyaratan</li>
                         </ol>
                     </nav>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">   
+        <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -32,7 +32,7 @@
                             <form method="GET" action="{{ route('persyaratan.index') }}" class="d-flex">
                                 <input type="text" name="search" class="form-control me-2" placeholder="Pencarian" id="searchInput" value="{{ request('search') }}">
                                 <select name="status">
-                                    <option value="">Select Status</option>
+                                    <option value="">Pilih Status</option>
                                     <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Aktif</option>
                                     <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>NonAktif</option>
                                 </select>
@@ -40,7 +40,7 @@
                                     <i class="fas fa-search"></i>
                                 </button>
                             </form>
-                        </div> 
+                        </div>
                         <div class="table-responsive">
                             @if (session('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">

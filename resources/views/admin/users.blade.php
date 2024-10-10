@@ -16,7 +16,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-link">Home</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Pending Users</li>
                         </ol>
                     </nav>
@@ -48,7 +48,7 @@
                                     <i class="fas fa-search"></i>
                                 </button>
                             </form>
-                        </div> 
+                        </div>
                         @if(session('success'))
                         <script>
                             Swal.fire({
@@ -58,7 +58,7 @@
                             });
                             </script>
                         @endif
-                        
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered no-wrap">
                                 <thead>

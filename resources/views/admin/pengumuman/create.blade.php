@@ -46,12 +46,18 @@
                             <!-- File Upload -->
                             <div class="form-group">
                                 <label for="file">Unggah File</label>
-                                <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" id="file" required>
+                                <div class="input-group">
+                                    <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" id="file" required>
+                                    <span class="input-group-append">
+                                        <a id="view-file" href="#" target="_blank" class="btn btn-outline-info d-none">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </span>
+                                </div>
                                 @error('file')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary">Batal</a>
                         </form>
@@ -61,4 +67,6 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('pengumumans/js/pengumuman.js') }}"></script>
+
 @endsection

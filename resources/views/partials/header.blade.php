@@ -26,7 +26,7 @@
             <!-- ============================================================== -->
             <div class="navbar-brand">
                 <!-- Logo icon -->
-                <a href="index.html">
+                <a href="#">
                     <img src="{{ asset('assets/images/freedashDark.svg') }}" alt="" class="img-fluid">
                 </a>
             </div>
