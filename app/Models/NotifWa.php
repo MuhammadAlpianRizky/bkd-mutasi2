@@ -21,6 +21,7 @@ class NotifWa extends Model
         'nip',
         'no_hp',
         'no_registrasi',
+        'is_wa',
     ];
 
     /**

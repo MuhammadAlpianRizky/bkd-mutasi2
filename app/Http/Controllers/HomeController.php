@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NotifWa;
 use App\Models\User;
 use App\Models\Mutasi;
 use Illuminate\Http\Request;
@@ -96,6 +97,17 @@ class HomeController extends Controller
         $user->is_approved = true;
         $user->status_verifikasi = true;
         $user->save();
+        
+        NotifWa::create([
+        'user_id' => $user->id, // Menyimpan ID pengguna yang disetujui
+        'mutasi_id' => null, // Kolom 'mutasi_id' dikosongkan (null) karena persetujuan tidak terkait mutasi
+        'status' => 'approved_akun', // Status diatur menjadi 'approved_akun' untuk menandakan persetujuan akun
+        'nama' => $user->nama_lengkap, // Mengambil nama pengguna dari model User
+        'nip' => $user->nip, // Mengambil NIP pengguna dari model User
+        'no_hp' => $user->no_hp, // Mengambil nomor HP pengguna dari model User
+        'no_registrasi' => $user->no_registrasi, // Mengambil nomor registrasi pengguna dari model User (bisa null)
+        'is_wa' => '0', // Set nilai 'is_wa' menjadi 0 (belum dikirim via WhatsApp)
+        ]);
 
         return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }

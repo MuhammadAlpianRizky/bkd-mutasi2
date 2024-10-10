@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mutasi;
+use App\Models\NotifWa;
 use App\Models\Validasi;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
@@ -129,6 +130,16 @@ public function show1(Mutasi $mutasi, $filename, $action = 'view')
         'keterangan' => $request->input('keterangan'),  // Save the 'keterangan' value
     ]);
 
+    NotifWa::create([
+        'user_id' => $mutasi->user_id, // ID pengguna dari mutasi
+        'mutasi_id' => $mutasi->id,    // ID mutasi yang disetujui
+        'status' => 'approved_mutasi', // Status notifikasi WA: 'approved_mutasi'
+        'nama' => $mutasi->user->nama_lengkap, // Nama pengguna dari relasi user di mutasi
+        'nip' => $mutasi->user->nip,   // NIP pengguna
+        'no_hp' => $mutasi->user->no_hp, // Nomor HP pengguna
+        'no_registrasi' => $mutasi->no_registrasi, // Nomor registrasi dari mutasi
+        'is_wa' => '0',  // Default is_wa: belum dikirim via WA
+    ]);
     return redirect()->route('mutasi.list')->with('status', 'Mutasi berhasil diperbarui.');
 }
 
