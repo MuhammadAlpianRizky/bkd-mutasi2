@@ -20,13 +20,13 @@
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
-    <div class="page-breadcrumb">
+    {{-- <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
                 <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $welcomeMessage }}</h3>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
