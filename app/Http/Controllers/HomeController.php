@@ -58,33 +58,33 @@ class HomeController extends Controller
      * @return \Illuminate\View\View
      */
     public function showPendingUsers(Request $request)
-{
-    // Define the number of users per page
-    $perPage = 10; // You can adjust this number as needed
+    {
+        // Define the number of users per page
+        $perPage = 10; // You can adjust this number as needed
 
-    // Get the search query from the request
-    $searchQuery = $request->input('search');
+        // Get the search query from the request
+        $searchQuery = $request->input('search');
 
-    // Build the query for pending users
-    $pendingUsers = User::where('is_approved', false);
+        // Build the query for pending users
+        $pendingUsers = User::where('is_approved', false);
 
-    // If there is a search query, filter by relevant fields
-    if ($searchQuery) {
-        $pendingUsers->where(function ($query) use ($searchQuery) {
-            $query->where('nama_lengkap', 'like', "%{$searchQuery}%")
-                ->orWhere('email', 'like', "%{$searchQuery}%")
-                ->orWhere('nip', 'like', "%{$searchQuery}%");
-        });
+        // If there is a search query, filter by relevant fields
+        if ($searchQuery) {
+            $pendingUsers->where(function ($query) use ($searchQuery) {
+                $query->where('nama_lengkap', 'like', "%{$searchQuery}%")
+                    ->orWhere('email', 'like', "%{$searchQuery}%")
+                    ->orWhere('nip', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        $pendingUsers->latest();
+
+        // Paginate the results
+        $pendingUsers = $pendingUsers->paginate($perPage);
+
+        // Pass paginated data to the view
+        return view('admin.users', compact('pendingUsers'));
     }
-
-    $pendingUsers->latest();
-
-    // Paginate the results
-    $pendingUsers = $pendingUsers->paginate($perPage);
-
-    // Pass paginated data to the view
-    return view('admin.users', compact('pendingUsers'));
-}
 
 
     /**

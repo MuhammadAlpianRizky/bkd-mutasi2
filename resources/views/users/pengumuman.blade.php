@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
 
     <!-- Title -->
-    <title>E-Mutasi BKD Banjarmasin</title>
+    <title>SIMUT BKD DIKLAT Banjarmasin</title>
 
     <!-- Core Theme CSS (includes Bootstrap) -->
     <link href="{{ asset('landing-page/css/styles.css') }}" rel="stylesheet" />

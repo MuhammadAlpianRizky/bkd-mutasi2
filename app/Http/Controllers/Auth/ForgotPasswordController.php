@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ResetPasswordNotification;
@@ -19,8 +20,10 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm()
     {
-        return view('auth.passwords.email');
+        $pengumumans = Pengumuman::all();
+        return view('auth.passwords.email', compact('pengumumans'));
     }
+
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate([
@@ -42,8 +45,6 @@ class ForgotPasswordController extends Controller
                     ->first();
 
         if ($user) {
-
-
             // Buat token reset password
             $token = Password::createToken($user);
             $resetUrl = url('password/reset/'.$token.'?email='.$user->email);
@@ -51,9 +52,26 @@ class ForgotPasswordController extends Controller
             // Kirimkan notifikasi reset password
             Notification::send($user, new ResetPasswordNotification($resetUrl));
 
-            return back()->with('status', 'Link reset password telah dikirim melalui:' . $user->email);
+            // Mask email
+            $maskedEmail = $this->maskEmail($user->email);
+
+            return back()->with('status', 'Link reset password telah dikirim melalui: ' . $maskedEmail);
         }
 
         return back()->withErrors(['email' => 'Pengguna tidak ditemukan.']);
     }
+
+    // Fungsi untuk menyensor email
+    private function maskEmail($email)
+    {
+        $parts = explode('@', $email);
+        $username = $parts[0];
+        $domain = $parts[1];
+
+        // Sensori username
+        $maskedUsername = substr($username, 0, 3) . str_repeat('*', strlen($username) - 6) . substr($username, -3);
+
+        return $maskedUsername . '@' . $domain;
+    }
+
 }
