@@ -48,9 +48,10 @@
                                 <select name="status">
                                     <option value="">Pilih Status</option>
                                     <option value="proses" {{ request('status') == 'proses' ? 'selected' : '' }}> Proses</option>
-                                    <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : ''}}>Diterima</option>
-                                    <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-                                    <option value="dibatalkan" {{ request('dibatalkan') == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                                    <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}> Draft</option>
+                                    <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : ''}}> Diterima</option>
+                                    <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}> Ditolak</option>
+                                    <option value="dibatalkan" {{ request('dibatalkan') == 'dibatalkan' ? 'selected' : '' }}> Dibatalkan</option>
                                 </select>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-search"></i>
@@ -88,8 +89,11 @@
                                                     @case('ditolak')
                                                         <span class="badge bg-danger">Ditolak</span>
                                                         @break
-                                                    @default
+                                                    @case('dibatalkan')
                                                         <span class="badge bg-secondary">Dibatalkan</span>
+                                                        @break
+                                                    @default
+                                                        <span class="badge bg-primary">Draft</span>
                                                 @endswitch
                                             </td>
                                             <td class="text-center">

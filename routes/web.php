@@ -15,6 +15,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengumumanController;
 
 // // Route::get('/', function () {
@@ -85,7 +86,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/undangan/{id}/download', [UndanganController::class, 'download'])->name('undangan.download');
             // In your web.php or routes file
             Route::get('/mutasi/filter', [UndanganController::class, 'filterMutasi'])->name('mutasi.filter');
-
+            // Route untuk laporan
+            Route::get('/laporan', [LaporanController::class, 'laporan'])->name('laporan');
 
 
 

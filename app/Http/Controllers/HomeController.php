@@ -23,7 +23,7 @@ class HomeController extends Controller
             // Fetch user and mutasi data
             $pendingUsersCount = User::where('is_approved', false)->count();
             $activeUsersCount = Mutasi::where('verified', true)->count();
-            $inactiveUsersCount = Mutasi::where('verified', false)->count();
+            $inactiveUsersCount = Mutasi::where('verified', false)->where('is_final', true)->count();
             $mutasiCount = Mutasi::count();
 
             // Return the data to the view

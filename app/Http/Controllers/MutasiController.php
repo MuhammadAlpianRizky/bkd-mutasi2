@@ -141,7 +141,7 @@ class MutasiController extends Controller
 
         // Tentukan langkah berikutnya berdasarkan tindakan
         if ($request->action == 'finish') {
-            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah berhasil dikirim.');
+            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memerika status dari pengajuan Anda');
         } else {
             return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
         }

@@ -164,6 +164,8 @@ public function show1(Mutasi $mutasi, $filename, $action = 'view')
         if ($statusFilter) {
             if ($statusFilter === 'proses') {
                 $daftarMutasi->where('status', 'proses');
+            } elseif ($statusFilter === 'draft'){
+                $daftarMutasi->where('status', 'draft');
             } elseif ($statusFilter === 'diterima'){
                 $daftarMutasi->where('status', 'diterima');
             } elseif ($statusFilter === 'ditolak') {

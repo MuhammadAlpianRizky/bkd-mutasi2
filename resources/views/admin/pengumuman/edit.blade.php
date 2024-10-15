@@ -47,7 +47,34 @@
                             <!-- File Upload -->
                             <div class="form-group">
                                 <label for="file">Unggah File (Opsional)</label>
-                                <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" id="file">
+                                @php
+                                    // Ambil path file dari pengumuman
+                                    $filePath = $pengumuman->file_path;
+                                @endphp
+
+                                @if ($filePath)
+                                    {{-- Jika file sudah di-upload --}}
+                                    <div class="alert alert-success d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                                        <span>File sudah di-upload. Anda dapat <a href="{{ route('pengumuman.show', ['pengumuman' => $pengumuman->id]) }}" target="_blank" class="text-decoration-none fw-bold">Lihat File</a></span>
+                                        <button type="button" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" onclick="toggleFileInput()">Ubah File</button>
+                                    </div>
+                                    <!-- Kontainer input file untuk ubah file, tersembunyi secara default -->
+                                    <div id="fileInputContainer" style="display: none;">
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="file" name="file" aria-describedby="upload-help">
+                                        </div>
+                                        <small id="upload-help" class="form-text">Format file: PDF, DOCX, ukuran maksimal 2MB</small>
+                                    </div>
+                                @else
+                                    <!-- Jika file belum di-upload -->
+                                    <div class="input-group mb-3">
+                                        <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" id="file">
+                                    </div>
+                                    <small id="upload-help" class="form-text">Format file: PDF, DOCX, ukuran maksimal 2MB</small>
+                                    @error('file')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                @endif
                                 @error('file')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -62,4 +89,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleFileInput() {
+        var fileInputContainer = document.getElementById('fileInputContainer');
+        fileInputContainer.style.display = (fileInputContainer.style.display === 'none' || fileInputContainer.style.display === '') ? 'block' : 'none';
+    }
+</script>
 @endsection
