@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('cms')->group(function () {
             Route::get('/users', [HomeController::class, 'showPendingUsers'])->name('cms.users');
+            Route::get('/users/{user}/edit', [HomeController::class, 'editUser'])->name('cms.edit.user');
+            Route::put('/users/{user}', [HomeController::class, 'updateUser'])->name('cms.update.user');
             Route::delete('/cms/users/pending/{user}', [HomeController::class, 'deleteUser'])->name('cms.delete.user');
             Route::delete('/cms/users/{user}', [HomeController::class, 'deleteUser2'])->name('cms.delete.user2');
             Route::get('/user/{id}', [UserController::class, 'showUserDetail'])->name('cms.user.detail');

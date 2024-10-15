@@ -78,6 +78,7 @@
                                             <td class="text-center"> <!-- Centered content -->
                                                 <!-- Tombol Detail -->
                                                 <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary">Detail</a>
+                                                <a href="{{ route('cms.edit.user', $user->id) }}" class="btn btn-warning mx-2">Edit</a>
 
                                                 <!-- Tombol Approve -->
                                                 <form action="{{ route('cms.approve', $user) }}" method="POST" style="display:inline;">

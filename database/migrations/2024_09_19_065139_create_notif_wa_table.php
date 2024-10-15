@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('mutasi_id')->nullable();
-            $table->enum('status',['bikin_akun', 'pengajuan_mutasi', 'undangan']);
+            $table->enum('status',['bikin_akun', 'pengajuan_mutasi', 'undangan','approved_akun','approved_mutasi']);
             $table->string('nama');
             $table->string('nip');
             $table->string('no_hp');
             $table->string('no_registrasi')->nullable();
+            $table->string('is_wa',1)->default('0');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NotifWa;
 use App\Models\User;
 use App\Models\Mutasi;
 use Illuminate\Http\Request;
@@ -98,6 +99,17 @@ class HomeController extends Controller
         $user->is_approved = true;
         $user->status_verifikasi = true;
         $user->save();
+        
+        NotifWa::create([
+        'user_id' => $user->id, // Menyimpan ID pengguna yang disetujui
+        'mutasi_id' => null, // Kolom 'mutasi_id' dikosongkan (null) karena persetujuan tidak terkait mutasi
+        'status' => 'approved_akun', // Status diatur menjadi 'approved_akun' untuk menandakan persetujuan akun
+        'nama' => $user->nama_lengkap, // Mengambil nama pengguna dari model User
+        'nip' => $user->nip, // Mengambil NIP pengguna dari model User
+        'no_hp' => $user->no_hp, // Mengambil nomor HP pengguna dari model User
+        'no_registrasi' => $user->no_registrasi, // Mengambil nomor registrasi pengguna dari model User (bisa null)
+        'is_wa' => '0', // Set nilai 'is_wa' menjadi 0 (belum dikirim via WhatsApp)
+        ]);
 
         return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }
@@ -215,5 +227,36 @@ public function deleteUser2(User $user)
 
     return redirect()->route('cms.users')->with('success', 'Akun berhasil dihapus');
 }
+public function editUser(User $user)
+{
+    // Return a view with the user's data for editing
+    return view('admin.edit_user', compact('user'));
+}
 
+public function updateUser(Request $request, User $user)
+{
+    // Validate the input
+    $request->validate([
+    'nip' => 'nullable|string|max:18',
+    'nama_lengkap' => 'nullable|string|max:150',
+    'alamat_tinggal' => 'nullable|string|max:255',
+    'no_hp' => 'nullable|string|max:15',
+    'email' => 'nullable|email|max:100',
+    'no_ktp' => 'nullable|string|max:25',
+    'no_karpeg' => 'nullable|string|max:25',
+    ]);
+
+    // Update the user's details
+    $user->nip = $request->nip;
+    $user->nama_lengkap = $request->nama_lengkap;
+    $user->alamat_tinggal = $request->alamat_tinggal;
+    $user->no_hp = $request->no_hp;
+    $user->email = $request->email;
+    $user->no_ktp = $request->no_ktp;
+    $user->no_karpeg = $request->no_karpeg;
+    $user->save();
+
+    // Redirect with success message
+    return redirect()->route('cms.users')->with('success', 'Akun berhasil Diupdate.');
+}
 }

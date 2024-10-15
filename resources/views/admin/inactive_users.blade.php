@@ -54,19 +54,20 @@
                                             <td>{{ $user->nip }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                    <div class="btn-group" role="group" style="margin-bottom: 1cm;">
-                                                        <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary mx-2">Detail</a>
-                                                        <form action="{{ route('cms.activate', $user->id) }}" method="POST" style="display:inline;">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-success mx-2">Aktifkan</button>
-                                                        </form>
-                                                        <form action="{{ route('cms.delete.user2', $user->id) }}" method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="btn btn-danger delete-btn">Hapus</button>
-                                                        </form>
-                                                    </div>
-                                                </td>
+                                                <div class="btn-group" role="group" style="margin-bottom: 1cm;">
+                                                    <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary mx-2">Detail</a>
+                                                    <a href="{{ route('cms.edit.user', $user->id) }}" class="btn btn-warning mx-2">Edit</a> <!-- Add Edit Button -->
+                                                    <form action="{{ route('cms.activate', $user->id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success mx-2">Aktifkan</button>
+                                                    </form>
+                                                    <form action="{{ route('cms.delete.user2', $user->id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-danger delete-btn">Hapus</button>
+                                                    </form>
+                                                </div>
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -45,7 +45,7 @@ class RegisterController extends Controller
             'nip' => ['required', 'string', 'min:18','max:18', 'regex:/^[0-9]+$/', 'unique:users'],
             'nama_lengkap' => ['required', 'string', 'max:150'],
             'alamat_tinggal' => ['required', 'string', 'max:255'],
-            'no_hp' => ['required', 'string', 'min:10','max:13', 'regex:/^[0-9]+$/'],
+            'no_hp' => ['required', 'string', 'min:10','max:15', 'regex:/^[0-9]+$/'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'no_ktp' => ['required', 'string', 'min:16','max:25', 'regex:/^[0-9]+$/', 'unique:users'],
             'no_karpeg' => ['required', 'string', 'max:25','unique:users'],

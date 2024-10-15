@@ -68,6 +68,7 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a href="{{ route('cms.user.detail', $user->id) }}" class="btn btn-secondary mx-2">Detail</a>
+                                                    <a href="{{ route('cms.edit.user', $user->id) }}" class="btn btn-success mx-2">Edit</a>
                                                     <form action="{{ route('cms.deactivate', $user->id) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         <button type="submit" class="btn btn-warning">Non-Aktifkan</button>
