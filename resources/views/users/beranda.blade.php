@@ -12,7 +12,7 @@
             </div>
         </header>
     {{-- Persayaratan Mutasi --}}
-        <section id="requirements" style="background-image: linear-gradient(#e8e9dc, white); color: #222222; padding: 50px 0;">
+        <section id="requirements" style="background-image: linear-gradient(#cfd1b8, #eff0e8); color: #222222; padding: 50px 0;">
             <div class="container px-4">
                 <div class="row gx-4 justify-content-center">
                     <div class="col-lg-8">
@@ -123,6 +123,19 @@
                                 <span>Melampirkan Daftar Gaji Terakhir.</span>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Gambar Alur Mutasi --}}
+        <section id="alur-mutasi" style="background-image: linear-gradient(to bottom, #eff0e8, #ffff); color: #222222; padding: 50px 0;">
+            <div class="container px-4">
+                <hr>
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-center mb-4 fw-bold" style="margin-top: 35px">Alur Penggunaan SI Mutasi</h2><br>
+                        <img src="{{ asset('landing-page/assets/img/alur.jpg') }}" alt="Alur Mutasi" class="img-fluid" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                     </div>
                 </div>
             </div>

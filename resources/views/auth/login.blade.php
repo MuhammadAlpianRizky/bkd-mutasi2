@@ -11,7 +11,7 @@
                 <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="wrapkit" style="height: 70px; width: 50px;">
             </div>
             <h2 class="mt-3 text-center" style="color: black;">Login</h2>
-            <p class="text-center" style="color: black;">SIMUT BKD - Pemko Banjarmasin</p>
+            <p class="text-center" style="color: black;">SIMUT BKD DIKLAT BANJARMASIN</p>
 
             <form class="mt-4" method="POST" action="{{ route('login') }}"> <!-- Updated route -->
                 @csrf

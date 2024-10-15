@@ -7,7 +7,7 @@
     <meta name="author" content="" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
-    <title>E-Mutasi BKD Banjarmasin</title>
+    <title>SIMUT BKD DIKLAT Banjarmasin</title>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('landing-page/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('landing-page/css/beranda.css') }}" rel="stylesheet" />
@@ -29,8 +29,8 @@
 
         <!-- Konten -->
         <div class="container px-4 text-center" style="position: relative; z-index: 2; padding: 2rem;">
-            <h1 class="fw-bolder">E-MUTASI</h1>
-            <p class="lead" style="font-weight: 500;">Sistem Informasi Layanan Mutasi <br> Badan Kepegawaian Daerah Kota Banjarmasin</p>
+            <h1 class="fw-bolder">SIMUT</h1>
+            <p class="lead" style="font-weight: 500;">Sistem Informasi Mutasi <br> Badan Kepegawaian Daerah Kota Banjarmasin</p>
             {{-- <a class="btn btn-lg btn-light" href="#tutorial">Panduan Aplikasi</a> --}}
         </div>
     </header>
@@ -40,9 +40,8 @@
     {{-- <div class="container mt-4">
         @include('partials.alert')
     </div> --}}
-
     <!-- Persyaratan Mutasi -->
-    <section id="requirements" style="background-color: #e8e9dc; color: #222222; padding: 50px 0;">
+    <section id="requirements" style="background-image: linear-gradient(#cfd1b8, #eff0e8); color: #222222; padding: 50px 0;">
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
@@ -75,6 +74,19 @@
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Surat Keterangan dari Penjabat yang berwenang yang menyatakan bahwa Permohonan Mutasi tidak sedang dalam proses Kenaikan Pangkat.</span></li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span>Surat Keterangan Bebas dari Kegiatan Dinas/Instansi yang bersangkutan.</span></li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Gambar Alur Mutasi --}}
+    <section id="alur-mutasi" style="background-image: linear-gradient(to bottom, #eff0e8, #ffff); color: #222222; padding: 50px 0;">
+        <div class="container px-4">
+            <hr>
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="text-center mb-4 fw-bold" style="margin-top: 35px">Alur Penggunaan SI Mutasi</h2><br>
+                    <img src="{{ asset('landing-page/assets/img/alur.jpg') }}" alt="Alur Mutasi" class="img-fluid" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 </div>
             </div>
         </div>
