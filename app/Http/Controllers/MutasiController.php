@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\WhatssappController;
 use App\Models\Mutasi;
 use App\Models\NotifWa;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
 use App\Models\UploadPersyaratan;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MutasiController extends Controller
 {
+    protected $whatssappController;
+
+    public function __construct(WhatssappController $whatssappController)
+    {
+        $this->whatssappController = $whatssappController;
+    }
+
     public function index()
     {
         $user = auth()->user();
@@ -43,71 +52,74 @@ class MutasiController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-        // Validasi data diri
-        $validated = $request->validate([
-            'nama' => 'required|string',
-            'nip' => 'required|numeric',
-            'pgol' => 'nullable|string',
-            'jabatan' => 'nullable|string',
-            'unit_kerja' => 'nullable|string',
-            'instansi' => 'nullable|string',
-            'no_hp' => 'required|numeric',
-        ], [
-            // Pesan error kustom untuk data diri
-            'nama.required' => 'Nama lengkap wajib diisi.',
-            'nip.required' => 'NIP wajib diisi.',
-            'nip.numeric' => 'NIP harus berupa angka.',
-            'no_hp.required' => 'Nomor HP harus diisi.',
-            'no_hp.numeric' => 'Nomor HP harus berupa angka.',
-        ]);
+    // Validasi data diri
+    $validated = $request->validate([
+        'nama' => 'required|string',
+        'nip' => 'required|numeric',
+        'pgol' => 'nullable|string',
+        'jabatan' => 'nullable|string',
+        'unit_kerja' => 'nullable|string',
+        'instansi' => 'nullable|string',
+        'no_hp' => 'required|numeric',
+        'action' => 'required|in:finish,save', // Validasi tindakan
+    ], [
+        // Pesan error kustom untuk data diri
+        'nama.required' => 'Nama lengkap wajib diisi.',
+        'nip.required' => 'NIP wajib diisi.',
+        'nip.numeric' => 'NIP harus berupa angka.',
+        'no_hp.required' => 'Nomor HP harus diisi.',
+        'no_hp.numeric' => 'Nomor HP harus berupa angka.',
+        'action.required' => 'Tindakan harus dipilih.',
+        'action.in' => 'Tindakan yang dipilih tidak valid.',
+    ]);
 
-        // Proses validasi file persyaratan sebelum menyimpan data mutasi
-        if ($request->has('persyaratan')) {
-            foreach ($request->persyaratan as $persyaratan_id => $file) {
-                $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
+    // Proses validasi file persyaratan sebelum menyimpan data mutasi
+    if ($request->has('persyaratan')) {
+        foreach ($request->persyaratan as $persyaratan_id => $file) {
+            $persyaratan = Persyaratan::find($persyaratan_id); // Ambil informasi persyaratan dari database
 
-                // Validasi file berdasarkan jenis_file dan ukuran yang ditentukan
-                $fieldName = "persyaratan.{$persyaratan_id}";
+            // Validasi file berdasarkan jenis_file dan ukuran yang ditentukan
+            $fieldName = "persyaratan.{$persyaratan_id}";
 
-                // Lakukan validasi file untuk setiap persyaratan
-                $request->validate([
-                    $fieldName => "file|mimes:{$persyaratan->jenis_file}|max:{$persyaratan->ukuran}",
-                ], [
-                    "{$fieldName}.mimes" => "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.",
-                    "{$fieldName}.max" => "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.",
-                ]);
-            }
+            // Lakukan validasi file untuk setiap persyaratan
+            $request->validate([
+                $fieldName => "file|mimes:{$persyaratan->jenis_file}|max:{$persyaratan->ukuran}",
+            ], [
+                "{$fieldName}.mimes" => "{$persyaratan->nama_persyaratan} harus berupa file {$persyaratan->jenis_file}.",
+                "{$fieldName}.max" => "{$persyaratan->nama_persyaratan} tidak boleh lebih dari {$persyaratan->ukuran} kilobyte.",
+            ]);
         }
+    }
 
-        // Setelah semua validasi berhasil, simpan data mutasi ke database
-        $mutasi = Mutasi::create([
-            'user_id' => $user->id,
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-            'pgol' => $request->pgol,
-            'jabatan' => $request->jabatan,
-            'unit_kerja' => $request->unit_kerja,
-            'instansi' => $request->instansi,
-            'no_hp' => $request->no_hp,
-            'is_final' => $request->action == 'finish' ? 1 : 0,
-            'verified' => 0,
-            'status' => $request->action == 'finish' ? 'proses' : 'draft', // Ubah status menjadi 'proses' jika dikirim
-        ]);
+    // Setelah semua validasi berhasil, simpan data mutasi ke database
+    $mutasi = Mutasi::create([
+        'user_id' => $user->id,
+        'nama' => $request->nama,
+        'nip' => $request->nip,
+        'pgol' => $request->pgol,
+        'jabatan' => $request->jabatan,
+        'unit_kerja' => $request->unit_kerja,
+        'instansi' => $request->instansi,
+        'no_hp' => $request->no_hp,
+        'is_final' => $request->action == 'finish' ? 1 : 0,
+        'verified' => 0,
+        'status' => $request->action == 'finish' ? 'proses' : 'draft', // Ubah status menjadi 'proses' jika dikirim
+    ]);
 
-        // Simpan nomor registrasi menggunakan fungsi generateRegistrationNumber
-        if ($mutasi->no_registrasi == null) {
-            $mutasi->no_registrasi = $this->generateRegistrationNumber();
-            $mutasi->save();
-        }
+    // Simpan nomor registrasi menggunakan fungsi generateRegistrationNumber
+    if ($mutasi->no_registrasi == null) {
+        $mutasi->no_registrasi = $this->generateRegistrationNumber();
+        $mutasi->save();
+    }
 
-        // Simpan ID mutasi ke session
-        $request->session()->put('mutasi_id', $mutasi->id);
+    // Simpan ID mutasi ke session
+    $request->session()->put('mutasi_id', $mutasi->id);
 
-        // Proses unggahan file persyaratan
-        if ($request->has('persyaratan')) {
+    // Proses unggahan file persyaratan
+    if ($request->has('persyaratan')) {
         foreach ($request->persyaratan as $persyaratan_id => $file) {
             if ($file) {
                 // Ambil kode_persyaratan dari tabel persyaratan
@@ -128,7 +140,10 @@ class MutasiController extends Controller
             }
         }
     }
-// Simpan notifikasi WhatsApp ke dalam tabel notif_wa
+
+    // Tentukan langkah berikutnya berdasarkan tindakan
+    if ($request->action == 'finish') {
+        // Simpan notifikasi WhatsApp ke dalam tabel notif_wa
         NotifWa::create([
             'user_id' => $user->id,
             'mutasi_id' => $mutasi->id, // ID mutasi baru saja dibuat
@@ -139,12 +154,30 @@ class MutasiController extends Controller
             'no_registrasi' => $mutasi->no_registrasi,
         ]);
 
-        // Tentukan langkah berikutnya berdasarkan tindakan
-        if ($request->action == 'finish') {
-            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memerika status dari pengajuan Anda');
-        } else {
-            return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
+        // Kirim notifikasi WhatsApp ke admin
+        $admins = User::role('admin')->get(); // Ambil semua admin dengan role 'admin'
+        foreach ($admins as $admin) {
+            // Buat pesan untuk admin
+            $message = "Pengajuan mutasi baru telah diajukan oleh: \n";
+            $message .= "Nama: {$mutasi->nama}\n";
+            $message .= "NIP: {$mutasi->nip}\n";
+            $message .= "No. Registrasi: {$mutasi->no_registrasi}\n";
+            $message .= "Harap segera memverifikasi pengajuan tersebut.\n";
+
+            // Format nomor HP admin
+            $adminPhone = '62' . substr($admin->no_hp, 1);
+
+            // Kirim notifikasi menggunakan WhatsApp
+            $this->whatssappController->send(new Request([
+                'pesan' => $message,
+                'nowa' => $adminPhone,
+            ]));
         }
+
+        return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memeriksa status dari pengajuan Anda.');
+    } else {
+        return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
+    }
 }
 
     private function generateRegistrationNumber()
@@ -295,11 +328,44 @@ class MutasiController extends Controller
         }
     }
 
-    // Tentukan langkah berikutnya berdasarkan tindakan
+    // Notifikasi WhatsApp ke admin jika tindakan adalah 'finish'
     if ($request->action == 'finish') {
+        // Simpan notifikasi WhatsApp ke dalam tabel notif_wa
+        NotifWa::create([
+            'user_id' => $user->id,
+            'mutasi_id' => $mutasi->id, // ID mutasi yang baru saja diperbarui
+            'status' => 'pengajuan_mutasi', // Atur status sesuai konteks pengajuan mutasi
+            'nama' => $mutasi->nama,
+            'nip' => $mutasi->nip,
+            'no_hp' => $mutasi->no_hp,
+            'no_registrasi' => $mutasi->no_registrasi,
+        ]);
+
+        // Kirim notifikasi WhatsApp ke admin
+        $admins = User::role('admin')->get(); // Ambil semua admin dengan role 'admin'
+        foreach ($admins as $admin) {
+            // Buat pesan untuk admin
+            $message = "Pengajuan mutasi baru telah diajukan oleh: \n";
+            $message .= "Nama: {$mutasi->nama}\n";
+            $message .= "NIP: {$mutasi->nip}\n";
+            $message .= "No. Registrasi: {$mutasi->no_registrasi}\n";
+            $message .= "Status: Proses\n";
+            $message .= "Harap segera memverifikasi pengajuan tersebut.\n";
+
+            // Format nomor HP admin
+            $adminPhone = '62' . substr($admin->no_hp, 1);
+
+            // Kirim notifikasi menggunakan WhatsApp
+            $this->whatssappController->send(new Request([
+                'pesan' => $message,
+                'nowa' => $adminPhone,
+            ]));
+        }
+
         return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah diperbarui dan dikunci.');
     } else {
         return redirect()->route('mutasi', $mutasi->id)->with('success', 'Data berhasil diperbarui.');
     }
 }
+
 }

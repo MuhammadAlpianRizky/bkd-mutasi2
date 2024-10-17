@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\WhatssappController;
 
 // // Route::get('/', function () {
 // //     return view('welcome');
@@ -89,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
             // Route untuk laporan
             Route::get('/laporan', [LaporanController::class, 'laporan'])->name('laporan');
 
+            Route::get('/wagw', [WhatssappController::class, 'wagw'])->name('wagw');
+            Route::post('/wagw/send', [WhatssappController::class, 'send'])->name('wagw.send');
 
 
         });
