@@ -108,45 +108,52 @@ class MutasiController extends Controller
 
         // Proses unggahan file persyaratan
         if ($request->has('persyaratan')) {
-        foreach ($request->persyaratan as $persyaratan_id => $file) {
-            if ($file) {
-                // Ambil kode_persyaratan dari tabel persyaratan
-                $persyaratan = Persyaratan::find($persyaratan_id); // Ini juga ambil kode_persyaratan
-                $kodePersyaratan = $persyaratan->kode_persyaratan; // Pastikan kolom kode_persyaratan ada
+            foreach ($request->persyaratan as $persyaratan_id => $file) {
+                if ($file) {
+                    // Ambil kode_persyaratan dari tabel persyaratan
+                    $persyaratan = Persyaratan::find($persyaratan_id); // Ini juga ambil kode_persyaratan
+                    $kodePersyaratan = $persyaratan->kode_persyaratan; // Pastikan kolom kode_persyaratan ada
 
-                // Simpan file ke direktori berdasarkan kode_persyaratan
-                $filePath = $file->store("uploads/{$kodePersyaratan}", 'public');
+                    // Ambil ekstensi file
+                    $extension = $file->getClientOriginalExtension();
+                    $hashedregist = md5($mutasi->no_registrasi);
 
-                // Simpan informasi upload ke tabel upload_persyaratan termasuk kode_persyaratan
-                UploadPersyaratan::create([
-                    'mutasi_id' => $mutasi->id,
-                    'user_id' => $user->id,
-                    'persyaratan_id' => $persyaratan_id,
-                    'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan di tabel upload_persyaratan
-                    'file_path' => $filePath,
-                ]);
+                    // Generate nama file dengan no_registrasi + hash enkripsi dari Laravel
+                    $hashedName =  $hashedregist . '.' . $extension;
+
+                    // Simpan file ke direktori dengan nama yang telah dimodifikasi
+                    $filePath = $file->storeAs("uploads/{$kodePersyaratan}", $hashedName, 'public');
+                    
+                    // Simpan informasi upload ke tabel upload_persyaratan termasuk kode_persyaratan
+                    UploadPersyaratan::create([
+                        'mutasi_id' => $mutasi->id,
+                        'user_id' => $user->id,
+                        'persyaratan_id' => $persyaratan_id,
+                        'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan di tabel upload_persyaratan
+                        'file_path' => $filePath,
+                    ]);
+                }
             }
         }
-    }
-// Simpan notifikasi WhatsApp ke dalam tabel notif_wa
-        NotifWa::create([
-            'user_id' => $user->id,
-            'mutasi_id' => $mutasi->id, // ID mutasi baru saja dibuat
-            'status' => 'pengajuan_mutasi', // Atur status sesuai dengan konteks pengajuan mutasi
-            'nama' => $mutasi->nama,
-            'nip' => $mutasi->nip,
-            'no_hp' => $mutasi->no_hp,
-            'no_registrasi' => $mutasi->no_registrasi,
-        ]);
 
-        // Tentukan langkah berikutnya berdasarkan tindakan
+    // Notifikasi WhatsApp ke admin jika tindakan adalah 'finish'
         if ($request->action == 'finish') {
-            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memerika status dari pengajuan Anda');
+            // Simpan notifikasi WhatsApp ke dalam tabel notif_wa
+            NotifWa::create([
+                'user_id' => $user->id,
+                'mutasi_id' => $mutasi->id,
+                'status' => 'pengajuan_mutasi', // Atur status sesuai dengan konteks pengajuan mutasi
+                'nama' => $mutasi->nama,
+                'nip' => $mutasi->nip,
+                'no_hp' => $mutasi->no_hp,
+                'no_registrasi' => $mutasi->no_registrasi,
+            ]);
+
+            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memeriksa status dari pengajuan Anda.');
         } else {
             return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
         }
-}
-
+    }
     private function generateRegistrationNumber()
     {
         // Setel zona waktu ke WITA (Waktu Indonesia Tengah)
@@ -276,30 +283,55 @@ class MutasiController extends Controller
                 if ($existingUpload) {
                     // Hapus file lama jika ada
                     Storage::disk('public')->delete($existingUpload->file_path);
+                    // Ambil ekstensi file
+                    $extension = $file->getClientOriginalExtension();
+                    $hashedregist = md5($mutasi->no_registrasi);
+
+                    // Generate nama file dengan no_registrasi + hash enkripsi dari Laravel
+                    $hashedName =  $hashedregist . '.' . $extension;
+
+                    // Simpan file ke direktori dengan nama yang telah dimodifikasi
+                    $filePath = $file->storeAs("uploads/{$kodePersyaratan}", $hashedName, 'public');
 
                     // Perbarui informasi file di database
-                    $existingUpload->file_path = $file->store("uploads/{$kodePersyaratan}", 'public');
+                    $existingUpload->file_path = $filePath;
                     $existingUpload->kode_persyaratan = $kodePersyaratan; // Update kode_persyaratan juga
                     $existingUpload->save();
                 } else {
+                    // Simpan file baru
+                    $extension = $file->getClientOriginalExtension();
+                    $hashedregist = md5($mutasi->no_registrasi);
+                    $hashedName =  $hashedregist . '.' . $extension;
+                    $filePath = $file->storeAs("uploads/{$kodePersyaratan}", $hashedName, 'public');
+
                     // Simpan file baru
                     UploadPersyaratan::create([
                         'mutasi_id' => $mutasi->id,
                         'user_id' => $user->id,
                         'persyaratan_id' => $persyaratan_id,
                         'kode_persyaratan' => $kodePersyaratan, // Simpan kode_persyaratan
-                        'file_path' => $file->store("uploads/{$kodePersyaratan}", 'public'),
+                        'file_path' => $filePath,
                     ]);
                 }
             }
         }
     }
+// Notifikasi WhatsApp ke admin jika tindakan adalah 'finish'
+if ($request->action == 'finish') {
+    NotifWa::create([
+        'user_id' => $user->id,
+        'mutasi_id' => $mutasi->id,
+        'status' => 'pengajuan_mutasi', 
+        'nama' => $mutasi->nama,
+        'nip' => $mutasi->nip,
+        'no_hp' => $mutasi->no_hp,
+        'no_registrasi' => $mutasi->no_registrasi,
+    ]);
 
-    // Tentukan langkah berikutnya berdasarkan tindakan
-    if ($request->action == 'finish') {
-        return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi telah diperbarui dan dikunci.');
-    } else {
-        return redirect()->route('mutasi', $mutasi->id)->with('success', 'Data berhasil diperbarui.');
-    }
+    return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda telah diperbarui dan sedang diproses oleh Admin.');
+} else {
+    return redirect()->route('mutasi')->with('success', 'Data mutasi telah diperbarui.');
 }
+}
+
 }
