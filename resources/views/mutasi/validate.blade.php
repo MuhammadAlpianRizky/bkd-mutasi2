@@ -30,38 +30,40 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <!-- Tabel untuk menampilkan detail mutasi -->
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th width="5%">Nama</th>
-                                    <td width="30%">{{ $mutasi->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th width="5%">NIP</th>
-                                    <td width="30%">{{ $mutasi->nip }}</td>
-                                </tr>
-                                <tr>
-                                    <th width="5%">Pangkat/Gol.Ruang</th>
-                                    <td width="30%">{{ $mutasi->pgol }}</td>
-                                </tr>
-                                <tr>
-                                    <th width="5%">Jabatan</th>
-                                    <td width="30%">{{ $mutasi->jabatan }}</td>
-                                </tr>
-                                <tr>
-                                    <th width="5%">Unit Kerja</th>
-                                    <td width="30%">{{ $mutasi->unit_kerja }}</td>
-                                </tr>
-                                <tr>
-                                    <th width="5%">Instansi</th>
-                                    <td width="30%">{{ $mutasi->instansi }}</td>
-                                </tr>
-                                <tr>
-                                    <th width="5%">No HP</th>
-                                    <td width="30%">{{ $mutasi->no_hp }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th width="5%">Nama</th>
+                                        <td width="30%">{{ $mutasi->nama }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="5%">NIP</th>
+                                        <td width="30%">{{ $mutasi->nip }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="5%">Pangkat/Gol.Ruang</th>
+                                        <td width="30%">{{ $mutasi->pgol }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="5%">Jabatan</th>
+                                        <td width="30%">{{ $mutasi->jabatan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="5%">Unit Kerja</th>
+                                        <td width="30%">{{ $mutasi->unit_kerja }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="5%">Instansi</th>
+                                        <td width="30%">{{ $mutasi->instansi }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="5%">No HP</th>
+                                        <td width="30%">{{ $mutasi->no_hp }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

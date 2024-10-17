@@ -89,23 +89,8 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="photo_ktp">Foto KTP</label>
-                                <div class="input-group">
-                                    <input class="form-control @error('photo_ktp') is-invalid @enderror"
-                                        id="file-photo_ktp"
-                                        name="photo_ktp"
-                                        type="file"
-                                        accept=".png"
-                                        onchange="validateFileUpload('photo_ktp', 500)"
-                                        required
-                                        style="border-radius: 5px;">
-                                    <span class="input-group-append">
-                                        <a id="view-photo_ktp" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                <small class="form-text text-info">Unggah file gambar (png) maksimal 500KB.</small>
-                                <span id="validation-message-photo_ktp" class="text-danger"></span>
+                                <input class="form-control @error('photo_ktp') is-invalid @enderror" id="photo_ktp" name="photo_ktp" type="file" accept="image/*" required style="border-radius: 5px;">
+                                <small class="form-text text-danger">Unggah file gambar (jpg, png, jpeg) maksimal 500KB.</small>
                                 @error('photo_ktp')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -115,25 +100,8 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="photo_karpeg">Foto Karpeg</label>
-                                <div class="input-group">
-                                    <input class="form-control @error('photo_karpeg') is-invalid @enderror"
-                                        id="file-photo_karpeg"
-                                        name="photo_karpeg"
-                                        type="file"
-                                        accept=".png"
-                                        onchange="validateFileUpload('photo_karpeg', 500)"
-                                        required
-                                        style="border-radius: 5px;">
-
-                                    <span class="input-group-append">
-                                        <a id="view-photo_karpeg" href="#" target="_blank" class="btn btn-outline-info d-none">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </span>
-                                </div>
-
-                                <small class="form-text text-info">Unggah file gambar (png) maksimal 500KB.</small>
-                                <span id="validation-message-photo_karpeg" class="text-danger"></span>
+                                <input class="form-control @error('photo_karpeg') is-invalid @enderror" id="photo_karpeg" name="photo_karpeg" type="file" accept="image/*" required style="border-radius: 5px;">
+                                <small class="form-text text-danger">Unggah file gambar (jpg, png, jpeg) maksimal 500KB.</small>
                                 @error('photo_karpeg')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -212,41 +180,6 @@
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
         });
-
-        function validateFileUpload(inputId, maxSize) {
-            const inputElement = document.getElementById('file-' + inputId);
-            const validationMessageElement = document.getElementById('validation-message-' + inputId);
-            validationMessageElement.textContent = ''; // Reset pesan validasi
-
-            const file = inputElement.files[0];
-
-            if (file) {
-                const fileSizeInKB = file.size / 1024; // Convert bytes to KB
-                const allowedTypes = inputElement.accept.split(',').map(type => type.trim());
-
-                // Validasi ukuran file
-                if (fileSizeInKB > maxSize) {
-                    validationMessageElement.textContent = `Ukuran file terlalu besar, silakan upload lagi.`;
-                    inputElement.value = ''; // Kosongkan input jika tidak valid
-                    return;
-                }
-
-                // Validasi tipe file
-                const fileExtension = file.name.split('.').pop().toLowerCase();
-                if (!allowedTypes.includes(`.${fileExtension}`)) {
-                    validationMessageElement.textContent = `Format file tidak diperbolehkan. Silakan unggah file dengan format: ${allowedTypes.join(', ')}`;
-                    inputElement.value = ''; // Kosongkan input jika tidak valid
-                    return;
-                }
-
-                // Jika valid, tampilkan link untuk melihat file
-                const linkId = 'view-' + inputId;
-                const linkElement = document.getElementById(linkId);
-                linkElement.classList.remove('d-none');
-                linkElement.href = URL.createObjectURL(file);
-            }
-        }
-
     </script>
 
     @endsection
