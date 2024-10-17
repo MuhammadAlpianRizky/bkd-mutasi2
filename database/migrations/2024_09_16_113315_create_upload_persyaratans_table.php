@@ -21,9 +21,9 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign Key Constraints
-            $table->foreign('mutasi_id')->references('id')->on('mutasi')->onUpdate('cascade');
-            $table->foreign('persyaratan_id')->references('id')->on('persyaratan')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('mutasi_id')->references('id')->on('mutasi')->onDelete('restrict');
+            $table->foreign('persyaratan_id')->references('id')->on('persyaratan')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
