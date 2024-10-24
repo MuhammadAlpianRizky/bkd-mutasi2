@@ -13,7 +13,7 @@
             <h2 class="mt-3 text-center" style="color: black;">Login</h2>
             <p class="text-center" style="color: black;">SIMUT BKD DIKLAT BANJARMASIN</p>
 
-            <form class="mt-4" method="POST" action="{{ route('login') }}"> <!-- Updated route -->
+            <form class="mt-4" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12">
@@ -35,6 +35,18 @@
                                 </button>
                             </div>
                             @error('acc_on')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Random Addition Problem -->
+                    <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label class="form-label text-dark" for="captcha"> <span id="randomAddition"></span></label>
+                            <input class="form-control" id="captcha" name="captcha" type="number" placeholder="Masukkan Hasil" required style="border-radius: 5px;">
+                            <input type="hidden" id="captcha_result" name="captcha_result"> <!-- Hidden field for result -->
+                            @error('captcha')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -82,6 +94,18 @@
 @endif
 
 <script>
+    // Fungsi untuk generate dua angka random dengan hasil antara 0 sampai 99
+    document.addEventListener("DOMContentLoaded", function() {
+        var num1 = Math.floor(Math.random() * 50);
+        var num2 = Math.floor(Math.random() * 50);
+        var sum = num1 + num2;
+
+        document.getElementById('randomAddition').innerText = `${num1} + ${num2}`;
+
+        // Simpan hasil hitungan di hidden input field untuk dikirim ke server
+        document.getElementById('captcha_result').value = sum;
+    });
+
     // Fungsi untuk toggle password visibility dan ikon
     function togglePassword(fieldId, button) {
         var field = document.getElementById(fieldId);

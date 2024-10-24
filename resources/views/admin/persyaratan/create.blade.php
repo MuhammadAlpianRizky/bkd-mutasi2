@@ -43,8 +43,8 @@
                                         <label class="form-check-label" for="pdf">PDF</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input @error('jenis_file') is-invalid @enderror" type="radio" name="jenis_file" id="jpg" value="jpg" {{ old('jenis_file') == 'jpg' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="jpg">JPG</label>
+                                        <input class="form-check-input @error('jenis_file') is-invalid @enderror" type="radio" name="jenis_file" id="png" value="png" {{ old('jenis_file') == 'png' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="png">PNG</label>
                                     </div>
                                     @error('jenis_file')
                                         <div class="invalid-feedback">{{ $message }}</div>

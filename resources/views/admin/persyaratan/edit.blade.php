@@ -38,9 +38,9 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis_file" id="jpg" value="jpg" {{ $persyaratan->jenis_file == 'jpg' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="jpg">
-                                            JPG
+                                        <input class="form-check-input" type="radio" name="jenis_file" id="png" value="png" {{ $persyaratan->jenis_file == 'png' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="png">
+                                            PNG
                                         </label>
                                     </div>
                                 </div>

@@ -52,6 +52,11 @@ class RegisterController extends Controller
             'acc_on' => ['required', 'string', 'min:8', 'confirmed'],
             'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
             'photo_karpeg' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
+            'captcha' => ['required', 'numeric', function ($attribute, $value, $fail) use ($data) {
+                if ($value != $data['captcha_result']) {
+                    $fail('captcha yang dimasukkan tidak sesuai.');
+                }
+            }],
         ], [
             'nip.required' => 'NIP wajib diisi.',
             'nip.string' => 'NIP harus berupa teks.',
@@ -106,6 +111,8 @@ class RegisterController extends Controller
             'photo_karpeg.image' => 'Foto Karpeg harus berupa gambar.',
             'photo_karpeg.mimes' => 'Foto Karpeg harus dalam format jpeg, png, atau jpg.',
             'photo_karpeg.max' => 'Ukuran foto Karpeg tidak boleh lebih dari 500KB.',
+
+            'captchha.required' => 'Captcha wajib diisi.',
         ]);
     }
 

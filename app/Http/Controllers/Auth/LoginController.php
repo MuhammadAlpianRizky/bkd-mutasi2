@@ -30,6 +30,14 @@ class LoginController extends Controller
             'acc_on' => 'required|string',
         ]);
 
+     // Compare user input with the generated captcha result
+    if ($request->captcha != $request->captcha_result) {
+        return back()->withErrors([
+            'captcha' => 'Hasil hitungan salah, coba lagi!',
+        ])->withInput($request->except('acc_on'));
+    }
+
+
         $credentials = $request->only('nip', 'acc_on');
 
         $user = User::where('nip', $credentials['nip'])->first();

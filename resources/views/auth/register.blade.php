@@ -172,6 +172,17 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-12">
+                            <div class="form-group mb-3">
+                                <label for="captcha" class="form-label text-dark"><span id="randomAddition"></span></label>
+                                <input type="number" class="form-control" id="captcha" name="captcha" placeholder="Masukkan Hasilnya" required style="border-radius: 5px;">
+                                <input type="hidden" id="captcha_result" name="captcha_result">
+                                @error('captcha')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn w-100 btn-dark" style="color: white; background-color: #0e1221; border-radius: 5px;">Register</button>
                         </div>
@@ -211,6 +222,17 @@
             // Toggle the eye icon
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+
+        // Membuat captcha
+        document.addEventListener("DOMContentLoaded", function() {
+            var num1 = Math.floor(Math.random() * 50);
+            var num2 = Math.floor(Math.random() * 50);
+            var sum = num1 + num2;
+
+            document.getElementById('randomAddition').innerText = `${num1} + ${num2}`;
+
+            document.getElementById('captcha_result').value = sum;
         });
 
         function validateFileUpload(inputId, maxSize) {
