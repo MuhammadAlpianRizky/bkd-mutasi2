@@ -22,8 +22,8 @@ document.getElementById('finish-btn').addEventListener('click', function(event) 
             finishInput.setAttribute('value', 'finish');
             form.appendChild(finishInput);
             form.submit();
-        }
-    });
+    }
+});
 });
 
 // Fungsi untuk validasi upload file
@@ -99,3 +99,4 @@ function previousStep() {
     document.getElementById('step-2').classList.add('d-none');
     document.getElementById('prev-btn').disabled = true;
 }
+

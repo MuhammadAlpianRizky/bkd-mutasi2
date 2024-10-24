@@ -19,7 +19,7 @@
         @endif
 
         <div class="mb-4">
-            <a href="{{ route('mutasi.create') }}" class="btn btn-primary">
+            <a href="javascript:void(0);" class="btn btn-primary" id="tambahMutasiBtn">
                 <i class="fas fa-plus"></i> Tambah Mutasi
             </a>
         </div>
@@ -65,20 +65,15 @@
                                     </td>
                                     <td>{{ $item->keterangan }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('mutasi.edit', $item->id) }}"
-                                        class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm mb-2 align-items-center justify-content-center">
+                                         <!-- Tombol Edit dengan delay -->
+                                         <a href="javascript:void(0);" class="btn {{ $item->is_final ? 'btn-secondary' : 'btn-warning' }} btn-sm mb-2 editMutasiBtn" data-id="{{ $item->id }}">
                                             <i class="fas fa-pencil-alt me-1"></i> Edit
                                         </a>
                                         <br>
                                         @if($item->undangan && $item->undangan->file)
-
-                                            <!-- Tombol untuk melihat file -->
                                             <a href="{{ route('mutasi.show1', ['mutasi' => $item->id, 'action' => 'view']) }}?filename={{ basename($item->undangan->file) }}" target="_blank" class="btn btn-sm btn-info mb-2">
                                                 <i class="fas fa-eye"></i> Undangan
                                             </a>
-
-                                        @else
-
                                         @endif
                                     </td>
                                 </tr>
@@ -89,6 +84,45 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Menambahkan delay untuk tombol Tambah Mutasi
+        document.getElementById('tambahMutasiBtn').addEventListener('click', function() {
+            var button = this;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...'; // Ubah menjadi loading
+            button.setAttribute('disabled', 'true'); // Nonaktifkan tombol
+
+            setTimeout(function() {
+                window.location.href = "{{ route('mutasi.create') }}"; // Redirect ke URL tambah mutasi
+            }, 1000); // Delay 1 detik
+        });
+
+        // Menambahkan delay untuk tombol Edit
+        document.querySelectorAll('.editMutasiBtn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Mencegah navigasi segera
+
+                var originalHTML = button.innerHTML; // Simpan HTML asli
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...'; // Ubah menjadi loading
+                button.setAttribute('disabled', 'true'); // Nonaktifkan tombol
+
+                // Delay 1 detik sebelum navigasi
+                setTimeout(function() {
+                    window.location.href = '{{ url("mutasi") }}/' + button.dataset.id + '/edit'; // Redirect ke URL edit mutasi
+                }, 1000); // Delay 1 detik
+            });
+        });
+
+        // Mengaktifkan kembali tombol jika pengguna tidak jadi pindah halaman
+        window.onbeforeunload = function() {
+            var tambahButton = document.getElementById('tambahMutasiBtn');
+            tambahButton.innerHTML = '<i class="fas fa-plus"></i> Tambah Mutasi';
+            tambahButton.removeAttribute('disabled');
+
+            document.querySelectorAll('.editMutasiBtn').forEach(function(button) {
+                button.innerHTML = button.innerHTML.includes('Loading...') ? '<i class="fas fa-pencil-alt me-1"></i> Edit' : button.innerHTML; // Set ke Edit jika sedang loading
+                button.removeAttribute('disabled');
+            });
+        };
+    </script>
 @endsection
-
-
