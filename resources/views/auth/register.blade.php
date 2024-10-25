@@ -230,7 +230,7 @@
             var num2 = Math.floor(Math.random() * 50);
             var sum = num1 + num2;
 
-            document.getElementById('randomAddition').innerText = `${num1} + ${num2}`;
+            document.getElementById('randomAddition').innerText = `${num1} + ${num2} =`;
 
             document.getElementById('captcha_result').value = sum;
         });

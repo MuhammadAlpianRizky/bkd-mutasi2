@@ -100,7 +100,7 @@
         var num2 = Math.floor(Math.random() * 50);
         var sum = num1 + num2;
 
-        document.getElementById('randomAddition').innerText = `${num1} + ${num2}`;
+        document.getElementById('randomAddition').innerText = `${num1} + ${num2} = `;
 
         // Simpan hasil hitungan di hidden input field untuk dikirim ke server
         document.getElementById('captcha_result').value = sum;
