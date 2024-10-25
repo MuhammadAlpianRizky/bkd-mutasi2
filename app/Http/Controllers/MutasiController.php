@@ -123,7 +123,7 @@ class MutasiController extends Controller
 
                     // Simpan file ke direktori dengan nama yang telah dimodifikasi
                     $filePath = $file->storeAs("uploads/{$kodePersyaratan}", $hashedName, 'public');
-                    
+
                     // Simpan informasi upload ke tabel upload_persyaratan termasuk kode_persyaratan
                     UploadPersyaratan::create([
                         'mutasi_id' => $mutasi->id,
@@ -321,7 +321,7 @@ if ($request->action == 'finish') {
     NotifWa::create([
         'user_id' => $user->id,
         'mutasi_id' => $mutasi->id,
-        'status' => 'pengajuan_mutasi', 
+        'status' => 'pengajuan_mutasi',
         'nama' => $mutasi->nama,
         'nip' => $mutasi->nip,
         'no_hp' => $mutasi->no_hp,

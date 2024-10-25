@@ -11,7 +11,7 @@
                     <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="wrapkit" style="height: 70px; width: 50px;">
                 </div>
                 <h2 class="mt-3 text-center" style="color: black;">Register</h2>
-                <p class="text-center" style="font-size: 15px; color: black;">Silahkan mengisi detail di bawah untuk membuat Akun.</p>
+                <p class="text-center" style="font-size: 15px; color: black;">Mohon lengkapi semua data untuk mendaftarkan akun Anda.</p>
 
                 <form class="mt-4" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
