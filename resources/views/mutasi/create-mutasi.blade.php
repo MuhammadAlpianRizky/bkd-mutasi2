@@ -119,7 +119,7 @@
 
                                 <!-- Button untuk Lanjut ke Step 2 -->
                                 <div class="d-grid gap-2">
-                                    <button type="submit" name="action" value="save" class="btn btn-dark">
+                                    <button type="submit" name="action" value="save" class="btn btn-dark simpan-btn">
                                         <i class="fas fa-save"></i> Simpan
                                     </button>
                                     <button type="button" class="btn btn-dark" onclick="nextStep()">
@@ -165,7 +165,7 @@
                                     <button type="button" class="btn btn-secondary" onclick="previousStep()" id="prev-btn">
                                         <i class="fas fa-arrow-left"></i> Sebelumnya
                                     </button>
-                                    <button type="submit" name="action" value="save" class="btn btn-dark">
+                                    <button type="submit" name="action" value="save" class="btn btn-dark simpan-btn">
                                         <i class="fas fa-save"></i> Simpan
                                     </button>
                                     <button type="submit" name="action" value="finish" class="btn btn-warning" id="finish-btn">
@@ -181,4 +181,21 @@
     </main>
 
     <script src="{{ asset('js-mutasi/mutasi.js') }}"></script>
+    <script>
+        // Event listener untuk tombol Simpan dan Selesai dengan delay
+        document.querySelectorAll('.simpan-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();  // Mencegah pengiriman form langsung
+
+                // Tampilkan pesan loading dan disable tombol
+                this.innerHTML = 'Sedang Memproses...';
+                this.disabled = true;
+
+                // Beri delay 3 detik sebelum form disubmit
+                setTimeout(() => {
+                    document.getElementById('mutasiForm').submit();
+                }, 1000); // Delay 1 detik
+            });
+        });
+    </script>
 @endsection

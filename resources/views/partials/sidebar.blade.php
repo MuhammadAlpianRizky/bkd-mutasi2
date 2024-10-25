@@ -45,13 +45,13 @@
                 </li>
 
                 <li class="nav-small-cap"><span class="hide-menu">Persyaratan</span></li>
-                <!-- Persyaratan CRUD Links -->
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('persyaratan.index') }}" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>
                         <span class="hide-menu">Daftar Persyaratan</span>
                     </a>
                 </li>
+
                 <li class="nav-small-cap"><span class="hide-menu">Undangan</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('undangan.index') }}" aria-expanded="false">
@@ -68,20 +68,39 @@
                     </a>
                 </li>
 
-                {{-- <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="{{ route('persyaratan.create') }}" aria-expanded="false">
-                        <i data-feather="file-plus" class="feather-icon"></i>
-                        <span class="hide-menu">Tambah Persyaratan</span>
-                    </a>
-                </li> --}}
                 <!-- Add more links if needed -->
-
             </ul>
         </nav>
-        <!-- End Sidebar navigation -->
+        <!-- End Sidebar navigation-->
     </div>
     <!-- End Sidebar scroll-->
 </aside>
 <!-- ============================================================== -->
 <!-- End Left Sidebar - style you can find in sidebar.scss  -->
 <!-- ============================================================== -->
+
+<!-- Add the following JavaScript for the 1500ms delay -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Pilih semua tautan sidebar
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        // Tambahkan pendengar acara klik untuk setiap tautan
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Cegah navigasi langsung
+
+                // Dapatkan URL dari tautan yang diklik
+                const url = this.getAttribute('href');
+
+                // Tambahkan delay 1000ms sebelum navigasi
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 1000); // Delay 1000ms
+            });
+        });
+    });
+</script>
+
+<!-- Bootstrap CSS untuk spinner (jika belum disertakan dalam proyek) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
