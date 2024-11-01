@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\Mutasi;
 use App\Models\NotifWa;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
 use App\Models\UploadPersyaratan;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\SendAdminNotification;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class MutasiController extends Controller
@@ -149,6 +152,24 @@ class MutasiController extends Controller
                 'no_registrasi' => $mutasi->no_registrasi,
             ]);
 
+            // Ambil daftar admin
+            $admins = User::role('admin')->get();
+
+            foreach ($admins as $index => $admin) {
+                // Buat pesan notifikasi untuk setiap admin
+                $message = "Pengajuan mutasi baru telah diajukan oleh:\n";
+                $message .= "Nama: {$request->nama}\n";
+                $message .= "NIP: {$request->nip}\n";
+                $message .= "No. Registrasi: {$request->no_registrasi}\n";
+                $message .= "Harap segera memverifikasi pengajuan tersebut.\n";
+
+                // Format nomor HP admin
+                $adminPhone = '62' . substr($admin->no_hp, 1);
+
+                // Dispatch job untuk mengirim notifikasi dengan delay
+                SendAdminNotification::dispatch($adminPhone, $message)
+                    ->delay(now()->addSeconds(60 * $index));
+            }
             return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memeriksa status dari pengajuan Anda.');
         } else {
             return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
@@ -327,6 +348,25 @@ if ($request->action == 'finish') {
         'no_hp' => $mutasi->no_hp,
         'no_registrasi' => $mutasi->no_registrasi,
     ]);
+
+    // Ambil daftar admin
+    $admins = User::role('admin')->get();
+
+    foreach ($admins as $index => $admin) {
+        // Buat pesan notifikasi untuk setiap admin
+        $message = "Pengajuan mutasi baru telah diajukan oleh:\n";
+        $message .= "Nama: {$request->nama}\n";
+        $message .= "NIP: {$request->nip}\n";
+        $message .= "No. Registrasi: {$request->no_registrasi}\n";
+        $message .= "Harap segera memverifikasi pengajuan tersebut.\n";
+
+        // Format nomor HP admin
+        $adminPhone = '62' . substr($admin->no_hp, 1);
+
+        // Dispatch job untuk mengirim notifikasi dengan delay
+        SendAdminNotification::dispatch($adminPhone, $message)
+            ->delay(now()->addSeconds(60 * $index));
+    }
 
     return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda telah diperbarui dan sedang diproses oleh Admin.');
 } else {

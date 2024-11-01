@@ -46,3 +46,635 @@
 #11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
 #12 {main}
 "} 
+[2024-10-29 03:32:14] local.ERROR: Command "server" is not defined.
+
+Did you mean one of these?
+    make:observer
+    serve {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"server\" is not defined.
+
+Did you mean one of these?
+    make:observer
+    serve at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php:702)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(258): Symfony\\Component\\Console\\Application->find()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2024-10-29 03:46:46] local.ERROR: Class "App\Http\Controllers\Http" not found {"userId":2,"exception":"[object] (Error(code: 0): Class \"App\\Http\\Controllers\\Http\" not found at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\app\\Http\\Controllers\\MutasiController.php:168)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\MutasiController->store()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(262): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(208): Illuminate\\Routing\\Route->runController()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(808): Illuminate\\Routing\\Route->run()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\spatie\\laravel-permission\\src\\Middleware\\RoleMiddleware.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Spatie\\Permission\\Middleware\\RoleMiddleware->handle()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#12 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#13 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle()
+#14 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#15 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle()
+#16 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#17 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest()
+#18 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle()
+#19 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#20 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle()
+#21 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#22 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle()
+#23 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#24 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(807): Illuminate\\Pipeline\\Pipeline->then()
+#25 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack()
+#26 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(750): Illuminate\\Routing\\Router->runRoute()
+#27 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute()
+#28 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(201): Illuminate\\Routing\\Router->dispatch()
+#29 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#30 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#33 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#35 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#36 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#37 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#38 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#39 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#40 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#41 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#42 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#43 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#44 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#45 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#46 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#47 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then()
+#48 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#49 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1188): Illuminate\\Foundation\\Http\\Kernel->handle()
+#50 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\public\\index.php(17): Illuminate\\Foundation\\Application->handleRequest()
+#51 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('...')
+#52 {main}
+"} 
+[2024-10-29 03:49:08] local.ERROR: Maximum execution time of 30 seconds exceeded {"userId":2,"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 30 seconds exceeded at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlHandler.php:45)
+[stacktrace]
+#0 {main}
+"} 
+[2024-10-29 03:52:11] local.ERROR: Class "App\Http\Controllers\Log" not found {"userId":2,"exception":"[object] (Error(code: 0): Class \"App\\Http\\Controllers\\Log\" not found at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\app\\Http\\Controllers\\MutasiController.php:176)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\MutasiController->store()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(262): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(208): Illuminate\\Routing\\Route->runController()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(808): Illuminate\\Routing\\Route->run()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\spatie\\laravel-permission\\src\\Middleware\\RoleMiddleware.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Spatie\\Permission\\Middleware\\RoleMiddleware->handle()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#12 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#13 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle()
+#14 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#15 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle()
+#16 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#17 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest()
+#18 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle()
+#19 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#20 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle()
+#21 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#22 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle()
+#23 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#24 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(807): Illuminate\\Pipeline\\Pipeline->then()
+#25 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack()
+#26 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(750): Illuminate\\Routing\\Router->runRoute()
+#27 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute()
+#28 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(201): Illuminate\\Routing\\Router->dispatch()
+#29 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#30 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#33 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#35 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#36 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#37 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#38 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#39 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#40 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#41 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#42 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#43 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#44 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#45 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#46 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#47 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then()
+#48 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#49 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1188): Illuminate\\Foundation\\Http\\Kernel->handle()
+#50 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\public\\index.php(17): Illuminate\\Foundation\\Application->handleRequest()
+#51 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('...')
+#52 {main}
+"} 
+[2024-10-29 03:54:30] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 05:50:35] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-29 05:50:41] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-29 05:50:54] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-29 06:06:20] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:06:25] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:07:40] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:08:40] local.ERROR: Maximum execution time of 30 seconds exceeded {"userId":2,"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 30 seconds exceeded at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\app\\Http\\Controllers\\MutasiController.php:365)
+[stacktrace]
+#0 {main}
+"} 
+[2024-10-29 06:11:26] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:11:36] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:17:16] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:17:17] local.INFO: Notifikasi berhasil dikirim ke   
+[2024-10-29 06:29:52] local.ERROR: Gagal mengirim notifikasi ke : {"status":"Gagal mengirim pesan","error":"Cannot read properties of undefined (reading 'length')"}  
+[2024-10-29 06:29:52] local.ERROR: Gagal mengirim notifikasi ke : {"status":"Gagal mengirim pesan","error":"Cannot read properties of undefined (reading 'length')"}  
+[2024-10-29 06:35:29] local.ERROR: Gagal mengirim notifikasi ke : {"status":"Gagal mengirim pesan","error":"Cannot read properties of undefined (reading 'length')"}  
+[2024-10-29 06:35:29] local.ERROR: Gagal mengirim notifikasi ke : {"status":"Gagal mengirim pesan","error":"Cannot read properties of undefined (reading 'length')"}  
+[2024-10-29 06:37:56] local.ERROR: Gagal mengirim notifikasi ke : {"status":"Gagal mengirim pesan","error":"numbers is not iterable"}  
+[2024-10-29 06:37:56] local.ERROR: Gagal mengirim notifikasi ke : {"status":"Gagal mengirim pesan","error":"numbers is not iterable"}  
+[2024-10-29 06:40:13] local.INFO: Notifikasi berhasil dikirim ke semua admin  
+[2024-10-29 06:49:24] local.ERROR: There are no commands defined in the "queque" namespace.
+
+Did you mean this?
+    queue {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"queque\" namespace.
+
+Did you mean this?
+    queue at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php:636)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(685): Symfony\\Component\\Console\\Application->findNamespace()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(258): Symfony\\Component\\Console\\Application->find()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#6 {main}
+"} 
+[2024-10-29 06:55:12] local.ERROR: There are no commands defined in the "queque" namespace.
+
+Did you mean this?
+    queue {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"queque\" namespace.
+
+Did you mean this?
+    queue at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php:636)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(685): Symfony\\Component\\Console\\Application->findNamespace()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(258): Symfony\\Component\\Console\\Application->find()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#6 {main}
+"} 
+[2024-10-29 06:56:43] local.ERROR: Command "queue:worj" is not defined.
+
+Did you mean one of these?
+    queue:batches-table
+    queue:clear
+    queue:failed
+    queue:failed-table
+    queue:flush
+    queue:forget
+    queue:listen
+    queue:monitor
+    queue:prune-batches
+    queue:prune-failed
+    queue:restart
+    queue:retry
+    queue:retry-batch
+    queue:table
+    queue:work
+    schedule:work {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"queue:worj\" is not defined.
+
+Did you mean one of these?
+    queue:batches-table
+    queue:clear
+    queue:failed
+    queue:failed-table
+    queue:flush
+    queue:forget
+    queue:listen
+    queue:monitor
+    queue:prune-batches
+    queue:prune-failed
+    queue:restart
+    queue:retry
+    queue:retry-batch
+    queue:table
+    queue:work
+    schedule:work at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php:702)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(258): Symfony\\Component\\Console\\Application->find()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2024-10-29 07:04:01] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-29 07:04:06] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-29 07:06:06] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-29 07:06:23] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-29 07:08:48] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-29 07:09:17] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-29 07:11:41] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-29 07:12:11] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-29 07:53:18] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-29 07:53:27] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-29 07:53:30] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-29 07:57:06] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-29 07:57:13] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-29 08:05:56] local.ERROR: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it (Connection: mysql, SQL: select * from `cache` where `key` in (illuminate:queue:restart)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it (Connection: mysql, SQL: select * from `cache` where `key` in (illuminate:queue:restart)) at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:825)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(979): Illuminate\\Database\\Connection->runQueryCallback()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(958): Illuminate\\Database\\Connection->tryAgainIfCausedByLostConnection()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(781): Illuminate\\Database\\Connection->handleQueryException()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(398): Illuminate\\Database\\Connection->run()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3130): Illuminate\\Database\\Connection->select()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3115): Illuminate\\Database\\Query\\Builder->runSelect()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3703): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3114): Illuminate\\Database\\Query\\Builder->onceWithColumns()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cache\\DatabaseStore.php(127): Illuminate\\Database\\Query\\Builder->get()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cache\\DatabaseStore.php(102): Illuminate\\Cache\\DatabaseStore->many()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cache\\Repository.php(116): Illuminate\\Cache\\DatabaseStore->get()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(712): Illuminate\\Cache\\Repository->get()
+#12 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(701): Illuminate\\Queue\\Worker->getTimestampOfLastQueueRestart()
+#13 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(308): Illuminate\\Queue\\Worker->queueShouldRestart()
+#14 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(193): Illuminate\\Queue\\Worker->stopIfNecessary()
+#15 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(141): Illuminate\\Queue\\Worker->daemon()
+#16 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(124): Illuminate\\Queue\\Console\\WorkCommand->runWorker()
+#17 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()
+#18 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure()
+#20 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#21 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(690): Illuminate\\Container\\BoundMethod::call()
+#22 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(213): Illuminate\\Container\\Container->call()
+#23 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(279): Illuminate\\Console\\Command->execute()
+#24 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#25 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#26 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#27 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#28 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#29 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#30 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#31 {main}
+
+[previous exception] [object] (PDOException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:66)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(66): PDO->__construct()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(85): Illuminate\\Database\\Connectors\\Connector->createPdoConnection()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(48): Illuminate\\Database\\Connectors\\Connector->tryAgainIfCausedByLostConnection()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php(185): Illuminate\\Database\\Connectors\\MySqlConnector->connect()
+#5 [internal function]: Illuminate\\Database\\Connectors\\ConnectionFactory->Illuminate\\Database\\Connectors\\{closure}()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(1231): call_user_func()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(1267): Illuminate\\Database\\Connection->getPdo()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(512): Illuminate\\Database\\Connection->getReadPdo()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(407): Illuminate\\Database\\Connection->getPdoForSelect()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(812): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(979): Illuminate\\Database\\Connection->runQueryCallback()
+#12 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(958): Illuminate\\Database\\Connection->tryAgainIfCausedByLostConnection()
+#13 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(781): Illuminate\\Database\\Connection->handleQueryException()
+#14 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(398): Illuminate\\Database\\Connection->run()
+#15 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3130): Illuminate\\Database\\Connection->select()
+#16 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3115): Illuminate\\Database\\Query\\Builder->runSelect()
+#17 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3703): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#18 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3114): Illuminate\\Database\\Query\\Builder->onceWithColumns()
+#19 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cache\\DatabaseStore.php(127): Illuminate\\Database\\Query\\Builder->get()
+#20 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cache\\DatabaseStore.php(102): Illuminate\\Cache\\DatabaseStore->many()
+#21 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Cache\\Repository.php(116): Illuminate\\Cache\\DatabaseStore->get()
+#22 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(712): Illuminate\\Cache\\Repository->get()
+#23 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(701): Illuminate\\Queue\\Worker->getTimestampOfLastQueueRestart()
+#24 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(308): Illuminate\\Queue\\Worker->queueShouldRestart()
+#25 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(193): Illuminate\\Queue\\Worker->stopIfNecessary()
+#26 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(141): Illuminate\\Queue\\Worker->daemon()
+#27 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(124): Illuminate\\Queue\\Console\\WorkCommand->runWorker()
+#28 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()
+#29 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#30 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure()
+#31 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#32 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(690): Illuminate\\Container\\BoundMethod::call()
+#33 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(213): Illuminate\\Container\\Container->call()
+#34 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(279): Illuminate\\Console\\Command->execute()
+#35 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#36 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#37 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#38 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#39 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#40 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#41 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#42 {main}
+"} 
+[2024-10-30 00:11:47] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-30 00:11:54] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-30 00:11:57] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-30 01:52:49] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-30 01:52:52] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-30 01:52:58] local.INFO: Notifikasi berhasil dikirim ke 6281645435508  
+[2024-10-30 01:55:47] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-30 01:56:44] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-30 01:57:44] local.INFO: Notifikasi berhasil dikirim ke 6281645435508  
+[2024-10-30 01:59:39] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-10-30 01:59:39] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-10-30 02:00:27] local.INFO: Notifikasi berhasil dikirim ke 6281645435508  
+[2024-10-30 07:01:03] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-30 07:01:14] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-10-30 07:01:17] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-11-01 00:22:38] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-11-01 00:22:42] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-11-01 00:22:44] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php:220)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(147): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(82): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\ArgvInput.php(71): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#6 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#7 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#9 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2024-11-01 01:02:08] local.ERROR: Command "queue:worj" is not defined.
+
+Did you mean one of these?
+    queue:batches-table
+    queue:clear
+    queue:failed
+    queue:failed-table
+    queue:flush
+    queue:forget
+    queue:listen
+    queue:monitor
+    queue:prune-batches
+    queue:prune-failed
+    queue:restart
+    queue:retry
+    queue:retry-batch
+    queue:table
+    queue:work
+    schedule:work {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"queue:worj\" is not defined.
+
+Did you mean one of these?
+    queue:batches-table
+    queue:clear
+    queue:failed
+    queue:failed-table
+    queue:flush
+    queue:forget
+    queue:listen
+    queue:monitor
+    queue:prune-batches
+    queue:prune-failed
+    queue:restart
+    queue:retry
+    queue:retry-batch
+    queue:table
+    queue:work
+    schedule:work at D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php:702)
+[stacktrace]
+#0 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(258): Symfony\\Component\\Console\\Application->find()
+#1 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#2 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#3 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 D:\\Kuliah\\Semester 5\\Magang\\bkd-mutasi\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2024-11-01 01:04:31] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6285251544470: cURL error 7: Failed to connect to localhost port 3000 after 2258 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:05:28] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281905033770: cURL error 7: Failed to connect to localhost port 3000 after 2247 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:06:27] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281645435508: cURL error 7: Failed to connect to localhost port 3000 after 2246 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:08:27] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6285251544470: cURL error 7: Failed to connect to localhost port 3000 after 2223 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:09:27] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281905033770: cURL error 7: Failed to connect to localhost port 3000 after 2233 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:09:35] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6285251544470: cURL error 7: Failed to connect to localhost port 3000 after 2243 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:10:28] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281645435508: cURL error 7: Failed to connect to localhost port 3000 after 2229 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:10:34] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281905033770: cURL error 7: Failed to connect to localhost port 3000 after 2224 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:11:34] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281645435508: cURL error 7: Failed to connect to localhost port 3000 after 2273 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:50:02] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6285251544470: cURL error 7: Failed to connect to localhost port 3000 after 2259 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:51:02] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281905033770: cURL error 7: Failed to connect to localhost port 3000 after 2235 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:52:01] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281645435508: cURL error 7: Failed to connect to localhost port 3000 after 2235 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:58:56] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6285251544470: cURL error 7: Failed to connect to localhost port 3000 after 2242 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 01:59:56] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281905033770: cURL error 7: Failed to connect to localhost port 3000 after 2246 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 02:00:55] local.ERROR: Terjadi kesalahan saat mengirim notifikasi ke 6281645435508: cURL error 7: Failed to connect to localhost port 3000 after 2257 ms: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3000/send-message  
+[2024-11-01 02:15:51] local.INFO: Notifikasi berhasil dikirim ke 6285251544470  
+[2024-11-01 02:16:49] local.INFO: Notifikasi berhasil dikirim ke 6281905033770  
+[2024-11-01 02:17:50] local.INFO: Notifikasi berhasil dikirim ke 6281645435508  

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Models\NotifWa;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Pengumuman;
+use Illuminate\Http\Request;
+use App\Jobs\SendAdminNotification;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -151,7 +152,7 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('pegawai');
-// Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
+            // Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
             NotifWa::create([
                 'user_id' => $user->id,
                 'mutasi_id' => null, // This can be null now
@@ -161,6 +162,23 @@ class RegisterController extends Controller
                 'no_hp' => $user->no_hp,
                 'no_registrasi' => null, // This can be null now
             ]);
+
+            // Notify all admins about the new registration
+            $admins = User::role('admin')->get();
+
+            foreach ($admins as $index => $admin) {
+                $message = "Akun baru telah didaftarkan:\n";
+                $message .= "Nama: {$user->nama_lengkap}\n";
+                $message .= "NIP: {$user->nip}\n";
+                $message .= "Harap segera memverifikasi akun tersebut.\n";
+
+                // Format admin's phone number
+                $adminPhone = '62' . substr($admin->no_hp, 1);
+
+                // Dispatch job to send notification with a delay
+                SendAdminNotification::dispatch($adminPhone, $message)
+                    ->delay(now()->addSeconds(7 * $index));
+            }
             return $user;
         }
 }
