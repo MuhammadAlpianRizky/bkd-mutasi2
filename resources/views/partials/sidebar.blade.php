@@ -63,10 +63,23 @@
                 <li class="nav-small-cap"><span class="hide-menu">Pengumuman</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="{{ route('pengumuman.index') }}" aria-expanded="false">
-                        <i data-feather="mail" class="feather-icon"></i>
+                        <i class="bi bi-megaphone"></i>
                         <span class="hide-menu">Pengumuman</span>
                     </a>
                 </li>
+                {{-- <li class="nav-small-cap"><span class="hide-menu">Laporan</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('laporan.perorangan') }}" aria-expanded="false">
+                        <i class="bi bi-filetype-pdf"></i>
+                        <span class="hide-menu">Laporan Perorang</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{ route('laporan.bulanan') }}" aria-expanded="false">
+                        <i class="bi bi-calendar-check"></i>
+                        <span class="hide-menu">Laporan Bulanan</span>
+                    </a>
+                </li> --}}
 
                 <!-- Add more links if needed -->
             </ul>

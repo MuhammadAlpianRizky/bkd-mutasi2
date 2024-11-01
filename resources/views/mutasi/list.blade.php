@@ -41,6 +41,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <a class="btn btn-primary" href="{{ route('laporan.bulanan') }}" aria-expanded="false">
+                            <i class="bi bi-filetype-pdf"></i>
+                            <span class="hide-menu">Laporan Bulanan</span>
+                        </a>
                         <!-- Search Form -->
                         <div class="d-flex justify-content-end mb-3">
                             <form method="GET" action="{{ route('mutasi.list') }}" class="d-flex">
@@ -98,11 +102,14 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group" role="group">
+                                                    <a href="{{ route('laporan.preview', $mutasi->id) }}" class="btn btn-danger mx-3 rounded">
+                                                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                                                    </a>
                                                     @if ($mutasi->is_final === 1 && !$mutasi->verified)
-                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary btn-sm me-2">Validasi</a>
+                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-primary btn-sm me-2 rounded">Validasi</a>
                                                     @endif
                                                     @if ($mutasi->is_final === 1 && $mutasi->verified)
-                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-secondary btn-sm me-2">Edit</a>
+                                                        <a href="{{ route('mutasi.validate', $mutasi->id) }}" class="btn btn-secondary btn-sm me-2 rounded">Edit</a>
                                                     @endif
                                                 </div>
                                             </td>
