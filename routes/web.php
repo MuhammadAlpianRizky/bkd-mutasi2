@@ -88,10 +88,16 @@ Route::middleware(['auth'])->group(function () {
             // In your web.php or routes file
             Route::get('/mutasi/filter', [UndanganController::class, 'filterMutasi'])->name('mutasi.filter');
             // Route untuk laporan
-            Route::get('/laporan', [LaporanController::class, 'laporan'])->name('laporan');
-
             Route::get('/wagw', [WhatssappController::class, 'wagw'])->name('wagw');
             Route::post('/wagw/send', [WhatssappController::class, 'send'])->name('wagw.send');
+            Route::get('/laporan/preview/{id}', [LaporanController::class, 'preview'])->name('laporan.preview');
+            Route::get('/laporan/download-pdf/{id}', [LaporanController::class, 'exportPDF'])->name('laporan.downloadPdf');
+            Route::get('/laporan/download-excel/{id}', [LaporanController::class, 'exportExcel'])->name('laporan.downloadExcel');
+            Route::get('/laporan/perorangan', [LaporanController::class, 'laporanPerorangan'])->name('laporan.perorangan');
+            Route::get('/laporan/bulanan', [LaporanController::class, 'laporanBulanan'])->name('laporan.bulanan');
+            Route::get('/laporan/preview-bulanan', [LaporanController::class, 'preview2'])->name('laporan.preview2');
+            Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPDF2'])->name('laporan.exportPDF2');
+            Route::get('/laporan/export-excel', [LaporanController::class, 'exportExcel2'])->name('laporan.exportExcel2');
 
 
         });

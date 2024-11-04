@@ -8,7 +8,7 @@
             <div class="container px-4 text-center" style="position: relative; z-index: 2;  padding: 2rem;">
                 <h1 class="fw-bolder my-4">Ajukan Mutasi</h1>
                 <p class="lead" style="font-weight: 500;">Jika Anda memenuhi semua persyaratan, Anda dapat melanjutkan <br> untuk mengajukan permohonan mutasi dengan mengklik tombol di bawah ini.</p>
-                <a class="btn btn-lg btn-light my-3" href="{{ route('mutasi.create') }}">Ajukan Mutasi</a>
+                <a id="ajukan-mutasi-btn" class="btn btn-lg btn-light my-3" href="#">Ajukan Mutasi</a>
             </div>
         </header>
     {{-- Persayaratan Mutasi --}}
@@ -183,4 +183,28 @@
                 </div>
             </div>
         </section>
-@endsection
+        <script>
+            document.getElementById('ajukan-mutasi-btn').addEventListener('click', function(e) {
+                e.preventDefault();  // Mencegah link mengarahkan langsung ke halaman
+                
+                var button = this;
+                button.innerHTML = 'Sedang Memproses...';
+                button.disabled = true;  // Menonaktifkan tombol agar tidak bisa di-klik lagi
+        
+                // Beri delay selama 1 detik sebelum redirect
+                setTimeout(() => {
+                    window.location.href = '{{ route('mutasi.create') }}';
+                }, 1000);
+            });
+        
+            // Mengaktifkan kembali tombol jika pengguna tidak jadi pindah halaman atau tekan tombol kembali
+            window.onbeforeunload = function() {
+                var button = document.getElementById('ajukan-mutasi-btn');
+                if (button) {
+                    button.innerHTML = 'Ajukan Mutasi';
+                    button.disabled = false;  // Aktifkan kembali tombol
+                }
+            };
+        </script>        
+    @endsection
+

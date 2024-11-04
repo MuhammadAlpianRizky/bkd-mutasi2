@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('is_wa',1)->default('0');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('mutasi_id')->references('id')->on('mutasi')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('mutasi_id')->references('id')->on('mutasi')->onDelete('restrict');
         });
     }
 
