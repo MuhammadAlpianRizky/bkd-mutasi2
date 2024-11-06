@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\WhatsappController;
 
 // // Route::get('/', function () {
 // //     return view('welcome');
@@ -89,6 +90,9 @@ Route::middleware(['auth'])->group(function () {
             // Route untuk laporan
             Route::get('/laporan', [LaporanController::class, 'laporan'])->name('laporan');
 
+
+            // Rute untuk whatsapp
+            Route::get('/whatsapp', [WhatsappController::class, 'index'])->name('whatsapp.index');
 
 
         });

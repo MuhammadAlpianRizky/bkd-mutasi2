@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mutasi;
 use App\Models\NotifWa;
+use App\Models\NotifWhatsapp;
 use App\Models\Validasi;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
@@ -140,6 +141,20 @@ public function show1(Mutasi $mutasi, $filename, $action = 'view')
         'no_registrasi' => $mutasi->no_registrasi, // Nomor registrasi dari mutasi
         'is_wa' => '0',  // Default is_wa: belum dikirim via WA
     ]);
+
+    NotifWhatsapp::create([
+        'no_hp' => $mutasi->user->no_hp,
+        'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                        "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                        "No. Registrasi: *{$mutasi->no_registrasi}*\n" .
+                        "NIP: *{$mutasi->nip}*\n" .
+                        "Nama: *{$mutasi->nama}*\n" .
+                        "Pengajuan mutasi Anda telah diverifikasi. Mohon login kembali untuk melihat statusnya.\n\n" .
+                        "Demikian disampaikan, Terima kasih\n\n" .
+                        "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
+    ]);
+
+
     return redirect()->route('mutasi.list')->with('status', 'Mutasi berhasil diperbarui.');
 }
 

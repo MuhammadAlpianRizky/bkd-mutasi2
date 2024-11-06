@@ -18,40 +18,32 @@ async function connectToWhatsApp() {
             const shouldReconnect = lastDisconnect.error?.output.statusCode !== DisconnectReason.loggedOut;
             if (shouldReconnect) {
                 console.log("Menjalankan Ulang");
-                connectToWhatsApp();
+                connectToWhatsApp(); // Perbaikan penamaan fungsi
             }
         }
         if (connection === "open") {
-            console.log("terhubung");
+            console.log("Terhubung");
         }
     });
+
     sock.ev.on("creds.update", saveCreds);
 
     // Endpoint untuk mengirim pesan
     app.post("/send-message", async (req, res) => {
-        const { numbers, message } = req.body;
-        const delayBetweenMessages = 60000;
-
+        const { number, message } = req.body;
         try {
-            // Kirim pesan ke setiap nomor dengan jeda
-            for (let i = 0; i < numbers.length; i++) {
-                const number = numbers[i];
-                await new Promise((resolve) => setTimeout(resolve, i * delayBetweenMessages)); // Jeda untuk setiap pengiriman
-                await sock.sendMessage(`${number}@s.whatsapp.net`, { text: message });
-                console.log(`Pesan dikirim ke ${number}`);
-            }
-            res.json({ status: "Pesan berhasil dikirim ke semua nomor" });
+            await sock.sendMessage(`${number}@s.whatsapp.net`, { text: message });
+            res.json({ status: "Pesan berhasil dikirim" });
         } catch (error) {
+            console.error("Gagal mengirim pesan:", error);
             res.status(500).json({ status: "Gagal mengirim pesan", error: error.message });
         }
     });
 }
 
-// Menjalankan server Express di port 3000
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server berjalan pada port ${PORT}`);
-});
-
+// Memanggil fungsi koneksi WhatsApp
 connectToWhatsApp();
 
+app.listen(3000, () => {
+    console.log("Server berjalan di port 3000");
+});

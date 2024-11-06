@@ -8,6 +8,7 @@ use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use App\Jobs\SendAdminNotification;
 use App\Http\Controllers\Controller;
+use App\Models\NotifWhatsapp;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -153,31 +154,30 @@ class RegisterController extends Controller
 
         $user->assignRole('pegawai');
             // Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
-            NotifWa::create([
-                'user_id' => $user->id,
-                'mutasi_id' => null, // This can be null now
-                'status' => 'bikin_akun',
-                'nama' => $user->nama_lengkap,
-                'nip' => $user->nip,
-                'no_hp' => $user->no_hp,
-                'no_registrasi' => null, // This can be null now
-            ]);
-
-            // Notify all admins about the new registration
+            // NotifWa::create([
+            //     'user_id' => $user->id,
+            //     'mutasi_id' => null, // This can be null now
+            //     'status' => 'bikin_akun',
+            //     'nama' => $user->nama_lengkap,
+            //     'nip' => $user->nip,
+            //     'no_hp' => $user->no_hp,
+            //     'no_registrasi' => null, // This can be null now
+            // ]);
             $admins = User::role('admin')->get();
 
-            foreach ($admins as $index => $admin) {
-                $message = "Akun baru telah didaftarkan:\n";
-                $message .= "Nama: {$user->nama_lengkap}\n";
-                $message .= "NIP: {$user->nip}\n";
-                $message .= "Harap segera memverifikasi akun tersebut.\n";
-
-                // Format admin's phone number
-                $adminPhone = '62' . substr($admin->no_hp, 1);
-
-                // Dispatch job to send notification with a delay
-                SendAdminNotification::dispatch($adminPhone, $message)
-                    ->delay(now()->addSeconds(7 * $index));
+            foreach($admins as $admin) {
+                NotifWhatsapp::create([
+                    'no_hp' => $admin->no_hp,
+                    'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                                    "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                                    "*Akun baru telah didaftarkan*:\n" .
+                                    "Nama: {$user->nama_lengkap} \n" .
+                                    "NIP: {$user->nip}\n\n" .
+                                    "Harap segera memverifikasi akun tersebut.\n" .
+                                    "Demikian disampaikan, Terima kasih\n\n" .
+                                    "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
+                    'is_sent' => false,
+                ]);
             }
             return $user;
         }
