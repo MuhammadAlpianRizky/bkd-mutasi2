@@ -15,18 +15,18 @@ class LaporanController extends Controller
     {
         // Ambil mutasi berdasarkan ID
         $mutasi = Mutasi::with('uploads', 'persyaratan')->find($id);
-    
+
         if (!$mutasi) {
             return redirect()->route('laporan.perorangan')->with('error', 'Mutasi tidak ditemukan.');
         }
-    
+
         // Ambil semua persyaratan dan uploads untuk mutasi ini
         $persyaratan = Persyaratan::all(); // Ambil semua persyaratan
         $uploads = $mutasi->uploads; // Ambil uploads dari mutasi
-    
+
         return view('laporan.preview', compact('mutasi', 'persyaratan', 'uploads'));
     }
-    
+
 
 
 
