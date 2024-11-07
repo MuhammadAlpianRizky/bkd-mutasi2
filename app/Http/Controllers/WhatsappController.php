@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\NotifWhatsapp;
 use Illuminate\Http\Request;
+use App\Models\NotifWhatsapp;
+use Illuminate\Support\Facades\Http;
 
 class WhatsappController extends Controller
 {
@@ -25,8 +26,11 @@ class WhatsappController extends Controller
             $status = 'Tidak ada pesan untuk dikirim';
         }
 
-        // Refresh halaman setiap 1-2 menit
-        return view('whatsapp.index', compact('notif', 'status'));
+        // Mengambil QR code dari server Node.js
+        $response = Http::get('http://localhost:3000/qr'); // Sesuaikan URL dengan /qr
+        $qrCode = $response->ok() ? $response->json()['qr'] : null;
+
+        return view('whatsapp.index', compact('notif', 'status', 'qrCode'));
     }
 
     private function sendWhatsAppMessage($phoneNumber, $message)
