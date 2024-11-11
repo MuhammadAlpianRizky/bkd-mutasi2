@@ -15,16 +15,9 @@
             </ul>
         </div>
     </div>
-
-    <!-- Loading Animation -->
-    <div id="loading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.7); z-index: 9999; text-align: center; justify-content: center; align-items: center;">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
 </nav>
 
-<!-- JavaScript for Delay and Loading Animation -->
+<!-- JavaScript for Delay without Loading Animation -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Select all navigation links with the 'nav-delay' class
@@ -38,10 +31,7 @@
                 // Get the URL from the clicked link
                 const url = this.getAttribute('href');
 
-                // Show loading animation
-                document.getElementById('loading').style.display = 'flex';
-
-                // Add a delay of 500ms before navigating
+                // Add a delay of 1000ms before navigating
                 setTimeout(() => {
                     window.location.href = url;
                 }, 1000); // 1000ms delay

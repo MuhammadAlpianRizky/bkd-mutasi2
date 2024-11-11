@@ -65,8 +65,6 @@
                                 <th>No. Registrasi</th>
                                 <th>Nama</th>
                                 <th>NIP</th>
-                                <th>Jabatan</th>
-                                <th>Unit Kerja</th>
                                 <th>File PDF</th>
                             </tr>
                         </thead>
@@ -78,8 +76,6 @@
                                     <td>{{ $item->mutasi->no_registrasi }}</td>
                                     <td>{{ $item->mutasi->nama }}</td>
                                     <td>{{ $item->mutasi->nip }}</td>
-                                    <td>{{ $item->mutasi->jabatan }}</td>
-                                    <td>{{ $item->mutasi->unit_kerja }}</td>
                                     <td>
                                         <a href="{{ route('undangan.show',['id' => $item->id, 'filename' => basename($item->file), 'action' => 'view']) }}" class="btn btn-sm btn-primary">
                                             <i class="fas fa-eye"></i> Lihat

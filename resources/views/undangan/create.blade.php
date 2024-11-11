@@ -22,47 +22,103 @@
         <form action="{{ route('undangan.store') }}" method="POST" enctype="multipart/form-data" id="undanganForm">
             @csrf
 
-            <!-- Tanggal Filter -->
-            <div class="mb-3">
-                <label for="startDate" class="form-label">Filter Tanggal</label>
-                <input type="date" id="startDate" class="form-control" value="{{ request('selected_date') }}" onchange="filterMutasi()">
+            <!-- Filter Bulan -->
+            <div class="mb-4">
+                <label for="monthSelect" class="form-label font-weight-bold">Pilih Bulan</label>
+                <input type="month" id="monthSelect" class="form-control" value="{{ request('selected_month') }}" onchange="filterMutasi()">
             </div>
 
-            <!-- Daftar Mutasi -->
-            <h5>Pilih Pegawai untuk Diundang</h5>
-            <div id="mutasiList">
-                @forelse($mutasi as $item)
-                    <div>
-                        <input type="checkbox" name="mutasi_ids[]" value="{{ $item->id }}">
-                        <label>{{ $item->nama }} - {{ $item->nip }}-{{ $item->no_registrasi }}</label>
-                    </div>
-                @empty
-                    <p>Tidak ada pegawai untuk tanggal ini.</p>
-                @endforelse
+            <!-- Daftar Mutasi dalam Tabel -->
+            <h5 class="mt-5 mb-4 text-center">Pilih Pegawai untuk Diundang</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
+                            <th>Nama</th>
+                            <th>NIP</th>
+                            <th>No Registrasi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mutasiList">
+                        @forelse($mutasi as $item)
+                            <tr>
+                                <td><input type="checkbox" name="mutasi_ids[]" value="{{ $item->id }}" class="mutasiCheckbox"></td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->nip }}</td>
+                                <td>{{ $item->no_registrasi }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="4" class="text-center">Tidak ada pegawai untuk bulan ini.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
 
-            <div class="mb-3">
-                <label for="file" class="form-label">Upload Undangan (PDF)</label>
-                <input type="file" class="form-control" id="file" name="file" required>
+            <!-- Tombol Simpan yang Muncul Jika Ada Pegawai yang Dipilih -->
+            <div id="saveButtonContainer" style="display: none;">
+                <button type="button" class="btn btn-success btn-block" onclick="showFileUploadForm()">Simpan & Kirim Undangan</button>
             </div>
 
-            <button type="submit" class="btn btn-primary">Kirim Undangan</button>
+            <!-- Form Upload File yang Muncul Setelah Menekan Simpan -->
+            <div id="fileUploadForm" style="display: none;" class="mt-4">
+                <div class="mb-3">
+                    <label for="file" class="form-label font-weight-bold">Upload Undangan (PDF)</label>
+                    <input type="file" class="form-control" id="file" name="file" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Kirim Undangan</button>
+            </div>
         </form>
     </div>
 </div>
 
 <script>
-    // Function to filter mutasi based on the selected date
+    // Fungsi untuk filter berdasarkan bulan
     function filterMutasi() {
-        var selectedDate = document.getElementById('startDate').value;
+        var selectedMonth = document.getElementById('monthSelect').value;
 
-        // Redirect to the same page with the selected date as a query parameter
-        if (selectedDate) {
-            window.location.href = `/cms/undangan/create?selected_date=${selectedDate}`;
+        // Redirect ke halaman yang sama dengan parameter bulan yang dipilih
+        if (selectedMonth) {
+            window.location.href = `/cms/undangan/create?selected_month=${selectedMonth}`;
         } else {
-            // Reload without a filter if no date is selected
+            // Reload tanpa filter jika bulan tidak dipilih
             window.location.href = `/cms/undangan/create`;
         }
     }
+
+    // Fungsi untuk toggle checkbox "Pilih Semua"
+    function toggleSelectAll() {
+        var selectAllCheckbox = document.getElementById('selectAll');
+        var mutasiCheckboxes = document.querySelectorAll('.mutasiCheckbox');
+        
+        mutasiCheckboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+        toggleSaveButton();
+    }
+
+    // Fungsi untuk menampilkan tombol simpan jika ada pegawai yang dipilih
+    function toggleSaveButton() {
+        var selectedCheckboxes = document.querySelectorAll('.mutasiCheckbox:checked');
+        var saveButtonContainer = document.getElementById('saveButtonContainer');
+        
+        if (selectedCheckboxes.length > 0) {
+            saveButtonContainer.style.display = 'block';
+        } else {
+            saveButtonContainer.style.display = 'none';
+        }
+    }
+
+    // Fungsi untuk menampilkan form upload file setelah tombol simpan diklik
+    function showFileUploadForm() {
+        var fileUploadForm = document.getElementById('fileUploadForm');
+        fileUploadForm.style.display = 'block';
+    }
+
+    // Memantau perubahan checkbox untuk menampilkan tombol simpan
+    var checkboxes = document.querySelectorAll('.mutasiCheckbox');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', toggleSaveButton);
+    });
 </script>
 @endsection

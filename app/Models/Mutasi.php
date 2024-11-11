@@ -51,4 +51,9 @@ class Mutasi extends Model
 {
     return $this->belongsTo(Undangan::class, 'undangan_id');
 }
+public function persyaratan()
+    {
+        return $this->hasManyThrough(Persyaratan::class, UploadPersyaratan::class, 'mutasi_id', 'id', 'id', 'persyaratan_id');
+    }
+
 }
