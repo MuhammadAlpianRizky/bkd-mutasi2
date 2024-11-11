@@ -26,31 +26,36 @@ class UndanganController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
-    {
-        // Get the selected date from the request
-        $selectedDate = $request->input('selected_date');
+{
+    // Ambil bulan yang dipilih dari request
+    $selectedMonth = $request->input('selected_month');
 
-        // Fetch mutasi records based on the selected date if provided
-        if ($selectedDate) {
-            $mutasi = Mutasi::where('is_final', 1)
-                            ->where('verified', 1)
-                            ->where('status','diterima')
-                            ->whereNull('undangan_id')
-                            ->whereDate('created_at', $selectedDate)
-                            ->get();
-        } else {
-            // If no date is provided, fetch all mutasi records
-            $mutasi = Mutasi::where('is_final', 1)
-                            ->where('verified', 1)
-                            ->whereNull('undangan_id')
-                            ->get();
-        }
+    if ($selectedMonth) {
+        // Ambil bulan dan tahun dari selected_month
+        $month = \Carbon\Carbon::parse($selectedMonth)->month;
+        $year = \Carbon\Carbon::parse($selectedMonth)->year;
 
-        // Check if there are no mutasi records
-        $errorMessage = $mutasi->isEmpty() ? 'Tidak ditemukan data mutasi tersebut.' : null;
-
-        return view('undangan.create', compact('mutasi', 'errorMessage', 'selectedDate'));
+        // Filter data berdasarkan bulan dan tahun
+        $mutasi = Mutasi::where('is_final', 1)
+                        ->where('verified', 1)
+                        ->where('status', 'diterima')
+                        ->whereNull('undangan_id')
+                        ->whereMonth('created_at', $month)
+                        ->whereYear('created_at', $year)
+                        ->get();
+    } else {
+        // Jika tidak ada bulan yang dipilih, ambil semua data mutasi
+        $mutasi = Mutasi::where('is_final', 1)
+                        ->where('verified', 1)
+                        ->whereNull('undangan_id')
+                        ->get();
     }
+
+    // Cek apakah tidak ada data mutasi
+    $errorMessage = $mutasi->isEmpty() ? 'Tidak ditemukan data mutasi tersebut.' : null;
+
+    return view('undangan.create', compact('mutasi', 'errorMessage', 'selectedMonth'));
+}
 
     /**
      * Store a newly created resource in storage.
