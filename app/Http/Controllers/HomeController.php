@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\WhatssappController;
 use App\Models\NotifWa;
 use App\Models\User;
 use App\Models\Mutasi;
@@ -15,6 +16,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
+
+     protected $whatssappController;
+
+    public function __construct(WhatssappController $whatssappController)
+    {
+        $this->whatssappController = $whatssappController;
+    }
     public function index()
     {
         $user = Auth::user();
@@ -99,7 +107,7 @@ class HomeController extends Controller
         $user->is_approved = true;
         $user->status_verifikasi = true;
         $user->save();
-        
+
         NotifWa::create([
         'user_id' => $user->id, // Menyimpan ID pengguna yang disetujui
         'mutasi_id' => null, // Kolom 'mutasi_id' dikosongkan (null) karena persetujuan tidak terkait mutasi
@@ -110,6 +118,22 @@ class HomeController extends Controller
         'no_registrasi' => $user->no_registrasi, // Mengambil nomor registrasi pengguna dari model User (bisa null)
         'is_wa' => '0', // Set nilai 'is_wa' menjadi 0 (belum dikirim via WhatsApp)
         ]);
+
+        // Kirim notifikasi WhatsApp
+    $request = new Request([
+        'pesan' =>
+            "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+            "https://asn.banjarmasinkota.go.id/bkd-mutasi/\n\n" .
+            "NAMA: *{$user->nama_lengkap}*\n" .
+            "NIP: *{$user->nip}*\n\n" .
+            "Akun Anda telah diverifikasi. Silahkan Anda login dan lengkapi berkas Anda.\n\n" .
+            "Demikian disampaikan, Terima kasih\n\n" .
+            "_Mohon untuk tidak menghubungi/membalas WA no.wa ini_",
+        'nowa' => '62' . substr($user->no_hp, 1), // Format nomor HP
+    ]);
+
+        // Panggil method send dari WhatsappController
+        $this->whatssappController->send($request);
 
         return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }

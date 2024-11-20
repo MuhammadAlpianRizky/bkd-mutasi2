@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\WhatssappController;
 use App\Models\User;
 use App\Models\NotifWa;
 use Illuminate\Http\Request;
@@ -12,9 +13,12 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    public function __construct()
+    protected $whatssappController;
+
+    public function __construct(WhatssappController $whatssappController)
     {
         $this->middleware('guest');
+        $this->whatssappController = $whatssappController;
     }
 
     public function showRegistrationForm()
@@ -154,6 +158,26 @@ class RegisterController extends Controller
                 'no_hp' => $user->no_hp,
                 'no_registrasi' => null, // This can be null now
             ]);
+
+             // Ambil semua admin yang memiliki role 'admin'
+            $admins = User::role('admin')->get();
+
+            // Kirim notifikasi WhatsApp ke semua admin
+            foreach ($admins as $admin) {
+                $adminNumber = '62' . substr($admin->no_hp, 1); // Format nomor HP admin
+                $requestWa = new Request([
+                    'pesan' =>
+                        "Pemberitahuan: Pengguna baru telah melakukan registrasi.\n\n" .
+                        "Nama: {$user->nama_lengkap}\n" .
+                        "NIP: {$user->nip}\n\n" .
+                        "Silahkan cek sistem untuk detail lebih lanjut.",
+                    'nowa' => $adminNumber, // Format nomor admin
+                ]);
+
+                // Panggil method send dari WhatssappController untuk mengirim ke setiap admin
+                app(WhatssappController::class)->send($requestWa);
+            }
+
             return $user;
         }
 }

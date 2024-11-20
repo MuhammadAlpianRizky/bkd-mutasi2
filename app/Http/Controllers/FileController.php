@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\WhatssappController;
 use App\Models\Mutasi;
 use App\Models\NotifWa;
 use App\Models\Validasi;
@@ -22,6 +23,13 @@ class FileController extends Controller
      * @param  string  $action
      * @return \Illuminate\Http\Response
      */
+
+    protected $whatssappController;
+
+    public function __construct(WhatssappController $whatssappController)
+    {
+        $this->whatssappController = $whatssappController;
+    }
     public function show($id, $filename, $action = 'view')
 {
     // Find the mutasi record
@@ -140,6 +148,24 @@ public function show1(Mutasi $mutasi, $filename, $action = 'view')
         'no_registrasi' => $mutasi->no_registrasi, // Nomor registrasi dari mutasi
         'is_wa' => '0',  // Default is_wa: belum dikirim via WA
     ]);
+
+    // Kirim notifikasi WhatsApp
+    $requestWa = new Request([
+        'pesan' =>
+            "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+            "https://asn.banjarmasinkota.go.id/bkd-mutasi/\n\n" .
+            "NAMA: {$mutasi->user->nama_lengkap}\n" .
+            "NIP: {$mutasi->user->nip}\n" .
+            "No. Reg: {$mutasi->no_registrasi}\n\n".
+            "Pengajuan mutasi Anda telah diverifikasi. Mohon login kembali untuk melihat statusnya.\n\n" .
+            "Demikian disampaikan, Terima kasih\n\n" .
+            "_Mohon untuk tidak menghubungi/membalas WA no.wa ini_",
+        'nowa' => '62' . substr($mutasi->user->no_hp, 1), // Format nomor HP
+    ]);
+
+    // Panggil method send dari WhatsappController
+    app(WhatssappController::class)->send($requestWa);
+
     return redirect()->route('mutasi.list')->with('status', 'Mutasi berhasil diperbarui.');
 }
 

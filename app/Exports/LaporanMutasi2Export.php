@@ -5,8 +5,10 @@ namespace App\Exports;
 use App\Models\Mutasi;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class LaporanMutasi2Export implements FromCollection, WithHeadings
+class LaporanMutasi2Export implements FromCollection, WithHeadings, WithColumnFormatting
 {
     protected $mutasi;
 
@@ -20,9 +22,9 @@ class LaporanMutasi2Export implements FromCollection, WithHeadings
         return $this->mutasi->map(function ($item) {
             return [
                 $item->nama,
-                $item->nip,
-                $item->no_registrasi, // Pastikan field ini ada di model
-                $item->status,        // Pastikan field ini ada di model
+                "'".(string) $item->nip,            // Menambahkan tanda ' sebelum NIP
+                "'".(string) $item->no_registrasi,  // Menambahkan tanda ' sebelum No Registrasi
+                $item->status,
                 $item->pgol,
                 $item->jabatan,
                 $item->unit_kerja,
@@ -46,6 +48,14 @@ class LaporanMutasi2Export implements FromCollection, WithHeadings
             'Instansi',
             'No HP',
             'Tanggal Mutasi',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'B' => NumberFormat::FORMAT_TEXT,  // Kolom NIP sebagai teks
+            'C' => NumberFormat::FORMAT_TEXT,  // Kolom No Registrasi sebagai teks
         ];
     }
 }
