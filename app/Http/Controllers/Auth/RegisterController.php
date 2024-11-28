@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\WhatssappController;
 use App\Models\User;
 use App\Models\NotifWa;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Pengumuman;
+use Illuminate\Http\Request;
+use App\Services\WhatsappService;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\WhatssappController;
 
 class RegisterController extends Controller
 {
-    protected $whatssappController;
+    protected $whatsappService;
 
-    public function __construct(WhatssappController $whatssappController)
+    public function __construct(WhatsappService $whatsappService)
     {
         $this->middleware('guest');
-        $this->whatssappController = $whatssappController;
+        $this->whatsappService = $whatsappService;
     }
 
     public function showRegistrationForm()
@@ -46,12 +47,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nip' => ['required', 'string', 'min:18','max:18', 'regex:/^[0-9]+$/', 'unique:users'],
+            'nip' => ['required', 'string', 'min:1','max:18', 'regex:/^[0-9]+$/', 'unique:users'],
             'nama_lengkap' => ['required', 'string', 'max:150'],
             'alamat_tinggal' => ['required', 'string', 'max:255'],
-            'no_hp' => ['required', 'string', 'min:10','max:15', 'regex:/^[0-9]+$/'],
+            'no_hp' => ['required', 'string', 'min:1','max:15', 'regex:/^[0-9]+$/'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'no_ktp' => ['required', 'string', 'min:16','max:25', 'regex:/^[0-9]+$/', 'unique:users'],
+            'no_ktp' => ['required', 'string', 'min:1','max:25', 'regex:/^[0-9]+$/', 'unique:users'],
             'no_karpeg' => ['required', 'string', 'max:25','unique:users'],
             'acc_on' => ['required', 'string', 'min:8', 'confirmed'],
             'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
@@ -118,21 +119,21 @@ class RegisterController extends Controller
         $email = strtolower($data['email']);
         $photoKtpPath = null;
         $photoKarpegPath = null;
-
+    
         if (request()->hasFile('photo_ktp')) {
             $file = request()->file('photo_ktp');
             $originalName = $file->getClientOriginalName();
             $storedPath = $file->storeAs('public/personal/ktp', $originalName);
             $photoKtpPath = encrypt($storedPath);
         }
-
+    
         if (request()->hasFile('photo_karpeg')) {
             $file = request()->file('photo_karpeg');
             $originalName = $file->getClientOriginalName();
             $storedPath = $file->storeAs('public/personal/karpeg', $originalName);
             $photoKarpegPath = encrypt($storedPath);
         }
-
+    
         $user = User::create([
             'nip' => $data['nip'],
             'nama_lengkap' => $data['nama_lengkap'],
@@ -146,38 +147,40 @@ class RegisterController extends Controller
             'photo_ktp' => $photoKtpPath,
             'photo_karpeg' => $photoKarpegPath,
         ]);
-
+    
         $user->assignRole('pegawai');
-// Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
-            NotifWa::create([
-                'user_id' => $user->id,
-                'mutasi_id' => null, // This can be null now
-                'status' => 'bikin_akun',
-                'nama' => $user->nama_lengkap,
-                'nip' => $user->nip,
-                'no_hp' => $user->no_hp,
-                'no_registrasi' => null, // This can be null now
-            ]);
+    
+       // Membuat pesan untuk WhatsApp
+        $message = "Pemberitahuan: Pengguna baru telah melakukan registrasi.\n\n" .
+        "Nama: {$user->nama_lengkap}\n" .
+        "NIP: {$user->nip}\n\n" .
+        "Silahkan cek sistem untuk detail lebih lanjut.";
 
-             // Ambil semua admin yang memiliki role 'admin'
-            $admins = User::role('admin')->get();
+        // Insert data ke tabel notif_wa dan menyimpan pesan yang akan dikirim
+        $notifWa = NotifWa::create([
+        'user_id' => $user->id,
+        'mutasi_id' => null,
+        'status' => 'bikin_akun',
+        'nama' => $user->nama_lengkap,
+        'nip' => $user->nip,
+        'no_hp' => $user->no_hp,
+        'no_registrasi' => null,
+        'is_wa' => 0, // Set awal ke 0 (menandakan pesan belum terkirim)
+        'message' => $message, // Menyimpan pesan ke dalam kolom message
+        ]);
 
-            // Kirim notifikasi WhatsApp ke semua admin
-            foreach ($admins as $admin) {
-                $adminNumber = '62' . substr($admin->no_hp, 1); // Format nomor HP admin
-                $requestWa = new Request([
-                    'pesan' =>
-                        "Pemberitahuan: Pengguna baru telah melakukan registrasi.\n\n" .
-                        "Nama: {$user->nama_lengkap}\n" .
-                        "NIP: {$user->nip}\n\n" .
-                        "Silahkan cek sistem untuk detail lebih lanjut.",
-                    'nowa' => $adminNumber, // Format nomor admin
-                ]);
+        // Kirim notifikasi WhatsApp ke semua admin
+        $admins = User::role('admin')->get();
 
-                // Panggil method send dari WhatssappController untuk mengirim ke setiap admin
-                app(WhatssappController::class)->send($requestWa);
-            }
+        foreach ($admins as $admin) {
+        // Format nomor WhatsApp admin
+        $adminNumber = '62' . substr($admin->no_hp, 1);  // Menyesuaikan format nomor HP
 
-            return $user;
+        // Kirim pesan menggunakan WhatsappService
+        $response = $this->whatsappService->sendMessage($adminNumber, $message);
         }
-}
+
+        // Setelah semua pesan dikirim, return user
+        return $user;
+        }
+    }

@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\WhatssappController;
+use App\Services\WhatsappService;
 
 // // Route::get('/', function () {
 // //     return view('welcome');
@@ -30,12 +31,18 @@ Route::get('pengumuman/{pengumuman}', [PengumumanController::class, 'show'])->na
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::get('/waduh', function () {
+    return response()->json([
+        'message' => 'Waduh, kamu mengakses rute yang salah!',
+    ], 404);
+});
 
 // Rute autentikasi
 Auth::routes();
 // Rute untuk mengirimkan email reset password
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
 
 
 
@@ -116,10 +123,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/mutasi/{mutasi}/file/{action?}', [UndanganController::class, 'show1'])->name('mutasi.show1');
         Route::put('/mutasi/{mutasi}', [MutasiController::class, 'update'])->name('mutasi.update');
         Route::get('/mutasi/{mutasi}/file/{filename}/{action?}', [FileController::class, 'show1'])->name('mutasi.show');
-
     });
-
-
+    
+    
     // Rute logout
     Route::get('/logout', function () {
         Auth::logout();
