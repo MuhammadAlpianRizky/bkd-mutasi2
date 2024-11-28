@@ -98,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/laporan/export-excel', [LaporanController::class, 'exportExcel2'])->name('laporan.exportExcel2');
 
             // Rute untuk whatsapp
-            Route::get('/whatsapp', [WhatsappController::class, 'index'])->name('whatsapp.index');
+            Route::get('/wa', [WhatsappController::class, 'index'])->name('whatsapp.index');
 
 
         });

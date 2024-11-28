@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('no_hp');
             $table->text('message');
             $table->boolean('is_sent')->default(false);
+            $table->string('media_path');
             $table->timestamps();
         });
     }
