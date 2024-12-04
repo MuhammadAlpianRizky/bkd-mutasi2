@@ -40,8 +40,23 @@
     {{-- <div class="container mt-4">
         @include('partials.alert')
     </div> --}}
+
+    <!-- Panduan section-->
+    <section class="bg-light" id="tutorial" style="background-image: linear-gradient(#e8e9dc, white);">
+        <div class="container px-4">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-8" style="margin: 0 auto; text-align: center;">
+                    <h2 class="fw-bold" style="color: #222222">Panduan Ajukan Mutasi</h2>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/34zjk_6VkW0?si=nwB5DyTYU4SaXvOP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Persyaratan Mutasi -->
-    <section id="requirements" style="background-image: linear-gradient(#cfd1b8, #eff0e8); color: #222222; padding: 50px 0;">
+    <section id="requirements" style="background-image: linear-gradient(white, #eff0e8); color: #222222; padding: 50px 0;">
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
@@ -91,21 +106,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Panduan section-->
-    <section class="bg-light" id="tutorial" style="background-image: linear-gradient(#e8e9dc, white);">
-        <div class="container px-4">
-            <div class="row gx-4 justify-content-center">
-                <div class="col-lg-8" style="margin: 0 auto; text-align: center;">
-                    <h2 class="fw-bold" style="color: #222222">Panduan Ajukan Mutasi</h2>
-                    <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/e62K9660bEg?si=c_aycvoWdxyzSIg9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     {{-- Contact --}}
     @include('users.contact')
     {{-- Footer --}}
