@@ -62457,3 +62457,41 @@ Silahkan cek sistem untuk detail lebih lanjut.","status":"sent"}
 #36 D:\\Kuliah\\Semester5\\BKD\\bkd-mutasi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('D:\\\\Kuliah\\\\Semes...')
 #37 {main}
 "} 
+[2024-12-01 10:54:58] local.INFO: Update Status: {"number":"62812345678","message":null,"status":"sent"} 
+[2024-12-01 10:55:01] local.INFO: Update Status: {"number":"6281905033770","message":"Pemberitahuan: Pengguna baru telah melakukan registrasi.
+
+Nama: Alpian
+NIP: 12345
+
+Silahkan cek sistem untuk detail lebih lanjut.","status":"sent"} 
+[2024-12-01 10:55:03] local.INFO: Update Status: {"number":"62812345678","message":null,"status":"sent"} 
+[2024-12-01 10:55:04] local.INFO: Update Status: {"number":"6281905033770","message":"Pemberitahuan: Pengguna baru telah melakukan registrasi.
+
+Nama: Alpian
+NIP: 12345
+
+Silahkan cek sistem untuk detail lebih lanjut.","status":"sent"} 
+[2024-12-01 10:55:07] local.INFO: Update Status: {"number":"62812345678","message":null,"status":"sent"} 
+[2024-12-01 10:55:08] local.INFO: Update Status: {"number":"6281905033770","message":"Pemberitahuan: Pengguna baru telah melakukan registrasi.
+
+Nama: Alpian
+NIP: 12345
+
+Silahkan cek sistem untuk detail lebih lanjut.","status":"sent"} 
+[2024-12-01 10:58:24] local.INFO: Update Status: {"number":"62812345678","message":null,"status":"sent"} 
+[2024-12-02 10:50:21] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent"} 
+[2024-12-02 10:50:22] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent"} 
+[2024-12-02 10:58:18] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent"} 
+[2024-12-02 10:58:18] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent"} 
+[2024-12-02 11:00:45] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent","id":23} 
+[2024-12-02 11:00:45] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent","id":23} 
+[2024-12-02 11:00:56] local.INFO: Updating status {"number":"6285251544470","message":"waduh","status":"sent","id":24} 
+[2024-12-02 11:00:56] local.INFO: Updating status {"number":"6285251544470","message":"waduh","status":"sent","id":24} 
+[2024-12-02 11:02:09] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent","id":23} 
+[2024-12-02 11:02:09] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent","id":23} 
+[2024-12-02 11:02:19] local.INFO: Updating status {"number":"6285251544470","message":"waduh","status":"sent","id":24} 
+[2024-12-02 11:02:20] local.INFO: Updating status {"number":"6285251544470","message":"waduh","status":"sent","id":24} 
+[2024-12-02 11:03:09] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent","id":23} 
+[2024-12-02 11:03:10] local.INFO: Updating status {"number":"6281905033770","message":"waduh","status":"sent","id":23} 
+[2024-12-02 11:03:19] local.INFO: Updating status {"number":"6285251544470","message":"waduh","status":"sent","id":24} 
+[2024-12-02 11:03:19] local.INFO: Updating status {"number":"6285251544470","message":"waduh","status":"sent","id":24} 
