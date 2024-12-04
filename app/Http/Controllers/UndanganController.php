@@ -125,7 +125,14 @@ return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan un
             // Buat entri notifikasi baru di tabel
             $notifWa = NotifWhatsapp::create([
                 'no_hp' => $mutasi->no_hp,
-                'message' => 'Anda memiliki undangan baru terkait mutasi. Silakan cek lampiran.',
+                'message' => '*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                        "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                        "Nama: {$mutasi->nama}\n" .
+                        "NIP: {$mutasi->nip}\n" .
+                        "No. Registrasi: {$mutasi->no_registrasi}\n" .
+                        "Anda terpilih untuk mengikuti seleksi mutasi masuk. Harap login untuk melihat undangan. \n\n" .
+                        "Demikian disampaikan, Terima kasih\n\n" .
+                        "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_',
                 'media_path' => $undangan->file,
                 'is_sent' => false,
             ]);

@@ -49,7 +49,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="no_hp">Nomor HP/WA</label>
-                                <input class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" type="number" value="{{ old('no_hp') }}" required autocomplete="no_hp" placeholder="Masukkan nomor HP hanya angka" style="border-radius: 5px;" maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15);">
+                                <input class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" type="number" value="{{ old('no_hp') }}" required autocomplete="no_hp" placeholder="Contoh: 081234567890" style="border-radius: 5px;" maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15);">
                                 @error('no_hp')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

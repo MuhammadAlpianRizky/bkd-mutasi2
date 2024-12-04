@@ -16,31 +16,60 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function index()
-    {
-        $user = Auth::user();
+public function index(Request $request)
+{
+    $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
-            // Fetch user and mutasi data
-            $pendingUsersCount = User::where('is_approved', false)->count();
-            $activeUsersCount = Mutasi::where('verified', true)->count();
-            $inactiveUsersCount = Mutasi::where('verified', false)->where('is_final', true)->count();
-            $mutasiCount = Mutasi::count();
+    if ($user->hasRole('admin')) {
+        // Tahun yang dipilih (default: tahun berjalan)
+        $currentYear = date('Y');
+        $selectedYear = $request->get('year', $currentYear); // Default ke tahun sekarang jika tidak ada tahun yang dipilih
 
-            // Return the data to the view
-            return view('admin.home', [
-                'welcomeMessage' => 'Selamat Datang, Admin',
-                'pendingUsersCount' => $pendingUsersCount,
-                'activeUsersCount' => $activeUsersCount,
-                'inactiveUsersCount' => $inactiveUsersCount,
-                'mutasiCount' => $mutasiCount,
-            ]);
-        } elseif ($user->hasRole('pegawai')) {
-            return redirect()->route('home');
-        } else {
-            return redirect('/');
+        // Daftar tahun dari data mutasi yang tersedia
+        $availableYears = Mutasi::selectRaw('YEAR(created_at) as year')
+                                ->distinct()
+                                ->orderBy('year', 'desc')
+                                ->pluck('year');
+
+        // Data utama
+        $pendingUsersCount = User::where('is_approved', false)->count();
+        $activeUsersCount = Mutasi::where('verified', true)->count();
+        $inactiveUsersCount = Mutasi::where('verified', false)->where('is_final', true)->count();
+        $mutasiCount = Mutasi::count();
+
+        // Data grafik mutasi bulanan untuk tahun yang dipilih
+        $mutasiData = Mutasi::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                            ->whereYear('created_at', $selectedYear)
+                            ->groupBy('month')
+                            ->orderBy('month')
+                            ->get();
+
+        // Format data bulanan untuk grafik (default 0 untuk bulan tanpa data)
+        $monthlyCounts = array_fill(0, 12, 0); // Inisialisasi dengan nilai 0
+        foreach ($mutasiData as $data) {
+            $monthlyCounts[$data->month - 1] = $data->count; // Mengisi jumlah mutasi per bulan
         }
+
+        // Return data ke view
+        return view('admin.home', [
+            'welcomeMessage' => 'Selamat Datang, Admin',
+            'pendingUsersCount' => $pendingUsersCount,
+            'activeUsersCount' => $activeUsersCount,
+            'inactiveUsersCount' => $inactiveUsersCount,
+            'mutasiCount' => $mutasiCount,
+            'availableYears' => $availableYears,  // Mengirimkan daftar tahun yang tersedia
+            'currentYear' => $currentYear,        // Mengirimkan tahun saat ini
+            'selectedYear' => $selectedYear,      // Mengirimkan tahun yang dipilih
+            'monthlyCounts' => $monthlyCounts,    // Mengirimkan data jumlah mutasi per bulan
+        ]);
+    } elseif ($user->hasRole('pegawai')) {
+        return redirect()->route('home');
+    } else {
+        return redirect('/');
     }
+}
+
+
 
 
     /**
@@ -118,7 +147,7 @@ class HomeController extends Controller
                             "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
                             "NIP: *{$user->nip}*\n" .
                             "Nama: *{$user->nama_lengkap}*\n\n" .
-                            "Akun Anda telah diverifikasi. Silahkan Anda login dan lengkapi berkas Anda.\n\n" .
+                            "Akun Anda telah diverifikasi. Silahkan Anda login untuk mengajukan usul mutasi.\n\n" .
                             "Demikian disampaikan, Terima kasih\n\n" .
                             "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
             ]);

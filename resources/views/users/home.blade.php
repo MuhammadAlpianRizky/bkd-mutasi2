@@ -93,7 +93,7 @@
     </section>
 
     <!-- Panduan section-->
-    {{-- <section class="bg-light" id="tutorial" style="background-image: linear-gradient(#e8e9dc, white);">
+    <section class="bg-light" id="tutorial" style="background-image: linear-gradient(#e8e9dc, white);">
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8" style="margin: 0 auto; text-align: center;">
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
     {{-- Contact --}}
     @include('users.contact')
