@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\WhatssappController;
-use App\Models\NotifWa;
 use App\Models\User;
 use App\Models\Mutasi;
+use App\Models\NotifWa;
 use Illuminate\Http\Request;
+use App\Models\NotifWhatsapp;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -16,38 +16,60 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
+public function index(Request $request)
+{
+    $user = Auth::user();
 
-     protected $whatssappController;
+    if ($user->hasRole('admin')) {
+        // Tahun yang dipilih (default: tahun berjalan)
+        $currentYear = date('Y');
+        $selectedYear = $request->get('year', $currentYear); // Default ke tahun sekarang jika tidak ada tahun yang dipilih
 
-    public function __construct(WhatssappController $whatssappController)
-    {
-        $this->whatssappController = $whatssappController;
-    }
-    public function index()
-    {
-        $user = Auth::user();
+        // Daftar tahun dari data mutasi yang tersedia
+        $availableYears = Mutasi::selectRaw('YEAR(created_at) as year')
+                                ->distinct()
+                                ->orderBy('year', 'desc')
+                                ->pluck('year');
 
-        if ($user->hasRole('admin')) {
-            // Fetch user and mutasi data
-            $pendingUsersCount = User::where('is_approved', false)->count();
-            $activeUsersCount = Mutasi::where('verified', true)->count();
-            $inactiveUsersCount = Mutasi::where('verified', false)->where('is_final', true)->count();
-            $mutasiCount = Mutasi::count();
+        // Data utama
+        $pendingUsersCount = User::where('is_approved', false)->count();
+        $activeUsersCount = Mutasi::where('verified', true)->count();
+        $inactiveUsersCount = Mutasi::where('verified', false)->where('is_final', true)->count();
+        $mutasiCount = Mutasi::count();
 
-            // Return the data to the view
-            return view('admin.home', [
-                'welcomeMessage' => 'Selamat Datang, Admin',
-                'pendingUsersCount' => $pendingUsersCount,
-                'activeUsersCount' => $activeUsersCount,
-                'inactiveUsersCount' => $inactiveUsersCount,
-                'mutasiCount' => $mutasiCount,
-            ]);
-        } elseif ($user->hasRole('pegawai')) {
-            return redirect()->route('home');
-        } else {
-            return redirect('/');
+        // Data grafik mutasi bulanan untuk tahun yang dipilih
+        $mutasiData = Mutasi::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                            ->whereYear('created_at', $selectedYear)
+                            ->groupBy('month')
+                            ->orderBy('month')
+                            ->get();
+
+        // Format data bulanan untuk grafik (default 0 untuk bulan tanpa data)
+        $monthlyCounts = array_fill(0, 12, 0); // Inisialisasi dengan nilai 0
+        foreach ($mutasiData as $data) {
+            $monthlyCounts[$data->month - 1] = $data->count; // Mengisi jumlah mutasi per bulan
         }
+
+        // Return data ke view
+        return view('admin.home', [
+            'welcomeMessage' => 'Selamat Datang, Admin',
+            'pendingUsersCount' => $pendingUsersCount,
+            'activeUsersCount' => $activeUsersCount,
+            'inactiveUsersCount' => $inactiveUsersCount,
+            'mutasiCount' => $mutasiCount,
+            'availableYears' => $availableYears,  // Mengirimkan daftar tahun yang tersedia
+            'currentYear' => $currentYear,        // Mengirimkan tahun saat ini
+            'selectedYear' => $selectedYear,      // Mengirimkan tahun yang dipilih
+            'monthlyCounts' => $monthlyCounts,    // Mengirimkan data jumlah mutasi per bulan
+        ]);
+    } elseif ($user->hasRole('pegawai')) {
+        return redirect()->route('home');
+    } else {
+        return redirect('/');
     }
+}
+
+
 
 
     /**
@@ -108,32 +130,27 @@ class HomeController extends Controller
         $user->status_verifikasi = true;
         $user->save();
 
-        NotifWa::create([
-        'user_id' => $user->id, // Menyimpan ID pengguna yang disetujui
-        'mutasi_id' => null, // Kolom 'mutasi_id' dikosongkan (null) karena persetujuan tidak terkait mutasi
-        'status' => 'approved_akun', // Status diatur menjadi 'approved_akun' untuk menandakan persetujuan akun
-        'nama' => $user->nama_lengkap, // Mengambil nama pengguna dari model User
-        'nip' => $user->nip, // Mengambil NIP pengguna dari model User
-        'no_hp' => $user->no_hp, // Mengambil nomor HP pengguna dari model User
-        'no_registrasi' => $user->no_registrasi, // Mengambil nomor registrasi pengguna dari model User (bisa null)
-        'is_wa' => '0', // Set nilai 'is_wa' menjadi 0 (belum dikirim via WhatsApp)
-        ]);
+        // NotifWa::create([
+        // 'user_id' => $user->id, // Menyimpan ID pengguna yang disetujui
+        // 'mutasi_id' => null, // Kolom 'mutasi_id' dikosongkan (null) karena persetujuan tidak terkait mutasi
+        // 'status' => 'approved_akun', // Status diatur menjadi 'approved_akun' untuk menandakan persetujuan akun
+        // 'nama' => $user->nama_lengkap, // Mengambil nama pengguna dari model User
+        // 'nip' => $user->nip, // Mengambil NIP pengguna dari model User
+        // 'no_hp' => $user->no_hp, // Mengambil nomor HP pengguna dari model User
+        // 'no_registrasi' => $user->no_registrasi, // Mengambil nomor registrasi pengguna dari model User (bisa null)
+        // 'is_wa' => '0', // Set nilai 'is_wa' menjadi 0 (belum dikirim via WhatsApp)
+        // ]);
 
-        // Kirim notifikasi WhatsApp
-    $request = new Request([
-        'pesan' =>
-            "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
-            "https://asn.banjarmasinkota.go.id/bkd-mutasi/\n\n" .
-            "NAMA: *{$user->nama_lengkap}*\n" .
-            "NIP: *{$user->nip}*\n\n" .
-            "Akun Anda telah diverifikasi. Silahkan Anda login dan lengkapi berkas Anda.\n\n" .
-            "Demikian disampaikan, Terima kasih\n\n" .
-            "_Mohon untuk tidak menghubungi/membalas WA no.wa ini_",
-        'nowa' => '62' . substr($user->no_hp, 1), // Format nomor HP
-    ]);
-
-        // Panggil method send dari WhatsappController
-        $this->whatssappController->send($request);
+        NotifWhatsapp::create([
+            'no_hp' => $user->no_hp,
+            'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                            "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                            "NIP: *{$user->nip}*\n" .
+                            "Nama: *{$user->nama_lengkap}*\n\n" .
+                            "Akun Anda telah diverifikasi. Silahkan Anda login untuk mengajukan usul mutasi.\n\n" .
+                            "Demikian disampaikan, Terima kasih\n\n" .
+                            "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
+            ]);
 
         return redirect()->route('cms.users')->with('success', 'User has been approved.');
     }

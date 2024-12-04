@@ -11,7 +11,7 @@
                     <img src="{{ asset('landing-page/assets/img/logo.png') }}" alt="wrapkit" style="height: 70px; width: 50px;">
                 </div>
                 <h2 class="mt-3 text-center" style="color: black;">Register</h2>
-                <p class="text-center" style="font-size: 15px; color: black;">Silahkan mengisi detail di bawah untuk membuat Akun.</p>
+                <p class="text-center" style="font-size: 15px; color: black;">Mohon lengkapi semua data untuk mendaftarkan akun Anda.</p>
 
                 <form class="mt-4" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
@@ -49,7 +49,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label text-dark" for="no_hp">Nomor HP/WA</label>
-                                <input class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" type="number" value="{{ old('no_hp') }}" required autocomplete="no_hp" placeholder="Masukkan nomor HP hanya angka" style="border-radius: 5px;" maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15);">
+                                <input class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" type="number" value="{{ old('no_hp') }}" required autocomplete="no_hp" placeholder="Contoh: 081234567890" style="border-radius: 5px;" maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15);">
                                 @error('no_hp')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -172,6 +172,17 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-12">
+                            <div class="form-group mb-3">
+                                <label for="captcha" class="form-label text-dark"><span id="randomAddition"></span></label>
+                                <input type="number" class="form-control" id="captcha" name="captcha" placeholder="Masukkan Hasilnya" required style="border-radius: 5px;">
+                                <input type="hidden" id="captcha_result" name="captcha_result">
+                                @error('captcha')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn w-100 btn-dark" style="color: white; background-color: #0e1221; border-radius: 5px;">Register</button>
                         </div>
@@ -211,6 +222,17 @@
             // Toggle the eye icon
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+
+        // Membuat captcha
+        document.addEventListener("DOMContentLoaded", function() {
+            var num1 = Math.floor(Math.random() * 50);
+            var num2 = Math.floor(Math.random() * 50);
+            var sum = num1 + num2;
+
+            document.getElementById('randomAddition').innerText = `${num1} + ${num2} =`;
+
+            document.getElementById('captcha_result').value = sum;
         });
 
         function validateFileUpload(inputId, maxSize) {

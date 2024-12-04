@@ -32,6 +32,7 @@ class Mutasi extends Model
         'is_final',
         'status',
         'keterangan',
+        'created_at',
     ];
 
     public function user()

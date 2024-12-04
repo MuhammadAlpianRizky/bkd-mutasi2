@@ -6,6 +6,7 @@ use App\Models\Mutasi;
 use App\Models\NotifWa;
 use App\Models\Undangan;
 use Illuminate\Http\Request;
+use App\Models\NotifWhatsapp;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreUndanganRequest;
 use App\Http\Requests\UpdateUndanganRequest;
@@ -77,7 +78,7 @@ if ($request->hasFile('file')) {
     foreach ($request->mutasi_ids as $index => $mutasi_id) {
         // Create a unique kode_undangan for each entry by appending the sequence number
         $kode_undangan = $kode_base . '-' . ($index + 1); // +1 to start from 1 instead of 0
-        
+
         // Store the file with the unique kode_undangan
         $filePath = $request->file('file')->storeAs('public/undangan', $kode_undangan . '.pdf');
 
@@ -103,32 +104,42 @@ if ($request->hasFile('file')) {
 
 return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan undangan.');
 }
+    // Fungsi untuk mengirim undangan ke WhatsApp
     protected function sendInvitationForMutasi($mutasi_id)
     {
-        // Retrieve the Mutasi record to get 'nama'
         $mutasi = Mutasi::findOrFail($mutasi_id);
+        $undangan = $mutasi->undangan;
 
-        // Check if a 'undangan' entry already exists for this mutasi_id
-        $existingNotif = NotifWa::where('mutasi_id', $mutasi_id)
-            ->where('status', 'undangan')
-            ->first();
-
-        // Only insert a new record if none exists
-        if (!$existingNotif) {
-            NotifWa::create([
-                'mutasi_id' => $mutasi_id,
-                'user_id' => $mutasi->user_id, // Set the current user's ID or provide the correct value
-                'nama' => $mutasi->nama,  // Add 'nama' from the Mutasi model
-                'nip' => $mutasi->nip,
-                'no_hp' => $mutasi->no_hp,
-                'no_registrasi' => $mutasi->no_registrasi,
-                'status' => 'undangan',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        if (!$undangan || !$undangan->file) {
+            return;
         }
 
-        // Logic for sending invitations (email, WhatsApp, etc.)
+        $filePath = Storage::disk('public')->path($undangan->file);
+
+        // Periksa apakah notifikasi sudah ada
+        $existingNotif = NotifWhatsapp::where('no_hp', $mutasi->no_hp)
+            ->where('message', 'like', '%undangan%')
+            ->first();
+
+        if (!$existingNotif) {
+            // Buat entri notifikasi baru di tabel
+            $notifWa = NotifWhatsapp::create([
+                'no_hp' => $mutasi->no_hp,
+                'message' => '*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                        "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                        "Nama: {$mutasi->nama}\n" .
+                        "NIP: {$mutasi->nip}\n" .
+                        "No. Registrasi: {$mutasi->no_registrasi}\n" .
+                        "Anda terpilih untuk mengikuti seleksi mutasi masuk. Harap login untuk melihat undangan. \n\n" .
+                        "Demikian disampaikan, Terima kasih\n\n" .
+                        "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_',
+                'media_path' => $undangan->file,
+                'is_sent' => false,
+            ]);
+
+            // Kirim pesan WhatsApp dengan file undangan
+            $this->sendWhatsappMessage($mutasi->no_hp, $notifWa->message, $filePath);
+        }
     }
 
     /**
@@ -138,28 +149,28 @@ return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan un
     {
         // Temukan undangan berdasarkan ID
         $undangan = Undangan::findOrFail($id);
-    
+
         // Dapatkan nama file dari query string (jika ada)
         $fileName = request()->query('filename');
         $filePath = 'undangan/' . $fileName; // Sesuaikan ini jika struktur folder berbeda
-    
+
         // Cek jika file ada
         if ($fileName && !Storage::disk('public')->exists($filePath)) {
             return redirect()->route('undangan.index')->with('error', 'File tidak ditemukan.');
         }
-    
+
         // Jika aksinya adalah 'download', kembalikan file sebagai respons download
         if ($action === 'download') {
             return Storage::download($filePath);
         }
-    
+
         // Kembalikan file dalam browser jika aksinya 'view'
         if ($action === 'view') {
             return response()->file(Storage::disk('public')->path($filePath), [
                 'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"'
             ]);
         }
-    
+
         return redirect()->route('undangan.index')->with('error', 'Aksi tidak valid.');
     }
     public function show1(Mutasi $mutasi, $action = 'view')
@@ -265,7 +276,7 @@ return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan un
     public function download($id)
     {
         $undangan = Undangan::findOrFail($id);
-        
+
         // Check if file exists
         if (Storage::exists($undangan->file)) {
             return Storage::download($undangan->file);
@@ -290,5 +301,24 @@ return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan un
         }
 
         return response()->json([]);
+    }
+
+     protected function sendWhatsappMessage($no_hp, $message, $filePath)
+    {
+        // Asumsikan Anda telah menyiapkan Baileys di sini
+        try {
+            // Kirim pesan WhatsApp dengan lampiran
+            $waSocket = app('WaSocket'); // Ambil instance socket WhatsApp (Baileys)
+            $waSocket->sendMessage($no_hp . '@s.whatsapp.net', [
+                'document' => [
+                    'url' => $filePath,
+                    'mimetype' => 'application/pdf',
+                    'fileName' => basename($filePath),
+                ],
+                'caption' => $message,
+            ]);
+        } catch (\Exception $e) {
+            \Log::error("Gagal mengirim undangan WhatsApp: " . $e->getMessage());
+        }
     }
 }

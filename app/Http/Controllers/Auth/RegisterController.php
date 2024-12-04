@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\WhatssappController;
 use App\Models\User;
 use App\Models\NotifWa;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Pengumuman;
+use Illuminate\Http\Request;
+use App\Jobs\SendAdminNotification;
+use App\Http\Controllers\Controller;
+use App\Models\NotifWhatsapp;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,6 +58,11 @@ class RegisterController extends Controller
             'acc_on' => ['required', 'string', 'min:8', 'confirmed'],
             'photo_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
             'photo_karpeg' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:500'],
+            'captcha' => ['required', 'numeric', function ($attribute, $value, $fail) use ($data) {
+                if ($value != $data['captcha_result']) {
+                    $fail('captcha yang dimasukkan tidak sesuai.');
+                }
+            }],
         ], [
             'nip.required' => 'NIP wajib diisi.',
             'nip.string' => 'NIP harus berupa teks.',
@@ -110,6 +117,8 @@ class RegisterController extends Controller
             'photo_karpeg.image' => 'Foto Karpeg harus berupa gambar.',
             'photo_karpeg.mimes' => 'Foto Karpeg harus dalam format jpeg, png, atau jpg.',
             'photo_karpeg.max' => 'Ukuran foto Karpeg tidak boleh lebih dari 500KB.',
+
+            'captchha.required' => 'Captcha wajib diisi.',
         ]);
     }
 
@@ -148,36 +157,32 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('pegawai');
-// Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
-            NotifWa::create([
-                'user_id' => $user->id,
-                'mutasi_id' => null, // This can be null now
-                'status' => 'bikin_akun',
-                'nama' => $user->nama_lengkap,
-                'nip' => $user->nip,
-                'no_hp' => $user->no_hp,
-                'no_registrasi' => null, // This can be null now
-            ]);
-
-             // Ambil semua admin yang memiliki role 'admin'
+            // Insert data into notif_wa table, both mutasi_id and no_registrasi can be null
+            // NotifWa::create([
+            //     'user_id' => $user->id,
+            //     'mutasi_id' => null, // This can be null now
+            //     'status' => 'bikin_akun',
+            //     'nama' => $user->nama_lengkap,
+            //     'nip' => $user->nip,
+            //     'no_hp' => $user->no_hp,
+            //     'no_registrasi' => null, // This can be null now
+            // ]);
             $admins = User::role('admin')->get();
 
-            // Kirim notifikasi WhatsApp ke semua admin
-            foreach ($admins as $admin) {
-                $adminNumber = '62' . substr($admin->no_hp, 1); // Format nomor HP admin
-                $requestWa = new Request([
-                    'pesan' =>
-                        "Pemberitahuan: Pengguna baru telah melakukan registrasi.\n\n" .
-                        "Nama: {$user->nama_lengkap}\n" .
-                        "NIP: {$user->nip}\n\n" .
-                        "Silahkan cek sistem untuk detail lebih lanjut.",
-                    'nowa' => $adminNumber, // Format nomor admin
+            foreach($admins as $admin) {
+                NotifWhatsapp::create([
+                    'no_hp' => $admin->no_hp,
+                    'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                                    "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                                    "*Akun baru telah didaftarkan*:\n" .
+                                    "Nama: {$user->nama_lengkap} \n" .
+                                    "NIP: {$user->nip}\n\n" .
+                                    "Harap segera memverifikasi akun tersebut.\n" .
+                                    "Demikian disampaikan, Terima kasih\n\n" .
+                                    "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
+                    'is_sent' => false,
                 ]);
-
-                // Panggil method send dari WhatssappController untuk mengirim ke setiap admin
-                app(WhatssappController::class)->send($requestWa);
             }
-
             return $user;
         }
 }

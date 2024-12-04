@@ -99,7 +99,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPDF2'])->name('laporan.exportPDF2');
             Route::get('/laporan/export-excel', [LaporanController::class, 'exportExcel2'])->name('laporan.exportExcel2');
 
-
         });
 
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');

@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Controllers\WhatssappController;
+use App\Models\User;
 use App\Models\Mutasi;
 use App\Models\NotifWa;
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
+use App\Models\NotifWhatsapp;
 use App\Models\UploadPersyaratan;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MutasiController extends Controller
@@ -150,43 +148,29 @@ class MutasiController extends Controller
 
     // Notifikasi WhatsApp ke admin jika tindakan adalah 'finish'
         if ($request->action == 'finish') {
-            // Simpan notifikasi WhatsApp ke dalam tabel notif_wa
-            NotifWa::create([
-                'user_id' => $user->id,
-                'mutasi_id' => $mutasi->id,
-                'status' => 'pengajuan_mutasi', // Atur status sesuai dengan konteks pengajuan mutasi
-                'nama' => $mutasi->nama,
-                'nip' => $mutasi->nip,
-                'no_hp' => $mutasi->no_hp,
-                'no_registrasi' => $mutasi->no_registrasi,
+           // Ambil daftar admin
+            $admins = User::role('admin')->get();
+
+            foreach($admins as  $admin) {
+            NotifWhatsapp::create([
+                'no_hp' => $admin->no_hp,
+                'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                                "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                                "Pengajuan mutasi baru telah diajukan oleh:\n" .
+                                "Nama: {$mutasi->nama}\n" .
+                                "NIP: {$mutasi->nip}\n" .
+                                "No. Registrasi: {$mutasi->no_registrasi}\n" .
+                                "Harap segera memverifikasi pengajuan tersebut. \n\n" .
+                                "Demikian disampaikan, Terima kasih\n\n" .
+                                "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
+                'is_sent' => false,
             ]);
-
-        // Kirim notifikasi WhatsApp ke admin
-        $admins = User::role('admin')->get(); // Ambil semua admin dengan role 'admin'
-        foreach ($admins as $admin) {
-            // Buat pesan untuk admin
-            $message = "Pengajuan mutasi baru telah diajukan oleh: \n";
-            $message .= "Nama: {$mutasi->nama}\n";
-            $message .= "NIP: {$mutasi->nip}\n";
-            $message .= "No. Registrasi: {$mutasi->no_registrasi}\n";
-            $message .= "Harap segera memverifikasi pengajuan tersebut.\n";
-
-            // Format nomor HP admin
-            $adminPhone = '62' . substr($admin->no_hp, 1);
-
-            // Kirim notifikasi menggunakan WhatsApp
-            $this->whatssappController->send(new Request([
-                'pesan' => $message,
-                'nowa' => $adminPhone,
-            ]));
+            }
+            return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memeriksa status dari pengajuan Anda.');
+        } else {
+            return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
         }
-
-        return redirect()->route('mutasi')->with('success', 'Pengajuan mutasi Anda sedang diproses oleh Admin. Silahkan login kembali secara berkala untuk memeriksa status dari pengajuan Anda.');
-    } else {
-        return redirect()->route('mutasi')->with('success', 'Data telah disimpan, Anda masih bisa mengeditnya.');
     }
-}
-
     private function generateRegistrationNumber()
     {
         // Setel zona waktu ke WITA (Waktu Indonesia Tengah)
@@ -349,19 +333,35 @@ class MutasiController extends Controller
             }
         }
     }
+// Notifikasi WhatsApp ke admin jika tindakan adalah 'finish'
+if ($request->action == 'finish') {
+    // NotifWa::create([
+    //     'user_id' => $user->id,
+    //     'mutasi_id' => $mutasi->id,
+    //     'status' => 'pengajuan_mutasi',
+    //     'nama' => $mutasi->nama,
+    //     'nip' => $mutasi->nip,
+    //     'no_hp' => $mutasi->no_hp,
+    //     'no_registrasi' => $mutasi->no_registrasi,
+    // ]);
+    // Ambil daftar admin
+    $admins = User::role('admin')->get();
 
-    // Notifikasi WhatsApp ke admin jika tindakan adalah 'finish'
-    if ($request->action == 'finish') {
-        // Simpan notifikasi WhatsApp ke dalam tabel notif_wa
-        NotifWa::create([
-            'user_id' => $user->id,
-            'mutasi_id' => $mutasi->id, // ID mutasi yang baru saja diperbarui
-            'status' => 'pengajuan_mutasi', // Atur status sesuai konteks pengajuan mutasi
-            'nama' => $mutasi->nama,
-            'nip' => $mutasi->nip,
-            'no_hp' => $mutasi->no_hp,
-            'no_registrasi' => $mutasi->no_registrasi,
-        ]);
+    foreach($admins as  $admin) {
+    NotifWhatsapp::create([
+        'no_hp' => $admin->no_hp,
+        'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
+                        "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
+                        "Pengajuan mutasi baru telah diajukan oleh:\n" .
+                        "Nama: {$mutasi->nama}\n" .
+                        "NIP: {$mutasi->nip}\n" .
+                        "No. Registrasi: {$mutasi->no_registrasi}\n" .
+                        "Harap segera memverifikasi pengajuan tersebut. \n\n" .
+                        "Demikian disampaikan, Terima kasih\n\n" .
+                        "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
+        'is_sent' => false,
+    ]);
+    }
 
         // Kirim notifikasi WhatsApp ke admin
         $admins = User::role('admin')->get(); // Ambil semua admin dengan role 'admin'
@@ -391,5 +391,3 @@ class MutasiController extends Controller
 }
 
 }
-
-

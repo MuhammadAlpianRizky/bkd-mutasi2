@@ -43,7 +43,7 @@
                     <!-- Random Addition Problem -->
                     <div class="col-lg-12">
                         <div class="form-group mb-3">
-                            <label class="form-label text-dark" for="captcha">Selesaikan Hitungan: <span id="randomAddition"></span></label>
+                            <label class="form-label text-dark" for="captcha"> <span id="randomAddition"></span></label>
                             <input class="form-control" id="captcha" name="captcha" type="number" placeholder="Masukkan Hasil" required style="border-radius: 5px;">
                             <input type="hidden" id="captcha_result" name="captcha_result"> <!-- Hidden field for result -->
                             @error('captcha')
@@ -100,8 +100,8 @@
         var num2 = Math.floor(Math.random() * 50);
         var sum = num1 + num2;
 
-        document.getElementById('randomAddition').innerText = `${num1} + ${num2}`;
-        
+        document.getElementById('randomAddition').innerText = `${num1} + ${num2} = `;
+
         // Simpan hasil hitungan di hidden input field untuk dikirim ke server
         document.getElementById('captcha_result').value = sum;
     });
