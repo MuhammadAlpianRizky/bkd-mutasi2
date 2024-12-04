@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mutasi;
-use App\Models\NotifWa;
 use App\Models\Undangan;
 use Illuminate\Http\Request;
 use App\Models\NotifWhatsapp;
@@ -63,48 +62,61 @@ class UndanganController extends Controller
      */
     public function store(Request $request)
 {
-    // Validate the request
+    // Validasi permintaan
     $request->validate([
-        'mutasi_ids' => 'required|array', // Allow multiple mutasi_ids
-        'mutasi_ids.*' => 'exists:mutasi,id', // Each mutasi_id must exist
-        'file' => 'required|file|mimes:pdf|max:2048', // Max size 2MB
+        'mutasi_ids' => 'required|array', // Izinkan multiple mutasi_ids
+        'mutasi_ids.*' => 'exists:mutasi,id', // Pastikan mutasi_id ada di database
+        'file' => 'required|file|mimes:pdf|max:2048', // Maksimal 2MB untuk file PDF
     ]);
 
-   // Handle the uploaded file
-if ($request->hasFile('file')) {
-    // Generate a base kode_undangan using the current date
-    $kode_base = now()->format('Ymd');
+    // Menangani file yang di-upload
+    if ($request->hasFile('file')) {
+        // Menghasilkan kode dasar undangan menggunakan tanggal hari ini
+        $kode_base = now()->format('Ymd');
 
-    foreach ($request->mutasi_ids as $index => $mutasi_id) {
-        // Create a unique kode_undangan for each entry by appending the sequence number
-        $kode_undangan = $kode_base . '-' . ($index + 1); // +1 to start from 1 instead of 0
+        // Ambil urutan terakhir file yang sudah di-upload dalam folder ini
+        // Cek file yang sudah diupload sebelumnya dalam folder yang sama, jika ada
+        $files = Storage::files('public/undangan');
 
-        // Store the file with the unique kode_undangan
+        // Filter file berdasarkan prefix tanggal hari ini (misalnya: 20241111)
+        $filteredFiles = array_filter($files, function ($file) use ($kode_base) {
+            return strpos($file, $kode_base) !== false;
+        });
+
+        // Tentukan nomor urut berdasarkan file yang sudah ada
+        // Nomor urut dimulai dari 1 jika tidak ada file, jika ada file sebelumnya urutannya akan ditambah 1
+        $nextFileNumber = count($filteredFiles) + 1; // Nomor urut dimulai dari 1
+
+        // Membuat kode_undangan yang unik berdasarkan urutan
+        $kode_undangan = $kode_base . '-' . $nextFileNumber;
+
+        // Menyimpan file yang di-upload dengan nama unik sesuai dengan urutan
         $filePath = $request->file('file')->storeAs('public/undangan', $kode_undangan . '.pdf');
 
-        // Create a new Undangan record for each mutasi_id
-        $undangan = Undangan::create([
-            'mutasi_id' => $mutasi_id, // Update mutasi_id
-            'kode_undangan' => $kode_undangan,
-            'file' => $filePath,
-            'user_id' => auth()->id(), // Set the current user's ID
-        ]);
+        // Menyimpan record Undangan untuk setiap mutasi_id yang dipilih
+        foreach ($request->mutasi_ids as $mutasi_id) {
+            $undangan = Undangan::create([
+                'mutasi_id' => $mutasi_id,
+                'kode_undangan' => $kode_undangan,
+                'file' => $filePath,
+                'user_id' => auth()->id(), // Menyimpan ID pengguna yang sedang login
+            ]);
 
-        // Update the Mutasi record with the undangan_id
-        $mutasi = Mutasi::find($mutasi_id);
-        $mutasi->undangan_id = $undangan->id; // Set undangan_id to the new undangan
-        $mutasi->save(); // Save the updated mutasi
+            // Memperbarui record Mutasi dengan undangan_id baru
+            $mutasi = Mutasi::find($mutasi_id);
+            $mutasi->undangan_id = $undangan->id;
+            $mutasi->save();
 
-        // Logic for sending invitations
-        $this->sendInvitationForMutasi($mutasi_id);
+            // Logic untuk mengirim undangan
+            $this->sendInvitationForMutasi($mutasi_id);
+        }
+
+        return redirect()->route('undangan.index')->with('success', 'Undangan berhasil ditambahkan.');
     }
 
-    return redirect()->route('undangan.index')->with('success', 'Undangan berhasil ditambahkan.');
+    return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan undangan.');
 }
 
-return redirect()->route('undangan.create')->with('error', 'Gagal menambahkan undangan.');
-}
-    // Fungsi untuk mengirim undangan ke WhatsApp
     protected function sendInvitationForMutasi($mutasi_id)
     {
         $mutasi = Mutasi::findOrFail($mutasi_id);

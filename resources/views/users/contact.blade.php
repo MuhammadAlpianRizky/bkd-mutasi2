@@ -17,6 +17,35 @@
                     Fax: 0511-3363790
                 </p>
 
+                <!-- Collaboration -->
+<h5 class="mbr-section-subtitle mbr-fonts-style mb-2 mt-4 display-7">
+    <strong>Collaboration</strong>
+</h5>
+<p class="mbr-text mbr-fonts-style display-7">
+    Mahasiswa POLITEKNIK NEGERI BANJARMASIN<br>
+    Programmer:
+    <ul style="list-style-type: none; padding: 0; margin: 0;">
+        <li>
+            <a href="https://www.linkedin.com/in/muhammad-alpian-rizky-042732334/" target="_blank" style="text-decoration: none; color: inherit;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" style="width: 20px; height: 20px; vertical-align: middle;"> 
+                Muhammad Alpian Rizky
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/muhammad-harits-fadhila-271a35314/" target="_blank" style="text-decoration: none; color: inherit;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" style="width: 20px; height: 20px; vertical-align: middle;"> 
+                Muhammad Harits Fadhila
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/muhammadirfanabil" target="_blank" style="text-decoration: none; color: inherit;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"alt="LinkedIn" style="width: 20px; height: 20px; vertical-align: middle;">  
+                M. Irfan Nabil
+            </a>
+        </li>
+    </ul>
+</p>
+
                 <!-- Feedback -->
                 <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 mt-4 display-7"><strong>Feedback</strong></h5>
                 <p class="mbr-text mbr-fonts-style mb-4 display-7">
