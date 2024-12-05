@@ -12,7 +12,7 @@
             </div>
         </header>
     {{-- Persayaratan Mutasi --}}
-        <section id="requirements" style="background-image: linear-gradient(#cfd1b8, #eff0e8); color: #222222; padding: 50px 0;">
+        <section id="requirements" style="background-image: linear-gradient(white, white); color: #222222; padding: 50px 0;">
             <div class="container px-4">
                 <div class="row gx-4 justify-content-center">
                     <div class="col-lg-8">
@@ -29,6 +29,10 @@
                             <li class="mb-3 d-flex align-items-center">
                                 <i class="fas fa-check-circle text-success me-2"></i>
                                 <span>Batas usia paling tinggi 50 (lima puluh) tahun (Peraturan Wali Kota Banjarmasin Nomor 109 Tahun 2022).</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>pangkat Gol. Ruang Penjabat Struktural dan Penjabat Fungsional Umum Paling Tinggi Penata Tingkat I (III/d) dan Penjabat Fungsional Tertentu Paling Tinggi Pembina (IV. a) (Peraturan Wali Kota Banjarmasin Nomor 109 Tahun 2022) .</span>
                             </li>
                             <li class="mb-3 d-flex align-items-center">
                                 <i class="fas fa-check-circle text-success me-2"></i>
@@ -128,8 +132,22 @@
             </div>
         </section>
 
+        <!-- Panduan section-->
+        <section class="bg-light" id="tutorial" style="background-image: linear-gradient(white, white);">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8" style="margin: 0 auto; text-align: center;">
+                        <h2 class="fw-bold" style="color: #222222">Panduan Ajukan Mutasi</h2>
+                        <div class="video-container">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/34zjk_6VkW0?si=nwB5DyTYU4SaXvOP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {{-- Gambar Alur Mutasi --}}
-        <section id="alur-mutasi" style="background-image: linear-gradient(to bottom, #eff0e8, #ffff); color: #222222; padding: 50px 0;">
+        <section id="alur-mutasi" style="background-image: linear-gradient(to bottom, white, #ffff); color: #222222; padding: 50px 0;">
             <div class="container px-4">
                 <hr>
                 <div class="row gx-4 justify-content-center">
@@ -186,17 +204,17 @@
         <script>
             document.getElementById('ajukan-mutasi-btn').addEventListener('click', function(e) {
                 e.preventDefault();  // Mencegah link mengarahkan langsung ke halaman
-                
+
                 var button = this;
                 button.innerHTML = 'Sedang Memproses...';
                 button.disabled = true;  // Menonaktifkan tombol agar tidak bisa di-klik lagi
-        
+
                 // Beri delay selama 1 detik sebelum redirect
                 setTimeout(() => {
                     window.location.href = '{{ route('mutasi.create') }}';
                 }, 1000);
             });
-        
+
             // Mengaktifkan kembali tombol jika pengguna tidak jadi pindah halaman atau tekan tombol kembali
             window.onbeforeunload = function() {
                 var button = document.getElementById('ajukan-mutasi-btn');
@@ -205,6 +223,6 @@
                     button.disabled = false;  // Aktifkan kembali tombol
                 }
             };
-        </script>        
+        </script>
     @endsection
 
