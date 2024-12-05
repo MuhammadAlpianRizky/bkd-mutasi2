@@ -120,22 +120,8 @@ class UndanganController extends Controller
     protected function sendInvitationForMutasi($mutasi_id)
     {
         $mutasi = Mutasi::findOrFail($mutasi_id);
-        $undangan = $mutasi->undangan;
-
-        if (!$undangan || !$undangan->file) {
-            return;
-        }
-
-        $filePath = Storage::disk('public')->path($undangan->file);
-
-        // Periksa apakah notifikasi sudah ada
-        $existingNotif = NotifWhatsapp::where('no_hp', $mutasi->no_hp)
-            ->where('message', 'like', '%undangan%')
-            ->first();
-
-        if (!$existingNotif) {
             // Buat entri notifikasi baru di tabel
-            $notifWa = NotifWhatsapp::create([
+            NotifWhatsapp::create([
                 'no_hp' => $mutasi->no_hp,
                 'message' => "*BADAN KEPEGAWAIAN DAERAH DIKLAT KOTA BANJARMASIN*\n" .
                         "https://asn.banjarmasinkota.go.id/bkd-mutasi\n\n" .
@@ -145,13 +131,8 @@ class UndanganController extends Controller
                         "Anda terpilih untuk mengikuti seleksi mutasi masuk. Harap login untuk melihat undangan. \n\n" .
                         "Demikian disampaikan, Terima kasih\n\n" .
                         "_Mohon untuk tidak mengubungi/membalas Whatsapp ini_",
-                'media_path' => $undangan->file,
                 'is_sent' => false,
             ]);
-
-            // Kirim pesan WhatsApp dengan file undangan
-            $this->sendWhatsappMessage($mutasi->no_hp, $notifWa->message, $filePath);
-        }
     }
 
     /**
@@ -313,24 +294,5 @@ class UndanganController extends Controller
         }
 
         return response()->json([]);
-    }
-
-     protected function sendWhatsappMessage($no_hp, $message, $filePath)
-    {
-        // Asumsikan Anda telah menyiapkan Baileys di sini
-        try {
-            // Kirim pesan WhatsApp dengan lampiran
-            $waSocket = app('WaSocket'); // Ambil instance socket WhatsApp (Baileys)
-            $waSocket->sendMessage($no_hp . '@s.whatsapp.net', [
-                'document' => [
-                    'url' => $filePath,
-                    'mimetype' => 'application/pdf',
-                    'fileName' => basename($filePath),
-                ],
-                'caption' => $message,
-            ]);
-        } catch (\Exception $e) {
-            \Log::error("Gagal mengirim undangan WhatsApp: " . $e->getMessage());
-        }
     }
 }
